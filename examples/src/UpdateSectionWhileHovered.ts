@@ -15,6 +15,7 @@ function UpdateSectionWhileHovered() {
       background: conditional(hovered, "black", "white"),
       color: conditional(hovered, "white", "black"),
       content: conditional(hovered, "I am hovered.", "Hover me!"),
+      cursor: "pointer",
       font: "24px serif bold",
       padding: "24px",
       pointerleave: hovered.disable(),
