@@ -10,6 +10,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "examples/dist"),
   },
+  devtool: isProduction ? "source-map" : "eval-source-map",
   devServer: {
     open: true,
     host: "localhost",
