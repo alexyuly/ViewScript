@@ -1,5 +1,6 @@
 # ViewScript-Toolkit
-Source code for the ViewScript Toolkit
+
+_ViewScript's Software Development Kit_
 
 ## History Museum
 
