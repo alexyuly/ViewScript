@@ -1,0 +1,15 @@
+{
+  "name": "viewscript",
+  "version": "0.0.0",
+  "description": "ViewScript's Software Development Kit",
+  "author": "Alex Yuly",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/alexyuly/ViewScript-Toolkit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alexyuly/ViewScript-Toolkit.git"
+  },
+  "dependencies": {
+    "viewscript-bridge": "0.0.0"
+  }
+}
