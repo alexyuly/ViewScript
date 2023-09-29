@@ -32,7 +32,7 @@ if (command === "create") {
 
   const packageJsonPath = path.resolve(name, "package.json");
   let packageJson = fs.readFileSync(packageJsonPath, "utf8");
-  packageJson = packageJson.replace(nameTemplateSlot, name);
+  packageJson = packageJson.replace(nameTemplateSlot, name.toLowerCase());
   fs.writeFileSync(packageJsonPath, packageJson, "utf8");
 
   const readmePath = path.resolve(name, "README.md");

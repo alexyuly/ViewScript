@@ -1,6 +1,6 @@
 {
-  "name": "viewscript",
-  "version": "0.0.0",
+  "name": "viewscript-toolkit",
+  "version": "0.0.1",
   "description": "ViewScript's Software Development Kit",
   "main": "main.js",
   "bin": {
@@ -17,7 +17,7 @@
     "start-example-bridge": "webpack serve --open --config ./examples/bridge/webpack.config.js"
   },
   "dependencies": {
-    "viewscript-bridge": "0.0.0"
+    "viewscript-bridge": "0.0.1"
   },
   "devDependencies": {
     "@webpack-cli/generators": "3.0.7",
