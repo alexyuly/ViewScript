@@ -1,18 +1,19 @@
 # ViewScript-Toolkit
 
-_ViewScript's Software Development Kit_
+📚 _ViewScript's Software Development Kit_
 
-## 🏛️ History Museum
+## Architecture
 
-### Unfinished ViewScript Predecessors
+### In this repository...
 
-- https://github.com/alexyuly/funstream (currently private)
-- https://github.com/alexyuly/lux (currently private)
-- https://github.com/alexyuly/chil/tree/354675d71e9195f38656a33eab851b06700d7c81
-  - I think this one actually "works" the most... it builds a JS/HTML app using webpack that you can open.
-  - This was definitely the furthest I had taken this whole idea up to this point.
-- https://github.com/alexyuly/TREE
-  - Very much incomplete and not at all working in any form
-  - Some of the syntactic explorations in the readme could be interesting
-- https://github.com/alexyuly/turn
-  - Contains (an apparently working?) very, very simple "Hello, world" example
+- Command Line Interface for creating new ViewScript projects
+
+### Dependencies...
+
+#### `[VSB]` [ViewScript-Bridge](https://github.com/alexyuly/ViewScript-Bridge)
+
+- TypeScript API for product developers
+
+#### `[VSR]` [ViewScript-Runtime](https://github.com/alexyuly/ViewScript)
+
+- Interface for ViewScript-Bridge and proposed ViewScript-Compiler
