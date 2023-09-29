@@ -1,6 +1,6 @@
-import { render, view, element, browser } from "viewscript-bridge";
+import { app, view, element, browser } from "viewscript-bridge";
 
-render(
+app(
   view(
     element("button", {
       background: "whitesmoke",

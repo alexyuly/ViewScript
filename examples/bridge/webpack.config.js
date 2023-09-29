@@ -6,9 +6,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
-  entry: "./examples/index.ts",
+  entry: path.resolve(__dirname, "index.ts"),
   output: {
-    path: path.resolve(__dirname, "examples/dist"),
+    path: path.resolve(__dirname, "dist"),
   },
   devtool: isProduction ? "source-map" : "eval-source-map",
   devServer: {
@@ -17,7 +17,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "examples/index.html",
+      template: path.resolve(__dirname, "index.html"),
     }),
 
     // Add your plugins here

@@ -1,6 +1,6 @@
-import { render, view, element } from "viewscript-bridge";
+import { app, view, element } from "viewscript-bridge";
 
-render(
+app(
   view(
     element("p", {
       content: "Hello, world!",
