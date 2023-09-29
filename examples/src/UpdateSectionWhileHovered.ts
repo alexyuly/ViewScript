@@ -16,8 +16,7 @@ function UpdateSectionWhileHovered() {
       border: "1px solid black",
       color: conditional(hovered, "white", "black"),
       content: conditional(hovered, "I am hovered.", "Hover me!"), // TODO Fix issue where text is absent before hovering.
-      cursor: "pointer",
-      font: "24px serif bold", // TODO Fix issue where font doesn't get applied. Think I need to eliminate the setTimeout calls.
+      font: "bold 24px serif",
       margin: "0 0 24px",
       padding: "24px",
       pointerleave: hovered.disable(),
