@@ -2,8 +2,9 @@
   "name": "viewscript",
   "version": "0.0.0",
   "description": "ViewScript's Software Development Kit",
+  "main": "main.mjs",
   "author": "Alex Yuly",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "homepage": "https://github.com/alexyuly/ViewScript-Toolkit#readme",
   "repository": {
     "type": "git",

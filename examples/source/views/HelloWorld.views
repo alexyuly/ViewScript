@@ -1,6 +1,0 @@
-View HelloWorld {
-   <p>
-      content = "Hello, world!"
-      font = "18px cursive"
-      margin = "24px"
-}
