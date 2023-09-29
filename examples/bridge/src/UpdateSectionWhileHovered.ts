@@ -11,10 +11,10 @@ function UpdateSectionWhileHovered() {
       color: conditional(hovered, "white", "black"),
       content: conditional(hovered, "I am hovered.", "Hover me!"),
       font: "bold 24px serif",
-      margin: "0 0 24px",
+      margin: "24px",
       padding: "24px",
-      pointerleave: hovered.disable(),
-      pointerover: hovered.enable(),
+      pointerleave: hovered.disable,
+      pointerover: hovered.enable,
     })
   );
 }

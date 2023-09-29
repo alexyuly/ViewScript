@@ -10,7 +10,7 @@ app(
       content: "Click me!",
       cursor: "pointer",
       "font-size": "18px",
-      margin: "0 0 24px",
+      margin: "24px",
       padding: "12px",
     })
   )
