@@ -18,6 +18,7 @@ const command = process.argv[2];
 
 if (command === "create") {
   const name = process.argv[3];
+  const nameTemplateSlot = "%VIEWSCRIPT_UNTITLED_PROJECT_NAME%";
 
   if (!name) {
     check(false, "Cannot create project without a name specified");
@@ -29,9 +30,17 @@ if (command === "create") {
   fs.mkdirSync(dest);
   fs.cpSync(src, dest, { recursive: true });
 
+  const packageJsonPath = path.resolve(name, "package.json");
+  let packageJson = fs.readFileSync(packageJsonPath, "utf8");
+  packageJson = packageJson.replace(nameTemplateSlot, name);
+  fs.writeFileSync(packageJsonPath, packageJson, "utf8");
+
+  const readmePath = path.resolve(name, "README.md");
+  let readme = fs.readFileSync(readmePath, "utf8");
+  readme = readme.replace(nameTemplateSlot, name);
+  fs.writeFileSync(readmePath, readme, "utf8");
+
   console.log(`[VST] ✅ Created a new ViewScript project in ./${name}/`);
 } else {
   check(false, `Cannot run unknown command: \`${command}\``);
 }
-
-// viewscript_untitled_project

@@ -1,5 +1,5 @@
 {
-  "name": "viewscript_untitled_project",
+  "name": "%VIEWSCRIPT_UNTITLED_PROJECT_NAME%",
   "main": "dist/main.js",
   "scripts": {
     "build": "webpack",
