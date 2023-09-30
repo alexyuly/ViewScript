@@ -1,7 +1,7 @@
 import { app, view, element, browser } from "viewscript-bridge";
 
-app(
-  view(
+function LogWhenButtonClicked() {
+  return view(
     element("button", {
       background: "whitesmoke",
       border: "1px solid gainsboro",
@@ -13,5 +13,7 @@ app(
       margin: "24px",
       padding: "12px",
     })
-  )
-);
+  );
+}
+
+app(LogWhenButtonClicked());

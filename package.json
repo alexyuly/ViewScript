@@ -3,14 +3,14 @@
   "version": "0.0.4",
   "description": "ViewScript's Software Development Kit",
   "main": "main.js",
-  "bin": {
-    "viewscript": "main.js"
-  },
   "author": "Alex Yuly",
   "license": "MIT",
   "homepage": "https://github.com/alexyuly/ViewScript#readme",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/alexyuly/ViewScript.git"
+  },
+  "bin": {
+    "viewscript": "main.js"
   }
 }
