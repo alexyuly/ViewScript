@@ -1,6 +1,6 @@
 {
   "name": "viewscript-toolkit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ViewScript's Software Development Kit",
   "main": "main.js",
   "bin": {
@@ -8,9 +8,9 @@
   },
   "author": "Alex Yuly",
   "license": "MIT",
-  "homepage": "https://github.com/alexyuly/ViewScript-Toolkit#readme",
+  "homepage": "https://github.com/alexyuly/ViewScript#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/alexyuly/ViewScript-Toolkit.git"
+    "url": "git+ssh://git@github.com/alexyuly/ViewScript.git"
   }
 }
