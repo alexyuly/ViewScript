@@ -1,6 +1,6 @@
 {
   "name": "viewscript-toolkit",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "ViewScript's Software Development Kit",
   "main": "main.js",
   "author": "Alex Yuly",
