@@ -7,14 +7,23 @@ function UpdateNestedElementOnClick() {
 
   return view(
     element("section", {
-      width: "200px",
-      height: "200px",
+      "align-items": "center",
       border: "2px dashed red",
+      display: "flex",
+      height: "200px",
+      "justify-content": "center",
       margin: "24px",
+      width: "200px",
+
       content: element("section", {
-        background: "green",
-        width: "100px",
+        "align-items": "center",
+        background: "lightgreen",
+        color: "crimson",
+        content: "Hi, there!",
+        display: "flex",
         height: "100px",
+        "justify-content": "center",
+        width: "100px",
       }),
     })
   );
