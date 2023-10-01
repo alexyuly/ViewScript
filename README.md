@@ -23,15 +23,17 @@ npm start
 ```ts
 import { app, view, element } from "viewscript-bridge";
 
-app(
-  view(
+function HelloWorld() {
+  return view(
     element("p", {
       content: "Hello, world!",
       font: "18px cursive",
       margin: "24px",
     })
-  )
-);
+  );
+}
+
+app(HelloWorld());
 ```
 
 ### Log when button clicked
@@ -39,8 +41,8 @@ app(
 ```ts
 import { app, view, element, browser } from "viewscript-bridge";
 
-app(
-  view(
+function LogWhenButtonClicked() {
+  return view(
     element("button", {
       background: "whitesmoke",
       border: "1px solid gainsboro",
@@ -52,8 +54,10 @@ app(
       margin: "24px",
       padding: "12px",
     })
-  )
-);
+  );
+}
+
+app(LogWhenButtonClicked());
 ```
 
 ### Update section while hovered
