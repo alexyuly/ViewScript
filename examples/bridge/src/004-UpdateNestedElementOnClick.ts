@@ -1,11 +1,10 @@
-import { app, view, element } from "viewscript-bridge";
+import { app, count, element, view } from "viewscript-bridge";
 
 function UpdateNestedElementOnClick() {
-  // TODO Add numeric state
-  // TODO Update the state when a button is clicked
-  // TODO Show the state inside a nested element
+  const clicks = count(0);
 
   return view(
+    clicks,
     element("section", {
       "align-items": "center",
       border: "2px dashed red",
@@ -14,12 +13,13 @@ function UpdateNestedElementOnClick() {
       "justify-content": "center",
       margin: "24px",
       width: "200px",
-
-      content: element("section", {
+      content: element("button", {
         "align-items": "center",
         background: "lightgreen",
+        click: clicks.add(1),
         color: "crimson",
-        content: "Hi, there!",
+        content: clicks,
+        cursor: "pointer",
         display: "flex",
         height: "100px",
         "justify-content": "center",

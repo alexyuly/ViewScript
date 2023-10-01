@@ -1,4 +1,4 @@
-import { app, view, condition, element, conditional } from "viewscript-bridge";
+import { app, condition, conditional, element, view } from "viewscript-bridge";
 
 function UpdateSectionWhileHovered() {
   const hovered = condition(false);

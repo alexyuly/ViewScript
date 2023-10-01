@@ -1,4 +1,4 @@
-import { app, view, element } from "viewscript-bridge";
+import { app, element, view } from "viewscript-bridge";
 
 function HelloWorld() {
   return view(

@@ -1,10 +1,9 @@
-import { app, view, element, browser } from "viewscript-bridge";
+import { app, browser, element, view } from "viewscript-bridge";
 
 function LogWhenButtonClicked() {
   return view(
     element("button", {
       background: "whitesmoke",
-      border: "1px solid gainsboro",
       "border-radius": "4px",
       click: browser.console.log("You clicked the button."),
       content: "Click me!",
