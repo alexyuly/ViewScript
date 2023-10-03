@@ -5,10 +5,10 @@
 > [!IMPORTANT]
 > ViewScript is in very early stages of development. It's not yet a complete framework for building apps. Please continue to check in for regular updates.
 
-- [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge): TypeScript Developer Interface
-  - This is the API you can use to build web apps using TypeScript.
-- [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime): Web Browser Runtime
-  - This is the JavaScript code that runs your ViewScript apps in web browsers.
+- [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
+  - The TypeScript API that you can use to build ViewScript apps
+- [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
+  - The JavaScript code that runs your ViewScript apps in web browsers
 
 ## Start
 
