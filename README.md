@@ -2,8 +2,10 @@
 
 ⚡️ _Power Tools For Web Apps_
 
-> [!IMPORTANT]
-> ViewScript is in very early stages of development. It's not yet a complete framework for building apps. Please continue to check in for regular updates.
+Attention
+- 👋 ViewScript is in very early stages of development.
+- ⚠️ It's not yet a fully fledged framework for building apps.
+- 🙏 Please continue to check in for regular updates.
 
 - [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
   - The TypeScript API that you can use to build ViewScript apps
