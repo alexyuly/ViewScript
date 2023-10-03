@@ -21,6 +21,7 @@ npm start
 ```
 
 ## Packages
+
 - [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
   - TypeScript API that you can use to build ViewScript apps
 - [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
@@ -123,22 +124,29 @@ function UpdateNestedElementOnClick() {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
+      "flex-direction": "column",
+      gap: "16px",
       height: "200px",
       "justify-content": "center",
       margin: "24px",
       width: "200px",
-      content: element("button", {
-        "align-items": "center",
-        background: "lightgreen",
-        click: clicks.add(1),
-        color: "crimson",
-        content: clicks,
-        cursor: "pointer",
-        display: "flex",
-        height: "100px",
-        "justify-content": "center",
-        width: "100px",
-      }),
+      content: [
+        element("button", {
+          "align-items": "center",
+          background: "lightgreen",
+          click: clicks.add(1),
+          color: "crimson",
+          content: "Click to increment:",
+          cursor: "pointer",
+          display: "flex",
+          height: "100px",
+          "justify-content": "center",
+          width: "100px",
+        }),
+        element("span", {
+          content: clicks,
+        }),
+      ],
     })
   );
 }
