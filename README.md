@@ -2,15 +2,11 @@
 
 ⚡️ _Power Tools For Web Apps_
 
-Attention
+## Attention
+
 - 👋 ViewScript is in very early stages of development.
 - ⚠️ It's not yet a fully fledged framework for building apps.
 - 🙏 Please continue to check in for regular updates.
-
-- [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
-  - The TypeScript API that you can use to build ViewScript apps
-- [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
-  - The JavaScript code that runs your ViewScript apps in web browsers
 
 ## Start
 
@@ -23,6 +19,12 @@ cd YourProjectName
 
 npm start
 ```
+
+## Packages
+- [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
+  - TypeScript API that you can use to build ViewScript apps
+- [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
+  - JavaScript code that runs your ViewScript apps inside browsers
 
 ## Examples
 
