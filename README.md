@@ -48,6 +48,17 @@ function HelloWorld() {
 app(HelloWorld());
 ```
 
+_Proposed future syntax:_
+
+```
+View HelloWorld {
+   <p>
+      content = "Hello, world!"
+      font = "18px cursive"
+      margin = "24px"
+}
+```
+
 ### Log when button clicked
 
 ```ts
