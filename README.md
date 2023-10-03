@@ -5,7 +5,7 @@
 ## Attention
 
 - 👋 ViewScript is in very early stages of development.
-- ⚠️ It's not yet a fully fledged framework for building apps.
+- 💁 It's not yet a fully fledged framework for building apps.
 - 🙏 Please continue to check in for regular updates.
 
 ## Start
