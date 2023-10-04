@@ -121,6 +121,10 @@ function UpdateNestedElementOnClick() {
   return view(
     clicks,
     element("section", {
+      content: "Here's a section:",
+      margin: "24px",
+    }),
+    element("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
