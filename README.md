@@ -37,13 +37,13 @@ npm start
 import { app, element, view } from "viewscript-bridge";
 
 function HelloWorld() {
-  return view({
-    element: element("p", {
+  return view(
+    element("p", {
       content: "Hello, world!",
       font: "18px cursive",
       margin: "24px",
-    }),
-  });
+    })
+  );
 }
 
 app(HelloWorld());
@@ -66,8 +66,8 @@ View HelloWorld {
 import { app, browser, element, view } from "viewscript-bridge";
 
 function LogWhenButtonClicked() {
-  return view({
-    element: element("button", {
+  return view(
+    element("button", {
       background: "whitesmoke",
       "border-radius": "4px",
       click: browser.console.log("You clicked the button."),
@@ -76,8 +76,8 @@ function LogWhenButtonClicked() {
       "font-size": "18px",
       margin: "24px",
       padding: "12px",
-    }),
-  });
+    })
+  );
 }
 
 app(LogWhenButtonClicked());
@@ -91,11 +91,8 @@ import { app, condition, conditional, element, view } from "viewscript-bridge";
 function UpdateSectionWhileHovered() {
   const hovered = condition(false);
 
-  return view({
-    fields: {
-      hovered,
-    },
-    element: element("section", {
+  return view(
+    element("section", {
       background: conditional(hovered, "black", "white"),
       border: "1px solid black",
       color: conditional(hovered, "white", "black"),
@@ -106,7 +103,8 @@ function UpdateSectionWhileHovered() {
       pointerleave: hovered.disable,
       pointerover: hovered.enable,
     }),
-  });
+    { hovered }
+  );
 }
 
 app(UpdateSectionWhileHovered());
@@ -120,11 +118,8 @@ import { app, count, element, view } from "viewscript-bridge";
 function UpdateNestedElementOnClick() {
   const clicks = count(0);
 
-  return view({
-    fields: {
-      clicks,
-    },
-    element: element("section", {
+  return view(
+    element("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
@@ -152,7 +147,8 @@ function UpdateNestedElementOnClick() {
         }),
       ],
     }),
-  });
+    { clicks }
+  );
 }
 
 app(UpdateNestedElementOnClick());

@@ -3,11 +3,8 @@ import { app, count, element, view } from "viewscript-bridge";
 function UpdateNestedElementOnClick() {
   const clicks = count(0);
 
-  return view({
-    fields: {
-      clicks,
-    },
-    element: element("section", {
+  return view(
+    element("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
@@ -35,7 +32,8 @@ function UpdateNestedElementOnClick() {
         }),
       ],
     }),
-  });
+    { clicks }
+  );
 }
 
 app(UpdateNestedElementOnClick());
