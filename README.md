@@ -37,13 +37,13 @@ npm start
 import { app, element, view } from "viewscript-bridge";
 
 function HelloWorld() {
-  return view(
-    element("p", {
+  return view({
+    element: element("p", {
       content: "Hello, world!",
       font: "18px cursive",
       margin: "24px",
-    })
-  );
+    }),
+  });
 }
 
 app(HelloWorld());
@@ -66,8 +66,8 @@ View HelloWorld {
 import { app, browser, element, view } from "viewscript-bridge";
 
 function LogWhenButtonClicked() {
-  return view(
-    element("button", {
+  return view({
+    element: element("button", {
       background: "whitesmoke",
       "border-radius": "4px",
       click: browser.console.log("You clicked the button."),
@@ -76,8 +76,8 @@ function LogWhenButtonClicked() {
       "font-size": "18px",
       margin: "24px",
       padding: "12px",
-    })
-  );
+    }),
+  });
 }
 
 app(LogWhenButtonClicked());
@@ -91,9 +91,11 @@ import { app, condition, conditional, element, view } from "viewscript-bridge";
 function UpdateSectionWhileHovered() {
   const hovered = condition(false);
 
-  return view(
-    hovered,
-    element("section", {
+  return view({
+    fields: {
+      hovered,
+    },
+    element: element("section", {
       background: conditional(hovered, "black", "white"),
       border: "1px solid black",
       color: conditional(hovered, "white", "black"),
@@ -103,8 +105,8 @@ function UpdateSectionWhileHovered() {
       padding: "24px",
       pointerleave: hovered.disable,
       pointerover: hovered.enable,
-    })
-  );
+    }),
+  });
 }
 
 app(UpdateSectionWhileHovered());
@@ -118,13 +120,11 @@ import { app, count, element, view } from "viewscript-bridge";
 function UpdateNestedElementOnClick() {
   const clicks = count(0);
 
-  return view(
-    clicks,
-    element("section", {
-      content: "Here's a section:",
-      margin: "24px",
-    }),
-    element("section", {
+  return view({
+    fields: {
+      clicks,
+    },
+    element: element("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
@@ -151,8 +151,8 @@ function UpdateNestedElementOnClick() {
           content: clicks,
         }),
       ],
-    })
-  );
+    }),
+  });
 }
 
 app(UpdateNestedElementOnClick());
