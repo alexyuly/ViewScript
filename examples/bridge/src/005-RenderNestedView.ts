@@ -3,7 +3,7 @@ import { app, element, view } from "viewscript-bridge";
 function SubView() {
   return view(
     element("p", {
-      content: "Hello, world!",
+      content: "Hi, I'm an instance of SubView",
       font: "18px cursive",
       margin: "24px",
     })
@@ -13,7 +13,14 @@ function SubView() {
 const subView = SubView();
 
 function MainView() {
-  return view(element(subView));
+  return view(
+    element("section", {
+      background: "lavender",
+      border: "1px dashed green",
+      content: [element(subView), element(subView)],
+      margin: "24px",
+    })
+  );
 }
 
 app(MainView(), { subView });
