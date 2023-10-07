@@ -164,7 +164,7 @@ function SubView() {
 
   return view(
     element("p", {
-      content: content,
+      content,
       font: "18px cursive",
       margin: "24px",
     }),
