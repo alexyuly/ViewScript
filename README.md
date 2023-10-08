@@ -57,7 +57,6 @@ _Proposed ViewScript v1.0 syntax:_
 render view HelloWorld
 
    render <p>
-
       content = "Hello, world!"
       font = "18px cursive"
       margin = "24px"
@@ -92,7 +91,6 @@ _Proposed ViewScript v1.0 syntax:_
 render view LogWhenButtonClicked
 
    render <button>
-
       background = "whitesmoke"
       border-radius = "4px"
       click = browser.console.log "You clicked the button."
@@ -138,7 +136,6 @@ render view UpdateSectionWhileHovered
    define hovered as Condition = false
 
    render <section>
-
       background = if hovered then "black" else "white"
       border = "1px solid black"
       color = if hovered then "white" else "black"
