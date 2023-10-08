@@ -36,20 +36,22 @@ npm start
 ### HelloWorld
 
 ```ts
-import { render, create, View } from "viewscript-bridge";
+import { app, element, view } from "viewscript-bridge";
 
-class HelloWorld extends View {
-    element = create("p", {
-        content: "Hello, world!",
-        font: "18px cursive",
-        margin: "24px",
-    });
+function HelloWorld() {
+  return view(
+    element("p", {
+      content: "Hello, world!",
+      font: "18px cursive",
+      margin: "24px",
+    })
+  );
 }
 
-render(create(HelloWorld));
+app(HelloWorld());
 ```
 
-_Proposed future syntax:_
+_Proposed ViewScript v1.0 syntax:_
 
 ```
 View HelloWorld {
@@ -81,6 +83,22 @@ function LogWhenButtonClicked() {
 }
 
 app(LogWhenButtonClicked());
+```
+
+_Proposed ViewScript v1.0 syntax:_
+
+```
+View LogWhenButtonClicked {
+   <p>
+      background = "whitesmoke"
+      border-radius = "4px"
+      click = browser.console.log "You clicked the button."
+      content = "Click me!"
+      cursor = "pointer"
+      font-size = "18px"
+      margin = "24px"
+      padding = "12px"
+}
 ```
 
 ### Update section while hovered
