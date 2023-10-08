@@ -36,19 +36,17 @@ npm start
 ### HelloWorld
 
 ```ts
-import { app, element, view } from "viewscript-bridge";
+import { render, create, View } from "viewscript-bridge";
 
-function HelloWorld() {
-  return view(
-    element("p", {
-      content: "Hello, world!",
-      font: "18px cursive",
-      margin: "24px",
-    })
-  );
+class HelloWorld extends View {
+  element = create("p", {
+    content: "Hello, world!",
+    font: "18px cursive",
+    margin: "24px",
+  });
 }
 
-app(HelloWorld());
+render(create(HelloWorld));
 ```
 
 _Proposed future syntax:_
