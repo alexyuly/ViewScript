@@ -91,7 +91,7 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 render view LogWhenButtonClicked
 
-   create element <p>
+   create element <button>
 
       background = "whitesmoke"
       border-radius = "4px"
