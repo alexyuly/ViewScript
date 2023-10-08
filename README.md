@@ -39,11 +39,11 @@ npm start
 import { render, create, View } from "viewscript-bridge";
 
 class HelloWorld extends View {
-  element = create("p", {
-    content: "Hello, world!",
-    font: "18px cursive",
-    margin: "24px",
-  });
+    element = create("p", {
+        content: "Hello, world!",
+        font: "18px cursive",
+        margin: "24px",
+    });
 }
 
 render(create(HelloWorld));
