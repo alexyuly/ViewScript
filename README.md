@@ -1,6 +1,6 @@
 # ViewScript
 
-⚡️ _Power Tools For Web Apps_
+🔌 _Power Tools For Web Apps_
 
 ## Attention
 
@@ -9,6 +9,8 @@
 - 🙏 Please continue to check in for regular updates.
 
 ## Start
+
+You'll need [Node.js](https://nodejs.org/) 18 to run ViewScript.
 
 ```
 npm install viewscript-toolkit --global
