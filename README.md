@@ -132,7 +132,6 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 render view UpdateSectionWhileHovered
-
    define hovered as Condition = false
 
    render <section>
