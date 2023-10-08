@@ -1,6 +1,6 @@
 # ViewScript
 
-🔌 _Power Tools For Web Apps_
+🧑‍🏭 _Power Tools For Web Apps_
 
 ## Attention
 
