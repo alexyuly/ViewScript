@@ -147,6 +147,7 @@ render view UpdateSectionWhileHovered
       margin = "24px"
       padding = "24px"
       pointerleave = hovered.disable
+      pointerover = hovered.enable
 ```
 
 ### Counter with increment and reset
