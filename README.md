@@ -56,7 +56,7 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 render view HelloWorld
 
-   create element <p>
+   render <p>
 
       content = "Hello, world!"
       font = "18px cursive"
@@ -91,7 +91,7 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 render view LogWhenButtonClicked
 
-   create element <button>
+   render <button>
 
       background = "whitesmoke"
       border-radius = "4px"
@@ -137,7 +137,7 @@ render view UpdateSectionWhileHovered
 
    define hovered as Condition = false
 
-   create element <section>
+   render <section>
 
       background = if hovered then "black" else "white"
       border = "1px solid black"
