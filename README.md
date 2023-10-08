@@ -171,22 +171,34 @@ app(CounterWithIncrementAndReset());
 ### Render nested views
 
 ```ts
-import { app, element, text, view } from "viewscript-bridge";
+import {
+  app,
+  condition,
+  conditional,
+  element,
+  text,
+  view,
+} from "viewscript-bridge";
 
-function SubView() {
+function PrettyText() {
   const content = text();
+  const hovered = condition(false);
 
   return view(
     element("p", {
+      color: conditional(hovered, "red", "revert"),
       content,
+      cursor: "pointer",
       font: "18px cursive",
       margin: "24px",
+      pointerleave: hovered.disable,
+      pointerover: hovered.enable,
     }),
-    { content }
+    { content, hovered }
   );
 }
 
-const subView = SubView();
+const prettyText = PrettyText();
 
 function RenderNestedViews() {
   return view(
@@ -195,16 +207,16 @@ function RenderNestedViews() {
       border: "1px dashed green",
       margin: "24px",
       content: [
-        element(subView, {
-          content: "SubView 1 checking in.",
+        element(prettyText, {
+          content: "PrettyText 1 checking in.",
         }),
-        element(subView, {
-          content: "SubView 2 checking in.",
+        element(prettyText, {
+          content: "PrettyText 2 checking in.",
         }),
       ],
     })
   );
 }
 
-app(RenderNestedViews(), { subView });
+app(RenderNestedViews(), { prettyText });
 ```
