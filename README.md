@@ -54,8 +54,8 @@ app(HelloWorld());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-View HelloWorld {
-   <p>
+render view HelloWorld {
+   create element <p>
       content = "Hello, world!"
       font = "18px cursive"
       margin = "24px"
@@ -88,8 +88,8 @@ app(LogWhenButtonClicked());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-View LogWhenButtonClicked {
-   <p>
+render view LogWhenButtonClicked {
+   create element <p>
       background = "whitesmoke"
       border-radius = "4px"
       click = browser.console.log "You clicked the button."
@@ -126,6 +126,24 @@ function UpdateSectionWhileHovered() {
 }
 
 app(UpdateSectionWhileHovered());
+```
+
+_Proposed ViewScript v1.0 syntax:_
+
+```
+render view UpdateSectionWhileHovered {
+   define hovered : Condition = false
+
+   create element <section>
+      background = "whitesmoke"
+      border-radius = "4px"
+      click = browser.console.log "You clicked the button."
+      content = "Click me!"
+      cursor = "pointer"
+      font-size = "18px"
+      margin = "24px"
+      padding = "12px"
+}
 ```
 
 ### Counter with increment and reset
