@@ -54,12 +54,13 @@ app(HelloWorld());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view HelloWorld {
+render view HelloWorld
+
    create element <p>
+
       content = "Hello, world!"
       font = "18px cursive"
       margin = "24px"
-}
 ```
 
 ### Log when button clicked
@@ -88,8 +89,10 @@ app(LogWhenButtonClicked());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view LogWhenButtonClicked {
+render view LogWhenButtonClicked
+
    create element <p>
+
       background = "whitesmoke"
       border-radius = "4px"
       click = browser.console.log "You clicked the button."
@@ -98,7 +101,6 @@ render view LogWhenButtonClicked {
       font-size = "18px"
       margin = "24px"
       padding = "12px"
-}
 ```
 
 ### Update section while hovered
@@ -131,19 +133,20 @@ app(UpdateSectionWhileHovered());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view UpdateSectionWhileHovered {
-   define hovered : Condition = false
+render view UpdateSectionWhileHovered
+
+   define hovered as Condition = false
 
    create element <section>
-      background = "whitesmoke"
-      border-radius = "4px"
-      click = browser.console.log "You clicked the button."
-      content = "Click me!"
-      cursor = "pointer"
-      font-size = "18px"
+
+      background = if hovered then "black" else "white"
+      border = "1px solid black"
+      color = if hovered then "white" else "black"
+      content = if hovered then "I am hovered." else "Hover me!"
+      font = "bold 24px serif"
       margin = "24px"
-      padding = "12px"
-}
+      padding = "24px"
+      pointerleave = hovered.disable
 ```
 
 ### Counter with increment and reset
