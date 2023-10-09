@@ -8,6 +8,7 @@ function LogWhenButtonClicked() {
       click: browser.console.log("You clicked the button."),
       content: "Click me!",
       cursor: "pointer",
+      display: "block",
       "font-size": "18px",
       margin: "24px",
       padding: "12px",

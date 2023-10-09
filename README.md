@@ -75,6 +75,7 @@ function LogWhenButtonClicked() {
       click: browser.console.log("You clicked the button."),
       content: "Click me!",
       cursor: "pointer",
+      display: "block",
       "font-size": "18px",
       margin: "24px",
       padding: "12px",
@@ -96,6 +97,7 @@ render view LogWhenButtonClicked
       click = browser.console.log "You clicked the button."
       content = "Click me!"
       cursor = "pointer"
+      display = "block"
       font-size = "18px"
       margin = "24px"
       padding = "12px"
@@ -149,7 +151,31 @@ render view UpdateSectionWhileHovered
 ### Counter with increment and reset
 
 ```ts
-import { app, count, element, view } from "viewscript-bridge";
+import { app, count, element, stream, text, view } from "viewscript-bridge";
+
+function Button() {
+  const click = stream();
+  const content = text();
+
+  return view(
+    element("button", {
+      "align-items": "center",
+      background: "lightgreen",
+      click,
+      color: "crimson",
+      content,
+      cursor: "pointer",
+      display: "flex",
+      "font-weight": "bold",
+      height: "100px",
+      "justify-content": "center",
+      width: "100px",
+    }),
+    { click, content }
+  );
+}
+
+const button = Button();
 
 function CounterWithIncrementAndReset() {
   const clicks = count(0);
@@ -167,30 +193,13 @@ function CounterWithIncrementAndReset() {
       padding: "12px",
       width: "200px",
       content: [
-        element("button", {
-          "align-items": "center",
-          background: "lightgreen",
+        element(button, {
           click: clicks.add(1),
-          color: "crimson",
           content: "Increment",
-          cursor: "pointer",
-          display: "flex",
-          "font-weight": "bold",
-          height: "100px",
-          "justify-content": "center",
-          width: "100px",
         }),
-        element("button", {
-          "align-items": "center",
-          background: "lightgreen",
+        element(button, {
           click: clicks.reset,
-          color: "crimson",
           content: "Reset",
-          cursor: "pointer",
-          display: "flex",
-          height: "100px",
-          "justify-content": "center",
-          width: "100px",
         }),
         element("span", {
           content: clicks,
@@ -201,58 +210,53 @@ function CounterWithIncrementAndReset() {
   );
 }
 
-app(CounterWithIncrementAndReset());
+app(CounterWithIncrementAndReset(), { button });
 ```
 
-### Render nested views
+_Proposed ViewScript v1.0 syntax:_
 
-```ts
-import {
-  app,
-  condition,
-  conditional,
-  element,
-  text,
-  view,
-} from "viewscript-bridge";
+```
+view Button
+   define click as stream
+   define content as Text
 
-function PrettyText() {
-  const content = text();
-  const hovered = condition(false);
+   render <button>
+      align-items = "center",
+      background = "lightgreen"
+      click
+      color = "crimson"
+      content
+      cursor = "pointer"
+      display = "flex"
+      font-weight = "bold"
+      height = "100px"
+      justify-content = "center"
+      width = "100px"
 
-  return view(
-    element("p", {
-      color: conditional(hovered, "red", "revert"),
-      content,
-      cursor: "pointer",
-      font: "18px cursive",
-      margin: "24px",
-      pointerleave: hovered.disable,
-      pointerover: hovered.enable,
-    }),
-    { content, hovered }
-  );
-}
+render view CounterWithIncrementAndReset
+   define clicks as Count = 0
 
-const prettyText = PrettyText();
+   render <section>
+      align-items = "center"
+      border = "2px dashed red"
+      display = "flex"
+      flex-direction = "column"
+      gap = "16px"
+      height = "200px"
+      justify-content = "center"
+      margin = "24px"
+      padding = "12px"
+      width = "200px"
 
-function RenderNestedViews() {
-  return view(
-    element("section", {
-      background: "lavender",
-      border: "1px dashed green",
-      margin: "24px",
-      content: [
-        element(prettyText, {
-          content: "PrettyText 1 checking in.",
-        }),
-        element(prettyText, {
-          content: "PrettyText 2 checking in.",
-        }),
-      ],
-    })
-  );
-}
+      content =
+      -- <button>
+            click = clicks.add 1
+            content = "Increment"
 
-app(RenderNestedViews(), { prettyText });
+      -- <button>
+            click = clicks.reset
+            content = "Reset"
+
+      -- <span>
+            content = clicks
 ```
