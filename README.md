@@ -24,24 +24,6 @@ npm install
 npm start
 ```
 
-## Benefits
-
-- ✅ Efficiency:
-  - Surgically updates the DOM when state changes.
-  - Fully optimized out of the box.
-  - No memoization is needed.
-  - Over-rendering is not possible.
-- ✅ Purity:
-  - Apps map completely to abstract data.
-  - The abstract interface is relatively small and simple.
-  - Makes comprehensive unit testing quite straightforward.
-  - Opens up cool possibilties for replaying and debugging.
-- ✅ Simplicity:
-  - Constrains architectural possibilties and prevents bugs.
-  - The bridge API works well with both JavaScript and TypeScript.
-  - Ideal as a source of truth for app business logic.
-  - Well-suited as a target for new programming languages.
-
 ## Packages
 
 - [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
@@ -49,7 +31,15 @@ npm start
 - [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
   - JavaScript code that runs your ViewScript apps inside browsers
 
-## Examples
+## Overview
+
+Every ViewScript app is represented by a JSON object which conforms to type `App` from the ViewScript Abstract Syntax Tree.
+
+Today, JavaScript and TypeScript developers use the ViewScript Bridge to build App objects with ergonomic helper functions. The Bridge hands off each App to the Runtime which executes it.
+
+In future, developers will be able to write apps in the ViewScript language, and the Compiler will build an App object, to be bundled with the Runtime as a standalone executable.
+
+## Code Examples
 
 [View Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
 
