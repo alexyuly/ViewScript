@@ -19,6 +19,8 @@ viewscript create YourProjectName
 
 cd YourProjectName
 
+npm install
+
 npm start
 ```
 
