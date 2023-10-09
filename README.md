@@ -24,13 +24,6 @@ npm install
 npm start
 ```
 
-## Packages
-
-- [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
-  - TypeScript API that you can use to build ViewScript apps
-- [**ViewScript-Runtime**](https://github.com/alexyuly/ViewScript-Runtime)
-  - JavaScript code that runs your ViewScript apps inside browsers
-
 ## Overview
 
 Every ViewScript app is represented by a JSON object of type App from the [ViewScript Abstract Syntax Tree](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts).
