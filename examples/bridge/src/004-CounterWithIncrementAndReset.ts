@@ -1,6 +1,6 @@
 import { app, count, element, stream, text, view } from "viewscript-bridge";
 
-function Button() {
+function FancyButton() {
   const click = stream();
   const content = text();
 
@@ -22,7 +22,7 @@ function Button() {
   );
 }
 
-const button = Button();
+const fancyButton = FancyButton();
 
 function CounterWithIncrementAndReset() {
   const clicks = count(0);
@@ -40,11 +40,11 @@ function CounterWithIncrementAndReset() {
       padding: "12px",
       width: "200px",
       content: [
-        element(button, {
+        element(fancyButton, {
           click: clicks.add(1),
           content: "Increment",
         }),
-        element(button, {
+        element(fancyButton, {
           click: clicks.reset,
           content: "Reset",
         }),
@@ -57,4 +57,4 @@ function CounterWithIncrementAndReset() {
   );
 }
 
-app(CounterWithIncrementAndReset(), { button });
+app(CounterWithIncrementAndReset(), { fancyButton });
