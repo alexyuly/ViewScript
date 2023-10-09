@@ -19,7 +19,6 @@ const FancyButton = view(
 );
 
 render(
-  { FancyButton },
   view({ clicks: count(0) }, ({ clicks }) =>
     element("section", {
       "align-items": "center",
