@@ -24,6 +24,24 @@ npm install
 npm start
 ```
 
+## Benefits
+
+- ✅ Efficiency:
+  - Surgically updates the DOM when state changes.
+  - Fully optimized out of the box.
+  - No memoization is needed.
+  - Over-rendering is not possible.
+- ✅ Purity:
+  - Apps map completely to abstract data.
+  - The abstract interface is relatively small and simple.
+  - Makes comprehensive unit testing quite straightforward.
+  - Opens up cool possibilties for replaying and debugging.
+- ✅ Simplicity:
+  - Constrains architectural possibilties and prevents bugs.
+  - The bridge API works well with both JavaScript and TypeScript.
+  - Ideal as a source of truth for app business logic.
+  - Well-suited as a target for new programming languages.
+
 ## Packages
 
 - [**ViewScript-Bridge**](https://github.com/alexyuly/ViewScript-Bridge)
