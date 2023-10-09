@@ -223,7 +223,7 @@ view FancyButton
    define content as Text
 
    render <button>
-      align-items = "center",
+      align-items = "center"
       background = "lightgreen"
       click
       color = "crimson"
