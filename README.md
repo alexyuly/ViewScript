@@ -194,7 +194,6 @@ _Proposed ViewScript v1.0 syntax:_
 define FancyButton as view
    define click as stream
    define content as text
-   define disabled as condition
 
    render <button>
       align-items = "center"
@@ -203,7 +202,6 @@ define FancyButton as view
       color = "crimson"
       content
       cursor = "pointer"
-      disabled
       display = "flex"
       font-weight = "bold"
       height = "100px"
@@ -230,7 +228,6 @@ render view
       -- FancyButton
             click = clicks.add 1
             content = "Increment"
-            disabled = clicks.isAtLeast 10
 
       -- FancyButton
             click = clicks.reset
