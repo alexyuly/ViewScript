@@ -119,13 +119,13 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 render view
-   define hovered as Condition = false
+   define hovered as condition = false
 
    render <section>
-      background = if hovered then "black" else "white"
+      background = when hovered then "black" else "white"
       border = "1px solid black"
-      color = if hovered then "white" else "black"
-      content = if hovered then "I am hovered." else "Hover me!"
+      color = when hovered then "white" else "black"
+      content = when hovered then "I am hovered." else "Hover me!"
       font = "bold 24px serif"
       margin = "24px"
       padding = "24px"
@@ -139,8 +139,8 @@ render view
 import { count, element, render, stream, text, view } from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: text() },
-  ({ click, content }) =>
+  { click: stream(), content: text(), disabled: condition() },
+  ({ click, content, disabled }) =>
     element("button", {
       "align-items": "center",
       background: "lightgreen",
@@ -148,6 +148,7 @@ const FancyButton = view(
       color: "crimson",
       content,
       cursor: "pointer",
+      disabled,
       display: "flex",
       "font-weight": "bold",
       height: "100px",
@@ -174,6 +175,7 @@ render(
         element(FancyButton, {
           click: clicks.add(1),
           content: "Increment",
+          disabled: clicks.isAtLeast(10),
         }),
         element(FancyButton, {
           click: clicks.reset,
@@ -193,7 +195,8 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 define FancyButton as view
    define click as stream
-   define content as Text
+   define content as text
+   define disabled as condition
 
    render <button>
       align-items = "center"
@@ -202,6 +205,7 @@ define FancyButton as view
       color = "crimson"
       content
       cursor = "pointer"
+      disabled
       display = "flex"
       font-weight = "bold"
       height = "100px"
@@ -210,7 +214,7 @@ define FancyButton as view
 
 
 render view
-   define clicks as Count = 0
+   define clicks as count = 0
 
    render <section>
       align-items = "center"
@@ -228,6 +232,7 @@ render view
       -- FancyButton
             click = clicks.add 1
             content = "Increment"
+            disabled = clicks.isAtLeast 10
 
       -- FancyButton
             click = clicks.reset
