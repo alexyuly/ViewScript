@@ -38,104 +38,87 @@ npm start
 ### HelloWorld
 
 ```ts
-import { app, element, view } from "viewscript-bridge";
+import { element, render } from "viewscript-bridge";
 
-function HelloWorld() {
-  return view(
-    element("p", {
-      content: "Hello, world!",
-      font: "18px cursive",
-      margin: "24px",
-    })
-  );
-}
-
-app(HelloWorld());
+render(
+  element("p", {
+    content: "Hello, world!",
+    font: "18px cursive",
+    margin: "24px",
+  })
+);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view HelloWorld
-
-   render <p>
-      content = "Hello, world!"
-      font = "18px cursive"
-      margin = "24px"
+render <p>
+   content = "Hello, world!"
+   font = "18px cursive"
+   margin = "24px"
 ```
 
 ### Log when button clicked
 
 ```ts
-import { app, browser, element, view } from "viewscript-bridge";
+import { browser, element, render } from "viewscript-bridge";
 
-function LogWhenButtonClicked() {
-  return view(
-    element("button", {
-      background: "whitesmoke",
-      "border-radius": "4px",
-      click: browser.console.log("You clicked the button."),
-      content: "Click me!",
-      cursor: "pointer",
-      display: "block",
-      "font-size": "18px",
-      margin: "24px",
-      padding: "12px",
-    })
-  );
-}
-
-app(LogWhenButtonClicked());
+render(
+  element("button", {
+    background: "whitesmoke",
+    "border-radius": "4px",
+    click: browser.console.log("You clicked the button."),
+    content: "Click me!",
+    cursor: "pointer",
+    display: "block",
+    "font-size": "18px",
+    margin: "24px",
+    padding: "12px",
+  })
+);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view LogWhenButtonClicked
-
-   render <button>
-      background = "whitesmoke"
-      border-radius = "4px"
-      click = browser.console.log "You clicked the button."
-      content = "Click me!"
-      cursor = "pointer"
-      display = "block"
-      font-size = "18px"
-      margin = "24px"
-      padding = "12px"
+render <button>
+   background = "whitesmoke"
+   border-radius = "4px"
+   click = browser.console.log "You clicked the button."
+   content = "Click me!"
+   cursor = "pointer"
+   display = "block"
+   font-size = "18px"
+   margin = "24px"
+   padding = "12px"
 ```
 
 ### Update section while hovered
 
 ```ts
-import { app, condition, conditional, element, view } from "viewscript-bridge";
+import { condition, element, render, view, when } from "viewscript-bridge";
 
-function UpdateSectionWhileHovered() {
-  const hovered = condition(false);
-
-  return view(
+render(
+  view({ hovered: condition(false) }, ({ hovered }) =>
     element("section", {
-      background: conditional(hovered, "black", "white"),
+      background: when(hovered, "black", "white"),
       border: "1px solid black",
-      color: conditional(hovered, "white", "black"),
-      content: conditional(hovered, "I am hovered.", "Hover me!"),
+      color: when(hovered, "white", "black"),
+      content: when(hovered, "I am hovered.", "Hover me!"),
       font: "bold 24px serif",
       margin: "24px",
       padding: "24px",
       pointerleave: hovered.disable,
       pointerover: hovered.enable,
-    }),
-    { hovered }
-  );
-}
-
-app(UpdateSectionWhileHovered());
+    })
+  )
+);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view UpdateSectionWhileHovered
+render view
    define hovered as Condition = false
 
    render <section>
@@ -153,13 +136,11 @@ render view UpdateSectionWhileHovered
 ### Counter with increment and reset
 
 ```ts
-import { app, count, element, stream, text, view } from "viewscript-bridge";
+import { count, element, render, stream, text, view } from "viewscript-bridge";
 
-function FancyButton() {
-  const click = stream();
-  const content = text();
-
-  return view(
+const FancyButton = view(
+  { click: stream(), content: text() },
+  ({ click, content }) =>
     element("button", {
       "align-items": "center",
       background: "lightgreen",
@@ -172,17 +153,12 @@ function FancyButton() {
       height: "100px",
       "justify-content": "center",
       width: "100px",
-    }),
-    { click, content }
-  );
-}
+    })
+);
 
-const fancyButton = FancyButton();
-
-function CounterWithIncrementAndReset() {
-  const clicks = count(0);
-
-  return view(
+render(
+  { FancyButton },
+  view({ clicks: count(0) }, ({ clicks }) =>
     element("section", {
       "align-items": "center",
       border: "2px dashed red",
@@ -195,11 +171,11 @@ function CounterWithIncrementAndReset() {
       padding: "12px",
       width: "200px",
       content: [
-        element(fancyButton, {
+        element(FancyButton, {
           click: clicks.add(1),
           content: "Increment",
         }),
-        element(fancyButton, {
+        element(FancyButton, {
           click: clicks.reset,
           content: "Reset",
         }),
@@ -207,18 +183,15 @@ function CounterWithIncrementAndReset() {
           content: clicks,
         }),
       ],
-    }),
-    { clicks }
-  );
-}
-
-app(CounterWithIncrementAndReset(), { fancyButton });
+    })
+  )
+);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-view FancyButton
+define FancyButton as view
    define click as stream
    define content as Text
 
@@ -236,7 +209,7 @@ view FancyButton
       width = "100px"
 
 
-render view CounterWithIncrementAndReset
+render view
    define clicks as Count = 0
 
    render <section>
