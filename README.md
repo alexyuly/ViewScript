@@ -33,7 +33,7 @@ npm start
 
 ## Overview
 
-Every ViewScript app is represented by a JSON object of type App from the ViewScript Abstract Syntax Tree.
+Every ViewScript app is represented by a JSON object of type App from the [ViewScript Abstract Syntax Tree](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts).
 
 Today, JavaScript and TypeScript developers can use the ViewScript Bridge to build App objects with ergonomic helper functions. The Bridge hands off Apps to the Runtime which executes them.
 
