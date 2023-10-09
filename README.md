@@ -139,8 +139,8 @@ render view
 import { count, element, render, stream, text, view } from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: text(), disabled: condition() },
-  ({ click, content, disabled }) =>
+  { click: stream(), content: text() },
+  ({ click, content }) =>
     element("button", {
       "align-items": "center",
       background: "lightgreen",
@@ -148,7 +148,6 @@ const FancyButton = view(
       color: "crimson",
       content,
       cursor: "pointer",
-      disabled,
       display: "flex",
       "font-weight": "bold",
       height: "100px",
@@ -175,7 +174,6 @@ render(
         element(FancyButton, {
           click: clicks.add(1),
           content: "Increment",
-          disabled: clicks.isAtLeast(10),
         }),
         element(FancyButton, {
           click: clicks.reset,

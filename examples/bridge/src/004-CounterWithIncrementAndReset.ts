@@ -1,10 +1,8 @@
-import { app, count, element, stream, text, view } from "viewscript-bridge";
+import { count, element, render, stream, text, view } from "viewscript-bridge";
 
-function FancyButton() {
-  const click = stream();
-  const content = text();
-
-  return view(
+const FancyButton = view(
+  { click: stream(), content: text() },
+  ({ click, content }) =>
     element("button", {
       "align-items": "center",
       background: "lightgreen",
@@ -17,17 +15,12 @@ function FancyButton() {
       height: "100px",
       "justify-content": "center",
       width: "100px",
-    }),
-    { click, content }
-  );
-}
+    })
+);
 
-const fancyButton = FancyButton();
-
-function CounterWithIncrementAndReset() {
-  const clicks = count(0);
-
-  return view(
+render(
+  { FancyButton },
+  view({ clicks: count(0) }, ({ clicks }) =>
     element("section", {
       "align-items": "center",
       border: "2px dashed red",
@@ -40,11 +33,11 @@ function CounterWithIncrementAndReset() {
       padding: "12px",
       width: "200px",
       content: [
-        element(fancyButton, {
+        element(FancyButton, {
           click: clicks.add(1),
           content: "Increment",
         }),
-        element(fancyButton, {
+        element(FancyButton, {
           click: clicks.reset,
           content: "Reset",
         }),
@@ -52,9 +45,6 @@ function CounterWithIncrementAndReset() {
           content: clicks,
         }),
       ],
-    }),
-    { clicks }
-  );
-}
-
-app(CounterWithIncrementAndReset(), { fancyButton });
+    })
+  )
+);
