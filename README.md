@@ -97,10 +97,10 @@ render <button>
 ### Update section while hovered
 
 ```ts
-import { condition, element, render, view, when } from "viewscript-bridge";
+import { boolean, element, render, view, when } from "viewscript-bridge";
 
 render(
-  view({ hovered: condition(false) }, ({ hovered }) =>
+  view({ hovered: boolean(false) }, ({ hovered }) =>
     element("section", {
       background: when(hovered, "black", "white"),
       border: "1px solid black",
@@ -120,7 +120,7 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 render view
-   define hovered as condition = false
+   define hovered as boolean = false
 
    render <section>
       background = when hovered then "black" else "white"
@@ -137,10 +137,17 @@ render view
 ### Counter with increment and reset
 
 ```ts
-import { count, element, render, stream, text, view } from "viewscript-bridge";
+import {
+  element,
+  number,
+  render,
+  stream,
+  string,
+  view,
+} from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: text() },
+  { click: stream(), content: string() },
   ({ click, content }) =>
     element("button", {
       "align-items": "center",
@@ -158,7 +165,7 @@ const FancyButton = view(
 );
 
 render(
-  view({ clicks: count(0) }, ({ clicks }) =>
+  view({ clicks: number(0) }, ({ clicks }) =>
     element("section", {
       "align-items": "center",
       border: "2px dashed red",
@@ -193,7 +200,7 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 define FancyButton as view
    define click as stream
-   define content as text
+   define content as string
 
    render <button>
       align-items = "center"
@@ -210,7 +217,7 @@ define FancyButton as view
 
 
 render view
-   define clicks as count = 0
+   define clicks as number = 0
 
    render <section>
       align-items = "center"
