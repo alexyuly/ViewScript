@@ -11,7 +11,7 @@ function check(condition, message) {
   }
 }
 
-const version = "0.3.1";
+const version = "0.3.2";
 console.log(`[VST] 👋 Welcome to ViewScript v${version}.`);
 
 const command = process.argv[2];
