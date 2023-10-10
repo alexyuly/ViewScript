@@ -38,7 +38,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### Planned Significant Releases:
 - ☕️ **ViewScript v0.5** _Espresso_ _(Pre-release)_
   - Build a simple client-side todo list app
-- 🧪 **ViewScript v1** _Vermouth_
+- 🧪 **ViewScript v1** _Absinthe_
   - Compile ViewScript source code into abstract app objects
   - Bundle app objects with the Runtime as standalone executables
 
