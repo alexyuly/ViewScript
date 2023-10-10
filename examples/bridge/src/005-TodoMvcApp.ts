@@ -2,12 +2,12 @@
 // This is a work in progress...
 
 import {
+  boolean,
   browser,
-  condition,
   element,
   render,
   stream,
-  text,
+  string,
   view,
 } from "viewscript-bridge";
 
@@ -15,8 +15,8 @@ import {
 
 const TodoListItem = view(
   {
-    content: text(),
-    done: condition(),
+    content: string(),
+    done: boolean(),
     markAsDone: stream(),
   },
   ({ content, done, markAsDone }) =>

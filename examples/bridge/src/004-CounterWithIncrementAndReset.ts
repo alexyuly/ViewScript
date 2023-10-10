@@ -1,7 +1,14 @@
-import { count, element, render, stream, text, view } from "viewscript-bridge";
+import {
+  element,
+  number,
+  render,
+  stream,
+  string,
+  view,
+} from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: text() },
+  { click: stream(), content: string() },
   ({ click, content }) =>
     element("button", {
       "align-items": "center",
@@ -19,7 +26,7 @@ const FancyButton = view(
 );
 
 render(
-  view({ clicks: count(0) }, ({ clicks }) =>
+  view({ clicks: number(0) }, ({ clicks }) =>
     element("section", {
       "align-items": "center",
       border: "2px dashed red",
