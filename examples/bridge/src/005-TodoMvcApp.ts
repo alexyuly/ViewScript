@@ -31,6 +31,7 @@ const TodoListItem = view(
       content: [
         element("input", {
           type: "checkbox",
+          cursor: "inherit",
           checked: done,
         }),
         element("span", {
@@ -44,13 +45,7 @@ const TodoListItem = view(
 
 render(
   element("section", {
-    position: "fixed",
-    width: "100%",
-    height: "100%",
-    top: 0,
-    left: 0,
-    "box-sizing": "border-box",
-    padding: "24px",
+    margin: "24px",
     display: "flex",
     "flex-direction": "column",
     "align-items": "flex-start",
