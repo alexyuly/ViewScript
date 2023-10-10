@@ -33,10 +33,10 @@ Today, JavaScript and TypeScript developers can use the [ViewScript Bridge](http
 In future, developers will be able to write apps using the ViewScript language, and the Compiler will build App objects, to be bundled with the Runtime as standalone executables.
 
 ### Latest Release:
-- [**ViewScript v0.3.1**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.1)
+- [**ViewScript v0.3.1**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.1) _(Pre-release)_
 
 ### Planned Significant Releases:
-- ☕️ **ViewScript v0.5** _Espresso_
+- ☕️ **ViewScript v0.5** _Espresso_ _(Pre-release)_
   - Build a simple client-side todo list app
 - 🧪 **ViewScript v1** _Vermouth_
   - Compile ViewScript source code into abstract app objects
