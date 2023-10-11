@@ -6,7 +6,7 @@
     "start": "webpack serve --open"
   },
   "dependencies": {
-    "viewscript-bridge": "0.3.2"
+    "viewscript-bridge": "0.3.3"
   },
   "devDependencies": {
     "@webpack-cli/generators": "3.0.7",
