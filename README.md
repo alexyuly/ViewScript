@@ -32,7 +32,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 - [**ViewScript v0.3.2**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.2) _(Pre-release)_
 
-### Planned Significant Releases:
+### Expected Releases:
 
 - ☕️ **ViewScript v0.5** _Espresso_ _(Pre-release)_
   - Build a simple client-side todo list app
