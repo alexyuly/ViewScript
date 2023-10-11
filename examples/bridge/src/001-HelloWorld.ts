@@ -1,9 +1,9 @@
-import { element, render } from "viewscript-bridge";
+import { element, render, view } from "viewscript-bridge";
 
-render(
-  element("p", {
-    content: "Hello, world!",
-    font: "18px cursive",
-    margin: "24px",
-  })
-);
+const App = element("p", {
+  content: "Hello, world!",
+  font: "18px cursive",
+  margin: "24px",
+});
+
+render(App);

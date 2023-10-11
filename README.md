@@ -51,15 +51,15 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### HelloWorld
 
 ```ts
-import { element, render } from "viewscript-bridge";
+import { element, render, view } from "viewscript-bridge";
 
-render(
-  element("p", {
-    content: "Hello, world!",
-    font: "18px cursive",
-    margin: "24px",
-  })
-);
+const App = element("p", {
+  content: "Hello, world!",
+  font: "18px cursive",
+  margin: "24px",
+});
+
+render(App);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
@@ -74,21 +74,21 @@ render <p>
 ### Log when button clicked
 
 ```ts
-import { browser, element, render } from "viewscript-bridge";
+import { browser, element, render, view } from "viewscript-bridge";
 
-render(
-  element("button", {
-    background: "whitesmoke",
-    "border-radius": "4px",
-    click: browser.console.log("You clicked the button."),
-    content: "Click me!",
-    cursor: "pointer",
-    display: "block",
-    "font-size": "18px",
-    margin: "24px",
-    padding: "12px",
-  })
-);
+const App = element("button", {
+  background: "whitesmoke",
+  "border-radius": "4px",
+  click: browser.console.log("You clicked the button."),
+  content: "Click me!",
+  cursor: "pointer",
+  display: "block",
+  "font-size": "18px",
+  margin: "24px",
+  padding: "12px",
+});
+
+render(App);
 ```
 
 _Proposed ViewScript v1.0 syntax:_
@@ -111,21 +111,21 @@ render <button>
 ```ts
 import { boolean, element, render, view, when } from "viewscript-bridge";
 
-render(
-  view({ hovered: boolean(false) }, ({ hovered }) =>
-    element("section", {
-      background: when(hovered, "black", "white"),
-      border: "1px solid black",
-      color: when(hovered, "white", "black"),
-      content: when(hovered, "I am hovered.", "Hover me!"),
-      font: "bold 24px serif",
-      margin: "24px",
-      padding: "24px",
-      pointerleave: hovered.disable,
-      pointerover: hovered.enable,
-    })
-  )
+const App = view({ hovered: boolean(false) }, ({ hovered }) =>
+  element("section", {
+    background: when(hovered, "black", "white"),
+    border: "1px solid black",
+    color: when(hovered, "white", "black"),
+    content: when(hovered, "I am hovered.", "Hover me!"),
+    font: "bold 24px serif",
+    margin: "24px",
+    padding: "24px",
+    pointerleave: hovered.disable,
+    pointerover: hovered.enable,
+  })
 );
+
+render(App());
 ```
 
 _Proposed ViewScript v1.0 syntax:_
@@ -176,35 +176,35 @@ const FancyButton = view(
     })
 );
 
-render(
-  view({ clicks: number(0) }, ({ clicks }) =>
-    element("section", {
-      "align-items": "center",
-      border: "2px dashed red",
-      display: "flex",
-      "flex-direction": "column",
-      gap: "16px",
-      height: "200px",
-      "justify-content": "center",
-      margin: "24px",
-      padding: "12px",
-      width: "200px",
-      content: [
-        element(FancyButton, {
-          click: clicks.add(1),
-          content: "Increment",
-        }),
-        element(FancyButton, {
-          click: clicks.reset,
-          content: "Reset",
-        }),
-        element("span", {
-          content: clicks,
-        }),
-      ],
-    })
-  )
+const App = view({ clicks: number(0) }, ({ clicks }) =>
+  element("section", {
+    "align-items": "center",
+    border: "2px dashed red",
+    display: "flex",
+    "flex-direction": "column",
+    gap: "16px",
+    height: "200px",
+    "justify-content": "center",
+    margin: "24px",
+    padding: "12px",
+    width: "200px",
+    content: [
+      FancyButton({
+        click: clicks.add(1),
+        content: "Increment",
+      }),
+      FancyButton({
+        click: clicks.reset,
+        content: "Reset",
+      }),
+      element("span", {
+        content: clicks,
+      }),
+    ],
+  })
 );
+
+render(App());
 ```
 
 _Proposed ViewScript v1.0 syntax:_

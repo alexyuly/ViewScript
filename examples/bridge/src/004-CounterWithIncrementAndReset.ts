@@ -25,32 +25,32 @@ const FancyButton = view(
     })
 );
 
-render(
-  view({ clicks: number(0) }, ({ clicks }) =>
-    element("section", {
-      "align-items": "center",
-      border: "2px dashed red",
-      display: "flex",
-      "flex-direction": "column",
-      gap: "16px",
-      height: "200px",
-      "justify-content": "center",
-      margin: "24px",
-      padding: "12px",
-      width: "200px",
-      content: [
-        element(FancyButton, {
-          click: clicks.add(1),
-          content: "Increment",
-        }),
-        element(FancyButton, {
-          click: clicks.reset,
-          content: "Reset",
-        }),
-        element("span", {
-          content: clicks,
-        }),
-      ],
-    })
-  )
+const App = view({ clicks: number(0) }, ({ clicks }) =>
+  element("section", {
+    "align-items": "center",
+    border: "2px dashed red",
+    display: "flex",
+    "flex-direction": "column",
+    gap: "16px",
+    height: "200px",
+    "justify-content": "center",
+    margin: "24px",
+    padding: "12px",
+    width: "200px",
+    content: [
+      FancyButton({
+        click: clicks.add(1),
+        content: "Increment",
+      }),
+      FancyButton({
+        click: clicks.reset,
+        content: "Reset",
+      }),
+      element("span", {
+        content: clicks,
+      }),
+    ],
+  })
 );
+
+render(App());
