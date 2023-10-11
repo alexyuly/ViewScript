@@ -65,10 +65,12 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <p>
+define App as <p>
    content = "Hello, world!"
    font = "18px cursive"
    margin = "24px"
+
+render App
 ```
 
 ### Log when button clicked
@@ -94,7 +96,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <button>
+define App as <button>
    background = "whitesmoke"
    border-radius = "4px"
    click = browser.console.log "You clicked the button."
@@ -104,6 +106,8 @@ render <button>
    font-size = "18px"
    margin = "24px"
    padding = "12px"
+
+render App
 ```
 
 ### Update section while hovered
@@ -131,7 +135,7 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view
+define App as view
    define hovered as boolean = false
 
    render <section>
@@ -144,6 +148,8 @@ render view
       padding = "24px"
       pointerleave = hovered.disable
       pointerover = hovered.enable
+
+render App
 ```
 
 ### Counter with increment and reset
@@ -228,7 +234,7 @@ define FancyButton as view
       width = "100px"
 
 
-render view
+define App as view
    define clicks as number = 0
 
    render <section>
@@ -254,4 +260,6 @@ render view
 
       -- <span>
             content = clicks
+
+render App
 ```
