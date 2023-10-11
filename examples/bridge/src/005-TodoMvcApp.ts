@@ -15,11 +15,11 @@ import {
 
 const TodoListItem = view(
   {
-    content: string(),
-    done: boolean(),
     markAsDone: stream(),
+    done: boolean(),
+    content: string(),
   },
-  ({ content, done, markAsDone }) =>
+  ({ markAsDone, done, content }) =>
     element("li", {
       click: markAsDone,
       cursor: "pointer",
@@ -83,6 +83,7 @@ const App = element("section", {
         }),
         element("button", {
           type: "submit",
+          cursor: "pointer",
           font: "inherit",
           "font-weight": "bold",
           content: "Add todo",
@@ -98,14 +99,14 @@ const App = element("section", {
       // TODO Iterate over a collection, instead of hardcoding elements:
       content: [
         TodoListItem({
-          content: "Todo List Item 1",
+          markAsDone: browser.console.log("You clicked Item 1!"),
           done: true,
-          markAsDone: browser.console.log("You clicked a todo checkbox!"),
+          content: "Todo List Item 1",
         }),
         TodoListItem({
-          content: "Todo List Item 2",
+          markAsDone: browser.console.log("You clicked Item 2!"),
           done: false,
-          markAsDone: browser.console.log("You clicked a todo checkbox!"),
+          content: "Todo List Item 2",
         }),
       ],
     }),

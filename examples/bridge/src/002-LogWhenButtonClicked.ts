@@ -1,4 +1,4 @@
-import { browser, element, render, view } from "viewscript-bridge";
+import { browser, element, render } from "viewscript-bridge";
 
 const App = element("button", {
   background: "whitesmoke",

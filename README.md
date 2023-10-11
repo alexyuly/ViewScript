@@ -51,7 +51,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### HelloWorld
 
 ```ts
-import { element, render, view } from "viewscript-bridge";
+import { element, render } from "viewscript-bridge";
 
 const App = element("p", {
   content: "Hello, world!",
@@ -66,9 +66,9 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define App as <p>
-   content = "Hello, world!"
-   font = "18px cursive"
-   margin = "24px"
+  content = "Hello, world!"
+  font = "18px cursive"
+  margin = "24px"
 
 render App
 ```
@@ -76,7 +76,7 @@ render App
 ### Log when button clicked
 
 ```ts
-import { browser, element, render, view } from "viewscript-bridge";
+import { browser, element, render } from "viewscript-bridge";
 
 const App = element("button", {
   background: "whitesmoke",
@@ -97,15 +97,15 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define App as <button>
-   background = "whitesmoke"
-   border-radius = "4px"
-   click = browser.console.log "You clicked the button."
-   content = "Click me!"
-   cursor = "pointer"
-   display = "block"
-   font-size = "18px"
-   margin = "24px"
-   padding = "12px"
+  background = "whitesmoke"
+  border-radius = "4px"
+  click = browser.console.log "You clicked the button."
+  content = "Click me!"
+  cursor = "pointer"
+  display = "block"
+  font-size = "18px"
+  margin = "24px"
+  padding = "12px"
 
 render App
 ```
@@ -136,18 +136,19 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define App as view
-   define hovered as boolean = false
+  define hovered as boolean = false
 
-   render <section>
-      background = when hovered then "black" else "white"
-      border = "1px solid black"
-      color = when hovered then "white" else "black"
-      content = when hovered then "I am hovered." else "Hover me!"
-      font = "bold 24px serif"
-      margin = "24px"
-      padding = "24px"
-      pointerleave = hovered.disable
-      pointerover = hovered.enable
+  render <section>
+    background = when hovered then "black" else "white"
+    border = "1px solid black"
+    color = when hovered then "white" else "black"
+    content = when hovered then "I am hovered." else "Hover me!"
+    font = "bold 24px serif"
+    margin = "24px"
+    padding = "24px"
+    pointerleave = hovered.disable
+    pointerover = hovered.enable
+
 
 render App
 ```
@@ -217,49 +218,47 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define FancyButton as view
-   define click as stream
-   define content as string
+  define click as stream
+  define content as string
 
-   render <button>
-      align-items = "center"
-      background = "lightgreen"
-      click
-      color = "crimson"
-      content
-      cursor = "pointer"
-      display = "flex"
-      font-weight = "bold"
-      height = "100px"
-      justify-content = "center"
-      width = "100px"
+  render <button>
+    align-items = "center"
+    background = "lightgreen"
+    click
+    color = "crimson"
+    content
+    cursor = "pointer"
+    display = "flex"
+    font-weight = "bold"
+    height = "100px"
+    justify-content = "center"
+    width = "100px"
 
 
 define App as view
-   define clicks as number = 0
+  define clicks as number = 0
 
-   render <section>
-      align-items = "center"
-      border = "2px dashed red"
-      display = "flex"
-      flex-direction = "column"
-      gap = "16px"
-      height = "200px"
-      justify-content = "center"
-      margin = "24px"
-      padding = "12px"
-      width = "200px"
+  render <section>
+    align-items = "center"
+    border = "2px dashed red"
+    display = "flex"
+    flex-direction = "column"
+    gap = "16px"
+    height = "200px"
+    justify-content = "center"
+    margin = "24px"
+    padding = "12px"
+    width = "200px"
+    content =
+    - FancyButton
+        click = clicks.add 1
+        content = "Increment"
+    - FancyButton
+        click = clicks.reset
+        content = "Reset"
+    - <span>
+        content = clicks
 
-      content =
-      -- FancyButton
-            click = clicks.add 1
-            content = "Increment"
-
-      -- FancyButton
-            click = clicks.reset
-            content = "Reset"
-
-      -- <span>
-            content = clicks
 
 render App
 ```

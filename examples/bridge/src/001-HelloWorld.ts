@@ -1,4 +1,4 @@
-import { element, render, view } from "viewscript-bridge";
+import { element, render } from "viewscript-bridge";
 
 const App = element("p", {
   content: "Hello, world!",
