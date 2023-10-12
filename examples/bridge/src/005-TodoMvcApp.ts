@@ -38,7 +38,7 @@ const TodoListItem = view(
           content,
         }),
         // TODO Make this work:
-        // content,
+        content,
       ],
     })
 );
