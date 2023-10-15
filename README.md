@@ -30,7 +30,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### Latest Release:
 
-- [**ViewScript v0.3.3**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.3) _(Pre-release)_
+- [**ViewScript v0.3.4**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.4) _(Pre-release)_
 
 ### Expected Releases:
 
