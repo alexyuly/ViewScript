@@ -113,10 +113,10 @@ import { boolean, element, render, view, when } from "viewscript-bridge";
 
 const App = view({ hovered: boolean(false) }, ({ hovered }) =>
   element("section", {
-    background: when(hovered, "black", "white"),
+    background: when(hovered(), "black", "white"),
     border: "1px solid black",
-    color: when(hovered, "white", "black"),
-    content: when(hovered, "I am hovered.", "Hover me!"),
+    color: when(hovered(), "white", "black"),
+    content: when(hovered(), "I am hovered.", "Hover me!"),
     font: "bold 24px serif",
     margin: "24px",
     padding: "24px",
@@ -167,9 +167,9 @@ const FancyButton = view(
     element("button", {
       "align-items": "center",
       background: "lightgreen",
-      click,
+      click: click(),
       color: "crimson",
-      content,
+      content: content(),
       cursor: "pointer",
       display: "flex",
       "font-weight": "bold",
@@ -201,7 +201,7 @@ const App = view({ clicks: number(0) }, ({ clicks }) =>
         content: "Reset",
       }),
       element("span", {
-        content: clicks,
+        content: clicks(),
       }),
     ],
   })
