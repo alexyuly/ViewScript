@@ -29,15 +29,20 @@ const TodoListItem = view(
       "align-items": "center",
       gap: "4px",
       content: [
-        element("input", {
-          type: "checkbox",
-          cursor: "inherit",
-          checked: done(),
+        element("label", {
+          display: "flex",
+          "flex-direction": "row",
+          "align-items": "center",
+          gap: "8px",
+          content: [
+            element("input", {
+              type: "checkbox",
+              cursor: "inherit",
+              checked: done(),
+            }),
+            content(),
+          ],
         }),
-        element("span", {
-          content: content(),
-        }),
-        content(),
       ],
     })
 );
@@ -70,9 +75,7 @@ const App = element("section", {
           "align-items": "flex-start",
           gap: "8px",
           content: [
-            element("span", {
-              content: "Create a new todo:",
-            }),
+            "Create a new todo:",
             element("input", {
               type: "text",
               font: "inherit",
