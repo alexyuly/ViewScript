@@ -13,9 +13,9 @@ const FancyButton = view(
     element("button", {
       "align-items": "center",
       background: "lightgreen",
-      click,
+      click: click(),
       color: "crimson",
-      content,
+      content: content(),
       cursor: "pointer",
       display: "flex",
       "font-weight": "bold",
@@ -47,7 +47,7 @@ const App = view({ clicks: number(0) }, ({ clicks }) =>
         content: "Reset",
       }),
       element("span", {
-        content: clicks,
+        content: clicks(),
       }),
     ],
   })
