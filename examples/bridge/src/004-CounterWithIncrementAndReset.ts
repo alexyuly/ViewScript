@@ -1,22 +1,25 @@
 import {
+  boolean,
   element,
   number,
   render,
   stream,
   string,
   view,
+  when,
 } from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: string() },
-  ({ click, content }) =>
+  { click: stream(), content: string(), disabled: boolean() },
+  ({ click, content, disabled }) =>
     element("button", {
       "align-items": "center",
       background: "lightgreen",
       click: click(),
       color: "crimson",
       content: content(),
-      cursor: "pointer",
+      cursor: when(disabled(), "not-allowed", "pointer"),
+      disabled: disabled(),
       display: "flex",
       "font-weight": "bold",
       height: "100px",
@@ -41,10 +44,12 @@ const App = view({ clicks: number(0) }, ({ clicks }) =>
       FancyButton({
         click: clicks.add(1),
         content: "Increment",
+        disabled: clicks.isAtLeast(10),
       }),
       FancyButton({
         click: clicks.reset,
         content: "Reset",
+        disabled: false,
       }),
       element("span", {
         content: clicks(),
