@@ -10,13 +10,18 @@ import {
 } from "viewscript-bridge";
 
 const FancyButton = view(
-  { click: stream(), content: string(), disabled: boolean() },
-  ({ click, content, disabled }) =>
+  {
+    click: stream(),
+    content: string(),
+    disabled: boolean(),
+    hovered: boolean(),
+  },
+  ({ click, content, disabled, hovered }) =>
     element("button", {
       "align-items": "center",
-      background: "lightgreen",
+      background: when(hovered.and(disabled.not), "lightgreen", "lightgray"),
       click: click(),
-      color: "crimson",
+      color: when(disabled(), "gray", "crimson"),
       content: content(),
       cursor: when(disabled(), "not-allowed", "pointer"),
       disabled: disabled(),
@@ -24,6 +29,8 @@ const FancyButton = view(
       "font-weight": "bold",
       height: "100px",
       "justify-content": "center",
+      pointerleave: hovered.disable,
+      pointerover: hovered.enable,
       width: "100px",
     })
 );
@@ -44,12 +51,14 @@ const App = view({ clicks: number(0) }, ({ clicks }) =>
       FancyButton({
         click: clicks.add(1),
         content: "Increment",
-        disabled: clicks.isAtLeast(10),
+        disabled: clicks.isAtLeast(5),
+        hovered: false,
       }),
       FancyButton({
         click: clicks.reset,
         content: "Reset",
-        disabled: false,
+        disabled: clicks.isExactly(0),
+        hovered: false,
       }),
       element("span", {
         content: clicks(),
