@@ -21,7 +21,7 @@ const TodoListItem = view(
   },
   ({ markAsDone, done, content }) =>
     element("li", {
-      click: markAsDone,
+      click: markAsDone(),
       cursor: "pointer",
       margin: "8px 0",
       display: "flex",
@@ -32,13 +32,12 @@ const TodoListItem = view(
         element("input", {
           type: "checkbox",
           cursor: "inherit",
-          checked: done,
+          checked: done(),
         }),
         element("span", {
-          content,
+          content: content(),
         }),
-        // TODO Make this work:
-        // content,
+        content(),
       ],
     })
 );
