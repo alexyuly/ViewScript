@@ -14,7 +14,7 @@ const FancyButton = view(
     click: stream(),
     content: string(),
     disabled: boolean(),
-    hovered: boolean(),
+    hovered: boolean(false),
   },
   ({ click, content, disabled, hovered }) =>
     element("button", {
@@ -52,13 +52,11 @@ const App = view({ clicks: number(0) }, ({ clicks }) =>
         click: clicks.add(1),
         content: "Increment",
         disabled: clicks.isAtLeast(5),
-        hovered: false,
       }),
       FancyButton({
         click: clicks.reset,
         content: "Reset",
         disabled: clicks.isExactly(0),
-        hovered: false,
       }),
       element("span", {
         content: clicks(),
