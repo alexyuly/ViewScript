@@ -75,10 +75,10 @@ render App
 import { browser, element, render } from "viewscript-bridge";
 
 const App = element("button", {
+  onClick: browser.console.log("You clicked the button."),
+  content: "Click me!",
   background: "whitesmoke",
   "border-radius": "4px",
-  click: browser.console.log("You clicked the button."),
-  content: "Click me!",
   cursor: "pointer",
   display: "block",
   "font-size": "18px",
@@ -93,10 +93,10 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define App as <button>
+  onClick = browser.console.log "You clicked the button."
+  content = "Click me!"
   background = "whitesmoke"
   border-radius = "4px"
-  click = browser.console.log "You clicked the button."
-  content = "Click me!"
   cursor = "pointer"
   display = "block"
   font-size = "18px"
