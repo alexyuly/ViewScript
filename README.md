@@ -50,9 +50,9 @@ In future, developers will be able to write apps using the ViewScript language, 
 import { element, render } from "viewscript-bridge";
 
 const App = element("p", {
-  content: "Hello, world!",
   font: "18px cursive",
   margin: "24px",
+  content: "Hello, world!",
 });
 
 render(App);
@@ -62,9 +62,9 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define App as <p>
-  content = "Hello, world!"
   font = "18px cursive"
   margin = "24px"
+  content = "Hello, world!"
 
 render App
 ```
@@ -76,7 +76,6 @@ import { browser, element, render } from "viewscript-bridge";
 
 const App = element("button", {
   onClick: browser.console.log("You clicked the button."),
-  content: "Click me!",
   background: "whitesmoke",
   "border-radius": "4px",
   cursor: "pointer",
@@ -84,6 +83,7 @@ const App = element("button", {
   "font-size": "18px",
   margin: "24px",
   padding: "12px",
+  content: "Click me!",
 });
 
 render(App);
@@ -94,7 +94,6 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 define App as <button>
   onClick = browser.console.log "You clicked the button."
-  content = "Click me!"
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
@@ -102,6 +101,7 @@ define App as <button>
   font-size = "18px"
   margin = "24px"
   padding = "12px"
+  content = "Click me!"
 
 render App
 ```
@@ -113,15 +113,15 @@ import { boolean, element, render, view, when } from "viewscript-bridge";
 
 const App = view({ hovered: boolean(false) }, ({ hovered }) =>
   element("section", {
+    onPointerLeave: hovered.disable,
+    onPointerOver: hovered.enable,
     background: when(hovered(), "black", "white"),
     border: "1px solid black",
     color: when(hovered(), "white", "black"),
-    content: when(hovered(), "I am hovered.", "Hover me!"),
     font: "bold 24px serif",
     margin: "24px",
     padding: "24px",
-    pointerleave: hovered.disable,
-    pointerover: hovered.enable,
+    content: when(hovered(), "I am hovered.", "Hover me!"),
   })
 );
 
@@ -135,15 +135,15 @@ define App as view
   define hovered as boolean = false
 
   render <section>
+    onPointerLeave = hovered.disable
+    onPointerOver = hovered.enable
     background = when hovered then "black" else "white"
     border = "1px solid black"
     color = when hovered then "white" else "black"
-    content = when hovered then "I am hovered." else "Hover me!"
     font = "bold 24px serif"
     margin = "24px"
     padding = "24px"
-    pointerleave = hovered.disable
-    pointerover = hovered.enable
+    content = when hovered then "I am hovered." else "Hover me!"
 
 
 render App
