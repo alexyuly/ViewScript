@@ -61,11 +61,10 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <p> (
+render <p>
   font    : "18px cursive"
   margin  : "24px"
   content : "Hello, world!"
-)
 ```
 
 ### Log when button clicked
@@ -91,7 +90,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <button> (
+render <button>
   onClick       : browser.console.log "You clicked the button."
   background    : "whitesmoke"
   border-radius : "4px"
@@ -101,7 +100,6 @@ render <button> (
   margin        : "24px"
   padding       : "12px"
   content       : "Click me!"
-)
 ```
 
 ### Update section while hovered
@@ -132,7 +130,7 @@ _Proposed ViewScript v1.0 syntax:_
 render view {
   field hovered = false
 
-  render <section> (
+  render <section>
     onPointerLeave  : hovered.off
     onPointerOver   : hovered.on
     background      : if hovered then "black" else "white"
@@ -142,7 +140,6 @@ render view {
     margin          : "24px"
     padding         : "24px"
     content         : if hovered then "I am hovered." else "Hover me!"
-  )
 }
 ```
 
@@ -221,7 +218,7 @@ view FancyButton {
   expect content of string
   expect disabled of boolean
 
-  render <button> (
+  render <button>
     onClick         : onClick
     align-items     : "center"
     background      : "lightgreen"
@@ -234,22 +231,19 @@ view FancyButton {
     justify-content : "center"
     width           : "100px"
     content         : content
-  )
 }
 
 render view {
   field clicks of number
   sync clicks with "clicks-endpoint"
 
-  run timer (
+  run timer
     onTime : clicks.add 1
-    paused : clicks.isEmpty
-      ... or clicks.isAtLeast 50
+    paused : clicks.isEmpty ... or clicks.isAtLeast 50
     period : 1000
     repeat : true
-  )
 
-  render <section> (
+  render <section>
     align-items     : "center"
     border          : "2px dashed red"
     display         : "flex"
@@ -261,20 +255,16 @@ render view {
     padding         : "12px"
     width           : "200px"
     content         : [
-      FancyButton (
+      FancyButton
         onClick   : clicks.add 1
         disabled  : clicks.isEmpty
         content   : "Increment"
-      )
-      FancyButton (
+      FancyButton
         onClick   : clicks.reset
         disabled  : clicks.isEmpty
         content   : "Reset"
-      )
-      <span> (
+      <span>
         content : clicks
-      )
     ]
-  )
 }
 ```
