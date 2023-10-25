@@ -254,13 +254,13 @@ render view {
     content         : [
       FancyButton (
         onClick.  : clicks.add 1
-        content   : "Increment"
         disabled  : clicks.isEmpty
+        content   : "Increment"
       )
       FancyButton (
         onClick   : clicks.reset
-        content   : "Reset"
         disabled  : clicks.isEmpty
+        content   : "Reset"
       )
       <span> (
         content : clicks
