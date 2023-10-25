@@ -227,6 +227,7 @@ view FancyButton {
     background      : "lightgreen"
     color           : "crimson"
     cursor          : "pointer"
+    disabled        : disabled
     display         : "flex"
     font-weight     : "bold"
     height          : "100px"
