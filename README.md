@@ -241,6 +241,13 @@ render view {
   field clicks of number
   sync clicks with "clicks-endpoint"
 
+  run timer (
+    onTime : clicks.add 1
+    paused : clicks.isAtLeast 50
+    period : 1000
+    repeat : true
+  )
+
   render <section> (
     align-items     : "center"
     border          : "2px dashed red"
