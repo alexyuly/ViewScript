@@ -133,13 +133,13 @@ render view
   render <section>
     onPointerLeave = hovered.disable
     onPointerOver = hovered.enable
-    background = when hovered then "black" else "white"
+    background = if hovered then "black" else "white"
     border = "1px solid black"
     color = if hovered then "white" else "black"
     font = "bold 24px serif"
     margin = "24px"
     padding = "24px"
-    content = when hovered then "I am hovered." else "Hover me!"
+    content = if hovered then "I am hovered." else "Hover me!"
 ```
 
 ### Counter with increment and reset
