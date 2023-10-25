@@ -130,7 +130,7 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 render view {
-  private field hovered = false
+  field hovered = false
 
   render <section> (
     onPointerLeave  : hovered.off
@@ -217,7 +217,8 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 view FancyButton {
   stream onClick
-  field content of string
+
+  expect content of string
 
   render <button> (
     onClick         : onClick
@@ -235,7 +236,7 @@ view FancyButton {
 }
 
 render view {
-  private field clicks = 0
+  field clicks = 0
 
   render <section> (
     align-items     : "center"
