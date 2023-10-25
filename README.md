@@ -61,7 +61,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define App as <p>
+define App = <p>
   font = "18px cursive"
   margin = "24px"
   content = "Hello, world!"
@@ -92,7 +92,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define App as <button>
+define App = <button>
   onClick = browser.console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
@@ -131,8 +131,8 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define App as view
-  define hovered as boolean = false
+define App = view
+  define hovered = false
 
   render <section>
     onPointerLeave = hovered.disable
@@ -218,26 +218,26 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define FancyButton as view
+define FancyButton = view
   define click as stream
   define content as string
 
   render <button>
+    onClick = click
     align-items = "center"
     background = "lightgreen"
-    click
     color = "crimson"
-    content
     cursor = "pointer"
     display = "flex"
     font-weight = "bold"
     height = "100px"
     justify-content = "center"
     width = "100px"
+    content = content
 
 
-define App as view
-  define clicks as number = 0
+define App = view
+  define clicks = 0
 
   render <section>
     align-items = "center"
@@ -252,10 +252,10 @@ define App as view
     width = "200px"
     content =
     - FancyButton
-        click = clicks.add 1
+        onClick = clicks.add 1
         content = "Increment"
     - FancyButton
-        click = clicks.reset
+        onClick = clicks.reset
         content = "Reset"
     - <span>
         content = clicks
