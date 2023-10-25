@@ -219,6 +219,7 @@ view FancyButton {
   stream onClick
 
   expect content of string
+  expect disabled of boolean
 
   render <button> (
     onClick         : onClick
@@ -236,7 +237,9 @@ view FancyButton {
 }
 
 render view {
-  field clicks = 0
+  field clicks of number {
+    resource "//my.host/clicks-endpoint"
+  }
 
   render <section> (
     align-items     : "center"
@@ -251,12 +254,14 @@ render view {
     width           : "200px"
     content         : [
       FancyButton (
-        onClick : clicks.add 1
-        content : "Increment"
+        onClick.  : clicks.add 1
+        content   : "Increment"
+        disabled  : clicks.isEmpty
       )
       FancyButton (
-        onClick : clicks.reset
-        content : "Reset"
+        onClick   : clicks.reset
+        content   : "Reset"
+        disabled  : clicks.isEmpty
       )
       <span> (
         content : clicks
