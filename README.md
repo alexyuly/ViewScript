@@ -61,10 +61,11 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <p>
-  font = "18px cursive"
-  margin = "24px"
-  content = "Hello, world!"
+render
+  <p>
+    font    : "18px cursive"
+    margin  : "24px"
+    content : "Hello, world!"
 ```
 
 ### Log when button clicked
@@ -90,16 +91,17 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render <button>
-  onClick = browser.console.log "You clicked the button."
-  background = "whitesmoke"
-  border-radius = "4px"
-  cursor = "pointer"
-  display = "block"
-  font-size = "18px"
-  margin = "24px"
-  padding = "12px"
-  content = "Click me!"
+render
+  <button>
+    onClick       : browser.console.log "You clicked the button."
+    background    : "whitesmoke"
+    border-radius : "4px"
+    cursor        : "pointer"
+    display       : "block"
+    font-size     : "18px"
+    margin        : "24px"
+    padding       : "12px"
+    content       : "Click me!"
 ```
 
 ### Update section while hovered
@@ -127,19 +129,22 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render view
+define App = view
   define hovered = false
 
-  render <section>
-    onPointerLeave = hovered.disable
-    onPointerOver = hovered.enable
-    background = if hovered then "black" else "white"
-    border = "1px solid black"
-    color = if hovered then "white" else "black"
-    font = "bold 24px serif"
-    margin = "24px"
-    padding = "24px"
-    content = if hovered then "I am hovered." else "Hover me!"
+  render
+    <section>
+      onPointerLeave : hovered.disable
+      onPointerOver  : hovered.enable
+      background     : if hovered then "black" else "white"
+      border         : "1px solid black"
+      color = if hovered then "white" else "black"
+      font = "bold 24px serif"
+      margin = "24px"
+      padding = "24px"
+      content = if hovered then "I am hovered." else "Hover me!"
+
+render App
 ```
 
 ### Counter with increment and reset
@@ -228,7 +233,7 @@ define FancyButton = view
     width = "100px"
     content = content
 
-render view
+define App = view
   define clicks = 0
 
   render <section>
@@ -251,4 +256,6 @@ render view
         content = "Reset"
     - <span>
         content = clicks
+
+render App
 ```
