@@ -61,11 +61,13 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render
-  <p>
-    font    : "18px cursive"
-    margin  : "24px"
-    content : "Hello, world!"
+render App = <p>
+  font
+    "18px cursive"
+  margin
+    "24px"
+  content
+    "Hello, world!"
 ```
 
 ### Log when button clicked
@@ -91,17 +93,25 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render
-  <button>
-    onClick       : browser.console.log "You clicked the button."
-    background    : "whitesmoke"
-    border-radius : "4px"
-    cursor        : "pointer"
-    display       : "block"
-    font-size     : "18px"
-    margin        : "24px"
-    padding       : "12px"
-    content       : "Click me!"
+render App = <button>
+  onClick
+    browser.console.log "You clicked the button."
+  background
+    "whitesmoke"
+  border-radius
+    "4px"
+  cursor
+    "pointer"
+  display
+    "block"
+  font-size
+    "18px"
+  margin
+    "24px"
+  padding
+    "12px"
+  content
+    "Click me!"
 ```
 
 ### Update section while hovered
@@ -129,22 +139,28 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define App = view
+render App = view
   define hovered = false
 
-  render
-    <section>
-      onPointerLeave : hovered.disable
-      onPointerOver  : hovered.enable
-      background     : if hovered then "black" else "white"
-      border         : "1px solid black"
-      color = if hovered then "white" else "black"
-      font = "bold 24px serif"
-      margin = "24px"
-      padding = "24px"
-      content = if hovered then "I am hovered." else "Hover me!"
-
-render App
+  render <section>
+    onPointerLeave
+      hovered.disable
+    onPointerOver
+      hovered.enable
+    background
+      if hovered then "black" else "white"
+    border
+      "1px solid black"
+    color
+      if hovered then "white" else "black"
+    font
+      "bold 24px serif"
+    margin
+      "24px"
+    padding
+      "24px"
+    content
+      if hovered then "I am hovered." else "Hover me!"
 ```
 
 ### Counter with increment and reset
@@ -217,45 +233,69 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define FancyButton = view
-  define click as stream
+  define onClick as stream
   define content as string
 
   render <button>
-    onClick = click
-    align-items = "center"
-    background = "lightgreen"
-    color = "crimson"
-    cursor = "pointer"
-    display = "flex"
-    font-weight = "bold"
-    height = "100px"
-    justify-content = "center"
-    width = "100px"
-    content = content
+    onClick
+      onClick
+    align-items
+      "center"
+    background
+      "lightgreen"
+    color
+      "crimson"
+    cursor
+      "pointer"
+    display
+      "flex"
+    font-weight
+      "bold"
+    height
+      "100px"
+    justify-content
+      "center"
+    width
+      "100px"
+    content
+      content
 
-define App = view
+render App = view
   define clicks = 0
 
   render <section>
-    align-items = "center"
-    border = "2px dashed red"
-    display = "flex"
-    flex-direction = "column"
-    gap = "16px"
-    height = "200px"
-    justify-content = "center"
-    margin = "24px"
-    padding = "12px"
-    width = "200px"
-    content =
+    align-items
+      "center"
+    border
+      "2px dashed red"
+    display
+      "flex"
+    flex-direction
+      "column"
+    gap
+      "16px"
+    height
+      "200px"
+    justify-content
+      "center"
+    margin
+      "24px"
+    padding
+      "12px"
+    width
+      "200px"
+    content
     - FancyButton
-        onClick = clicks.add 1
-        content = "Increment"
+        onClick
+          clicks.add 1
+        content
+          "Increment"
     - FancyButton
-        onClick = clicks.reset
-        content = "Reset"
+        onClick
+          clicks.reset
+        content
+          "Reset"
     - <span>
-        content = clicks
-
-render App
+        content
+          clicks
 ```
