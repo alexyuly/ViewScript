@@ -61,13 +61,11 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = <p>
-  font
-    "18px cursive"
-  margin
-    "24px"
-  content
-    "Hello, world!"
+render App = <p> (
+  font    : "18px cursive"
+  margin  : "24px"
+  content : "Hello, world!"
+)
 ```
 
 ### Log when button clicked
@@ -93,25 +91,18 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = <button>
-  onClick
-    browser.console.log "You clicked the button."
-  background
-    "whitesmoke"
-  border-radius
-    "4px"
-  cursor
-    "pointer"
-  display
-    "block"
-  font-size
-    "18px"
-  margin
-    "24px"
-  padding
-    "12px"
-  content
-    "Click me!"
+render App = <button> (
+  onClick       : browser.console.log "You clicked the button."
+
+  background    : "whitesmoke"
+  border-radius : "4px"
+  cursor        : "pointer"
+  display       : "block"
+  font-size     : "18px"
+  margin        : "24px"
+  padding       : "12px"
+  content       : "Click me!"
+)
 ```
 
 ### Update section while hovered
@@ -123,13 +114,13 @@ const App = view({ hovered: boolean(false) }, ({ hovered }) =>
   element("section", {
     onPointerLeave: hovered.disable,
     onPointerOver: hovered.enable,
-    background: when(hovered(), "black", "white"),
+    background: when(hovered, "black", "white"),
     border: "1px solid black",
-    color: when(hovered(), "white", "black"),
+    color: when(hovered, "white", "black"),
     font: "bold 24px serif",
     margin: "24px",
     padding: "24px",
-    content: when(hovered(), "I am hovered.", "Hover me!"),
+    content: when(hovered, "I am hovered.", "Hover me!"),
   })
 );
 
@@ -139,28 +130,22 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = view
+render App = view (
   define hovered = false
 
-  render <section>
-    onPointerLeave
-      hovered.disable
-    onPointerOver
-      hovered.enable
-    background
-      if hovered then "black" else "white"
-    border
-      "1px solid black"
-    color
-      if hovered then "white" else "black"
-    font
-      "bold 24px serif"
-    margin
-      "24px"
-    padding
-      "24px"
-    content
-      if hovered then "I am hovered." else "Hover me!"
+  render <section> (
+    onPointerLeave  : hovered.disable
+    onPointerOver   : hovered.enable
+
+    background      : if hovered then "black" else "white"
+    border          : "1px solid black"
+    color           : if hovered then "white" else "black"
+    font            : "bold 24px serif"
+    margin          : "24px"
+    padding         : "24px"
+    content         : if hovered then "I am hovered." else "Hover me!"
+  )
+)
 ```
 
 ### Counter with increment and reset
@@ -232,70 +217,53 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define FancyButton = view
+define FancyButton = view (
   define onClick as stream
   define content as string
 
-  render <button>
-    onClick
-      onClick
-    align-items
-      "center"
-    background
-      "lightgreen"
-    color
-      "crimson"
-    cursor
-      "pointer"
-    display
-      "flex"
-    font-weight
-      "bold"
-    height
-      "100px"
-    justify-content
-      "center"
-    width
-      "100px"
-    content
-      content
+  render <button> (
+    onClick         : onClick
 
-render App = view
+    align-items     : "center"
+    background      : "lightgreen"
+    color           : "crimson"
+    cursor          : "pointer"
+    display         : "flex"
+    font-weight     : "bold"
+    height          : "100px"
+    justify-content : "center"
+    width           : "100px"
+    content         : content
+  )
+)
+
+render App = view (
   define clicks = 0
 
-  render <section>
-    align-items
-      "center"
-    border
-      "2px dashed red"
-    display
-      "flex"
-    flex-direction
-      "column"
-    gap
-      "16px"
-    height
-      "200px"
-    justify-content
-      "center"
-    margin
-      "24px"
-    padding
-      "12px"
-    width
-      "200px"
-    content
-    - FancyButton
-        onClick
-          clicks.add 1
-        content
-          "Increment"
-    - FancyButton
-        onClick
-          clicks.reset
-        content
-          "Reset"
-    - <span>
-        content
-          clicks
+  render <section> (
+    align-items     : "center"
+    border          : "2px dashed red"
+    display         : "flex"
+    flex-direction  : "column"
+    gap             : "16px"
+    height          : "200px"
+    justify-content : "center"
+    margin          : "24px"
+    padding         : "12px"
+    width           : "200px"
+    content         : [
+      FancyButton (
+        onClick : clicks.add 1
+        content : "Increment"
+      )
+      FancyButton (
+        onClick : clicks.reset
+        content : "Reset"
+      )
+      <span> (
+        content : clicks
+      )
+    ]
+  )
+)
 ```
