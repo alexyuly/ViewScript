@@ -93,7 +93,6 @@ _Proposed ViewScript v1.0 syntax:_
 ```
 render App = <button> (
   onClick       : browser.console.log "You clicked the button."
-
   background    : "whitesmoke"
   border-radius : "4px"
   cursor        : "pointer"
@@ -136,7 +135,6 @@ render App = view {
   render <section> (
     onPointerLeave  : hovered.off
     onPointerOver   : hovered.on
-
     background      : if hovered then "black" else "white"
     border          : "1px solid black"
     color           : if hovered then "white" else "black"
@@ -223,7 +221,6 @@ define FancyButton = view {
 
   render <button> (
     onClick         : onClick
-
     align-items     : "center"
     background      : "lightgreen"
     color           : "crimson"
