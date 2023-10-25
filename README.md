@@ -253,7 +253,7 @@ render view {
     width           : "200px"
     content         : [
       FancyButton (
-        onClick.  : clicks.add 1
+        onClick   : clicks.add 1
         disabled  : clicks.isEmpty
         content   : "Increment"
       )
