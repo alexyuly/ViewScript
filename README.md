@@ -237,9 +237,8 @@ view FancyButton {
 }
 
 render view {
-  field clicks of number {
-    resource "//my.host/clicks-endpoint"
-  }
+  field clicks of number
+  sync clicks with "clicks-endpoint"
 
   render <section> (
     align-items     : "center"
