@@ -61,7 +61,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = <p> (
+render <p> (
   font    : "18px cursive"
   margin  : "24px"
   content : "Hello, world!"
@@ -91,7 +91,7 @@ render(App);
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = <button> (
+render <button> (
   onClick       : browser.console.log "You clicked the button."
   background    : "whitesmoke"
   border-radius : "4px"
@@ -129,7 +129,7 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = view {
+render view {
   define hovered = false
 
   render <section> (
@@ -215,8 +215,8 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define FancyButton = view {
-  define onClick = stream
+view FancyButton {
+  stream onClick
   define content as string
 
   render <button> (
@@ -234,7 +234,7 @@ define FancyButton = view {
   )
 }
 
-render App = view {
+render view {
   define clicks = 0
 
   render <section> (
