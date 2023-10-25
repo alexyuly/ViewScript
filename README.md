@@ -130,7 +130,7 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-render App = view (
+render App = view {
   define hovered = false
 
   render <section> (
@@ -145,7 +145,7 @@ render App = view (
     padding         : "24px"
     content         : if hovered then "I am hovered." else "Hover me!"
   )
-)
+}
 ```
 
 ### Counter with increment and reset
@@ -217,7 +217,7 @@ render(App());
 _Proposed ViewScript v1.0 syntax:_
 
 ```
-define FancyButton = view (
+define FancyButton = view {
   define onClick as stream
   define content as string
 
@@ -235,9 +235,9 @@ define FancyButton = view (
     width           : "100px"
     content         : content
   )
-)
+}
 
-render App = view (
+render App = view {
   define clicks = 0
 
   render <section> (
@@ -265,5 +265,5 @@ render App = view (
       )
     ]
   )
-)
+}
 ```
