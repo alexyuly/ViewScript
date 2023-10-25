@@ -134,8 +134,8 @@ render App = view (
   define hovered = false
 
   render <section> (
-    onPointerLeave  : hovered.disable
-    onPointerOver   : hovered.enable
+    onPointerLeave  : hovered.off
+    onPointerOver   : hovered.on
 
     background      : if hovered then "black" else "white"
     border          : "1px solid black"
