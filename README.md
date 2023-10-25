@@ -244,7 +244,7 @@ render view {
   run timer (
     onTime : clicks.add 1
     paused : clicks.isEmpty
-      | or clicks.isAtLeast 50
+      ... or clicks.isAtLeast 50
     period : 1000
     repeat : true
   )
