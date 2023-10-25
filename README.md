@@ -216,7 +216,7 @@ _Proposed ViewScript v1.0 syntax:_
 
 ```
 define FancyButton = view {
-  define onClick as stream
+  define onClick = stream
   define content as string
 
   render <button> (
