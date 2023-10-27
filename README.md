@@ -183,7 +183,7 @@ render(
           disabled: clicks.isEmpty,
           content: "Increment",
         }),
-        atom("button", {
+        FancyButton({
           onClick: clicks.reset,
           disabled: clicks.isEmpty,
           content: "Reset",
