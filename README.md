@@ -238,15 +238,7 @@ view FancyButton {
 }
 
 render view {
-  field clicks of number
-  sync clicks with "clicks-endpoint"
-
-  run timer {
-    onTime : clicks.add 1
-    paused : clicks.isEmpty ... or clicks.isAtLeast 50
-    period : 1000
-    repeat : true
-  }
+  field clicks = 0
 
   render <section> {
     align-items     : "center"
