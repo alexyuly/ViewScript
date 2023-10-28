@@ -47,10 +47,10 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### HelloWorld
 
 ```ts
-import { render, atom } from "viewscript-bridge";
+import { render, element } from "viewscript-bridge";
 
 render(
-  atom("p", {
+  element("p", {
     font: "18px cursive",
     margin: "24px",
     content: "Hello, world!",
@@ -69,10 +69,10 @@ render <p> (
 ### Log when button clicked
 
 ```ts
-import { render, atom, browser } from "viewscript-bridge";
+import { render, element, browser } from "viewscript-bridge";
 
 render(
-  atom("button", {
+  element("button", {
     onClick: browser.console.log("You clicked the button."),
     background: "whitesmoke",
     "border-radius": "4px",
@@ -103,11 +103,11 @@ render <button> (
 ### Update section while hovered
 
 ```ts
-import { render, view, atom, option } from "viewscript-bridge";
+import { render, view, element, option } from "viewscript-bridge";
 
 render(
   view({ hovered: false }, ({ hovered }) =>
-    atom("section", {
+    element("section", {
       onPointerLeave: hovered.off,
       onPointerOver: hovered.on,
       background: option(hovered, "black", "white"),
@@ -143,12 +143,19 @@ render view {
 ### Counter with increment and reset
 
 ```ts
-import { view, stream, string, boolean, atom, render } from "viewscript-bridge";
+import {
+  view,
+  stream,
+  string,
+  boolean,
+  element,
+  render,
+} from "viewscript-bridge";
 
 const FancyButton = view(
   { onClick: stream(), content: string(), disabled: boolean() },
   ({ onClick, content, disabled }) =>
-    atom("button", {
+    element("button", {
       onClick,
       "align-items": "center",
       background: "lightgreen",
@@ -166,7 +173,7 @@ const FancyButton = view(
 
 render(
   view({ clicks: 0 }, ({ clicks }) =>
-    atom("section", {
+    element("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
@@ -188,7 +195,7 @@ render(
           disabled: clicks.isEmpty,
           content: "Reset",
         }),
-        atom("span", {
+        element("span", {
           content: clicks,
         }),
       ],
