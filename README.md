@@ -59,11 +59,11 @@ render(
 ```
 
 ```
-render <p> {
-  font: "18px cursive"
-  margin: "24px"
-  content: "Hello, world!"
-}
+render <p> (
+  font = "18px cursive"
+  margin = "24px"
+  content = "Hello, world!"
+)
 ```
 
 ### Log when button clicked
@@ -87,17 +87,17 @@ render(
 ```
 
 ```
-render <button> {
-  onClick: browser.console.log "You clicked the button."
-  background: "whitesmoke"
-  border-radius: "4px"
-  cursor: "pointer"
-  display: "block"
-  font-size: "18px"
-  margin: "24px"
-  padding: "12px"
-  content: "Click me!"
-}
+render <button> (
+  onClick = browser.console.log "You clicked the button."
+  background = "whitesmoke"
+  border-radius = "4px"
+  cursor = "pointer"
+  display = "block"
+  font-size = "18px"
+  margin = "24px"
+  padding = "12px"
+  content = "Click me!"
+)
 ```
 
 ### Update section while hovered
@@ -124,19 +124,19 @@ render(
 
 ```
 render view {
-  field hovered = false
+  define hovered = false
 
-  render <section> {
-    onPointerLeave: hovered.off
-    onPointerOver: hovered.on
-    background: if hovered then "black" else "white"
-    border: "1px solid black"
-    color: if hovered then "white" else "black"
-    font: "bold 24px serif"
-    margin: "24px"
-    padding: "24px"
-    content: if hovered then "I am hovered." else "Hover me!"
-  }
+  render <section> (
+    onPointerLeave = hovered.off
+    onPointerOver = hovered.on
+    background = if hovered then "black" else "white"
+    border = "1px solid black"
+    color = if hovered then "white" else "black"
+    font = "bold 24px serif"
+    margin = "24px"
+    padding = "24px"
+    content = if hovered then "I am hovered." else "Hover me!"
+  )
 }
 ```
 
@@ -198,57 +198,56 @@ render(
 ```
 
 ```
-view FancyButton {
-  stream onClick
+define FancyButton = view {
+  define onClick = stream
+  define content = field of string
+  define disabled = field of boolean
 
-  field content of string
-  field disabled of boolean
-
-  render <button> {
+  render <button> (
     onClick
-    align-items: "center"
-    background: "lightgreen"
-    color: "crimson"
-    cursor: "pointer"
+    align-items = "center"
+    background = "lightgreen"
+    color = "crimson"
+    cursor = "pointer"
     disabled
-    display: "flex"
-    font-weight: "bold"
-    height: "100px"
-    justify-content: "center"
-    width: "100px"
+    display = "flex"
+    font-weight = "bold"
+    height = "100px"
+    justify-content = "center"
+    width = "100px"
     content
-  }
+  )
 }
 
 render view {
-  field clicks = 0
+  define clicks = 0
 
-  render <section> {
-    align-items: "center"
-    border: "2px dashed red"
-    display: "flex"
-    flex-direction: "column"
-    gap: "16px"
-    height: "200px"
-    justify-content: "center"
-    margin: "24px"
-    padding: "12px"
-    width: "200px"
-    content: [
-      FancyButton {
-        onClick: clicks.add 1
-        disabled: clicks.isEmpty
-        content: "Increment"
-      }
-      FancyButton {
-        onClick: clicks.reset
-        disabled: clicks.isEmpty
-        content: "Reset"
-      }
-      <span> {
-        content: clicks
-      }
+  render <section> (
+    align-items = "center"
+    border = "2px dashed red"
+    display = "flex"
+    flex-direction = "column"
+    gap = "16px"
+    height = "200px"
+    justify-content = "center"
+    margin = "24px"
+    padding = "12px"
+    width = "200px"
+    content = [
+      FancyButton (
+        onClick = clicks.add 1
+        disabled = clicks.isEmpty
+        content = "Increment"
+      )
+      FancyButton (
+        onClick = clicks.reset
+        disabled = clicks.isEmpty
+        content = "Reset"
+      )
+      <span> (
+        content = clicks
+      )
     ]
-  }
+  )
 }
 ```
