@@ -78,7 +78,7 @@ render(
     "border-radius": "4px",
     cursor: "pointer",
     display: "block",
-    fontSize: "18px",
+    "font-size": "18px",
     margin: "24px",
     padding: "12px",
     content: "Click me!",
