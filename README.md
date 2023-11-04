@@ -149,16 +149,19 @@ import {
   string,
   boolean,
   element,
+  option,
   render,
 } from "viewscript-bridge";
 
 const FancyButton = view(
-  { onClick: stream(), content: string(), disabled: boolean() },
-  ({ onClick, content, disabled }) =>
+  { onClick: stream(), content: string(), disabled: boolean(), hovered: false },
+  ({ onClick, content, disabled, hovered }) =>
     element("button", {
       onClick,
+      onPointerLeave: hovered.off,
+      onPointerOver: hovered.on,
       "align-items": "center",
-      background: "lightgreen",
+      background: option(disabled.not.and(hovered), "lightgray", "lightgreen"),
       color: "crimson",
       cursor: "pointer",
       disabled,
@@ -209,11 +212,17 @@ define FancyButton = view {
   define onClick = stream
   define content = field of string
   define disabled = field of boolean
+  define hovered = false
 
   render <button> (
     onClick
+    onPointerLeave = hovered.off
+    onPointerOver = hovered.on
     align-items = "center"
-    background = "lightgreen"
+    background = if disabled {
+      .not
+      .and hovered
+    } then "lightgray" else "lightgreen"
     color = "crimson"
     cursor = "pointer"
     disabled
