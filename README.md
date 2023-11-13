@@ -47,9 +47,9 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### HelloWorld
 
 ```ts
-import { element, render } from "viewscript-bridge";
+import { tag, render } from "viewscript-bridge";
 
-const app = element("p", {
+const app = tag("p", {
   font: "18px cursive",
   margin: "24px",
   content: "Hello, world!",
@@ -69,9 +69,9 @@ render(app);
 ### Log when button clicked
 
 ```ts
-import { element, call, render } from "viewscript-bridge";
+import { tag, call, render } from "viewscript-bridge";
 
-const app = element("button", {
+const app = tag("button", {
   onClick: call(console.log, "You clicked the button."),
   background: "whitesmoke",
   "border-radius": "4px",
@@ -103,14 +103,14 @@ render(app);
 ### Update section while hovered
 
 ```ts
-import { view, element, when, render } from "viewscript-bridge";
+import { view, tag, when, render } from "viewscript-bridge";
 
 const app = view(
   {
     hovered: false,
   },
   ({ hovered }) =>
-    element("section", {
+    tag("section", {
       onPointerLeave: hovered.off,
       onPointerOver: hovered.on,
       background: when(hovered, "black", "white"),
@@ -152,7 +152,7 @@ import {
   stream,
   string,
   boolean,
-  element,
+  tag,
   when,
   render,
 } from "viewscript-bridge";
@@ -165,7 +165,7 @@ const FancyButton = view(
     hovered: false,
   },
   ({ onClick, content, disabled, hovered }) =>
-    element("button", {
+    tag("button", {
       onClick,
       onPointerLeave: hovered.off,
       onPointerOver: hovered.on,
@@ -188,7 +188,7 @@ const app = view(
     clicks: 0,
   },
   ({ clicks }) =>
-    element("section", {
+    tag("section", {
       "align-items": "center",
       border: "2px dashed red",
       display: "flex",
@@ -210,7 +210,7 @@ const app = view(
           disabled: clicks.is(0),
           content: "Reset",
         }),
-        element("span", {
+        tag("span", {
           content: clicks,
         }),
       ],
