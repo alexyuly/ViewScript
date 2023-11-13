@@ -59,7 +59,7 @@ render(
 ```
 
 ```
-render <p> {
+<p> {
   font = "18px cursive"
   margin = "24px"
   content = "Hello, world!"
@@ -87,7 +87,7 @@ render(
 ```
 
 ```
-render <button> {
+<button> {
   onClick = browser.console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
@@ -123,10 +123,10 @@ render(
 ```
 
 ```
-render view {
-  define hovered = false
+view {
+  hovered = false
 
-  render <section> {
+  <section> {
     onPointerLeave = hovered.off
     onPointerOver = hovered.on
     background = if hovered then "black" else "white"
@@ -208,13 +208,13 @@ render(
 ```
 
 ```
-define FancyButton = view {
-  define onClick = stream
-  define content = field of string
-  define disabled = field of boolean
-  define hovered = false
+FancyButton = view {
+  onClick = stream
+  content = field of string
+  disabled = field of boolean
+  hovered = false
 
-  render <button> {
+  <button> {
     onClick
     onPointerLeave = hovered.off
     onPointerOver = hovered.on
@@ -235,10 +235,10 @@ define FancyButton = view {
   }
 }
 
-render view {
-  define clicks = 0
+view {
+  clicks = 0
 
-  render <section> {
+  <section> {
     align-items = "center"
     border = "2px dashed red"
     display = "flex"
