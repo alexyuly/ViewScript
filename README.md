@@ -47,7 +47,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### HelloWorld
 
 ```ts
-import { render, element } from "viewscript-bridge";
+import { element, render } from "viewscript-bridge";
 
 const app = element("p", {
   font: "18px cursive",
@@ -69,7 +69,7 @@ render(app);
 ### Log when button clicked
 
 ```ts
-import { render, element, call } from "viewscript-bridge";
+import { element, call, render } from "viewscript-bridge";
 
 const app = element("button", {
   onClick: call(console.log, "You clicked the button."),
@@ -103,22 +103,24 @@ render(app);
 ### Update section while hovered
 
 ```ts
-import { render, view, element, option } from "viewscript-bridge";
+import { view, element, when, render } from "viewscript-bridge";
 
-const app = view({
-  hovered: false,
-}, ({ hovered }) =>
-  element("section", {
-    onPointerLeave: hovered.off,
-    onPointerOver: hovered.on,
-    background: option(hovered, "black", "white"),
-    border: "1px solid black",
-    color: option(hovered, "white", "black"),
-    font: "bold 24px serif",
-    margin: "24px",
-    padding: "24px",
-    content: option(hovered, "I am hovered.", "Hover me!"),
-  })
+const app = view(
+  {
+    hovered: false,
+  },
+  ({ hovered }) =>
+    element("section", {
+      onPointerLeave: hovered.off,
+      onPointerOver: hovered.on,
+      background: when(hovered, "black", "white"),
+      border: "1px solid black",
+      color: when(hovered, "white", "black"),
+      font: "bold 24px serif",
+      margin: "24px",
+      padding: "24px",
+      content: when(hovered, "I am hovered.", "Hover me!"),
+    })
 );
 
 render(app);
@@ -151,64 +153,68 @@ import {
   string,
   boolean,
   element,
-  option,
+  when,
   render,
 } from "viewscript-bridge";
 
-const FancyButton = view({
-  onClick: stream(),
-  content: string(),
-  disabled: boolean(),
-  hovered: false,
-}, ({ onClick, content, disabled, hovered }) =>
-  element("button", {
-    onClick,
-    onPointerLeave: hovered.off,
-    onPointerOver: hovered.on,
-    "align-items": "center",
-    background: option(disabled.not.and(hovered), "lightgray", "lightgreen"),
-    color: "crimson",
-    cursor: "pointer",
-    disabled,
-    display: "flex",
-    "font-weight": "bold",
-    height: "100px",
-    "justify-content": "center",
-    width: "100px",
-    content,
-  })
+const FancyButton = view(
+  {
+    onClick: stream(),
+    content: string(),
+    disabled: boolean(),
+    hovered: false,
+  },
+  ({ onClick, content, disabled, hovered }) =>
+    element("button", {
+      onClick,
+      onPointerLeave: hovered.off,
+      onPointerOver: hovered.on,
+      "align-items": "center",
+      background: when(disabled.not.and(hovered), "lightgray", "lightgreen"),
+      color: "crimson",
+      cursor: "pointer",
+      disabled,
+      display: "flex",
+      "font-weight": "bold",
+      height: "100px",
+      "justify-content": "center",
+      width: "100px",
+      content,
+    })
 );
 
-const app = view({
-  clicks: 0,
-}, ({ clicks }) =>
-  element("section", {
-    "align-items": "center",
-    border: "2px dashed red",
-    display: "flex",
-    "flex-direction": "column",
-    gap: "16px",
-    height: "200px",
-    "justify-content": "center",
-    margin: "24px",
-    padding: "12px",
-    width: "200px",
-    content: [
-      FancyButton({
-        onClick: clicks.add(1),
-        disabled: clicks.isEmpty,
-        content: "Increment",
-      }),
-      FancyButton({
-        onClick: clicks.reset,
-        disabled: clicks.isEmpty,
-        content: "Reset",
-      }),
-      element("span", {
-        content: clicks,
-      }),
-    ],
-  })
+const app = view(
+  {
+    clicks: 0,
+  },
+  ({ clicks }) =>
+    element("section", {
+      "align-items": "center",
+      border: "2px dashed red",
+      display: "flex",
+      "flex-direction": "column",
+      gap: "16px",
+      height: "200px",
+      "justify-content": "center",
+      margin: "24px",
+      padding: "12px",
+      width: "200px",
+      content: [
+        FancyButton({
+          onClick: clicks.add(1),
+          disabled: clicks.isEmpty,
+          content: "Increment",
+        }),
+        FancyButton({
+          onClick: clicks.reset,
+          disabled: clicks.isEmpty,
+          content: "Reset",
+        }),
+        element("span", {
+          content: clicks,
+        }),
+      ],
+    })
 );
 
 render(app);
