@@ -202,12 +202,12 @@ const app = view(
       content: [
         FancyButton({
           onClick: clicks.add(1),
-          disabled: clicks.isEmpty,
+          disabled: clicks.isAtLeast(10),
           content: "Increment",
         }),
         FancyButton({
-          onClick: clicks.reset,
-          disabled: clicks.isEmpty,
+          onClick: clicks.setTo(0),
+          disabled: clicks.is(0),
           content: "Reset",
         }),
         element("span", {
@@ -265,12 +265,12 @@ view {
     content = [
       FancyButton {
         onClick = clicks.add 1
-        disabled = clicks.isEmpty
+        disabled = clicks.isAtLeast 10
         content = "Increment"
       }
       FancyButton {
-        onClick = clicks.reset
-        disabled = clicks.isEmpty
+        onClick = clicks.setTo 0
+        disabled = clicks.is 0
         content = "Reset"
       }
       <span> {
