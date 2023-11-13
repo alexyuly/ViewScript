@@ -49,11 +49,13 @@ In future, developers will be able to write apps using the ViewScript language, 
 ```ts
 import { render, element } from "viewscript-bridge";
 
-export default element("p", {
+const app = element("p", {
   font: "18px cursive",
   margin: "24px",
   content: "Hello, world!",
 });
+
+render(app);
 ```
 
 ```
@@ -69,7 +71,7 @@ export default element("p", {
 ```ts
 import { render, element, call } from "viewscript-bridge";
 
-export default element("button", {
+const app = element("button", {
   onClick: call(console.log, "You clicked the button."),
   background: "whitesmoke",
   "border-radius": "4px",
@@ -80,6 +82,8 @@ export default element("button", {
   padding: "12px",
   content: "Click me!",
 });
+
+render(app);
 ```
 
 ```
@@ -101,7 +105,7 @@ export default element("button", {
 ```ts
 import { render, view, element, option } from "viewscript-bridge";
 
-export default view({
+const app = view({
   hovered: false,
 }, ({ hovered }) =>
   element("section", {
@@ -116,6 +120,8 @@ export default view({
     content: option(hovered, "I am hovered.", "Hover me!"),
   })
 );
+
+render(app);
 ```
 
 ```
@@ -173,7 +179,7 @@ const FancyButton = view({
   })
 );
 
-export default view({
+const app = view({
   clicks: 0,
 }, ({ clicks }) =>
   element("section", {
@@ -204,6 +210,8 @@ export default view({
     ],
   })
 );
+
+render(app);
 ```
 
 ```
