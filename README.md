@@ -49,13 +49,11 @@ In future, developers will be able to write apps using the ViewScript language, 
 ```ts
 import { render, element } from "viewscript-bridge";
 
-render(
-  element("p", {
-    font: "18px cursive",
-    margin: "24px",
-    content: "Hello, world!",
-  })
-);
+export default element("p", {
+  font: "18px cursive",
+  margin: "24px",
+  content: "Hello, world!",
+});
 ```
 
 ```
@@ -69,26 +67,24 @@ render(
 ### Log when button clicked
 
 ```ts
-import { render, element, browser } from "viewscript-bridge";
+import { render, element, call } from "viewscript-bridge";
 
-render(
-  element("button", {
-    onClick: browser.console.log("You clicked the button."),
-    background: "whitesmoke",
-    "border-radius": "4px",
-    cursor: "pointer",
-    display: "block",
-    "font-size": "18px",
-    margin: "24px",
-    padding: "12px",
-    content: "Click me!",
-  })
-);
+export default element("button", {
+  onClick: call(console.log, "You clicked the button."),
+  background: "whitesmoke",
+  "border-radius": "4px",
+  cursor: "pointer",
+  display: "block",
+  "font-size": "18px",
+  margin: "24px",
+  padding: "12px",
+  content: "Click me!",
+});
 ```
 
 ```
 <button> {
-  onClick = browser.console.log "You clicked the button."
+  onClick = console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
@@ -105,20 +101,20 @@ render(
 ```ts
 import { render, view, element, option } from "viewscript-bridge";
 
-render(
-  view({ hovered: false }, ({ hovered }) =>
-    element("section", {
-      onPointerLeave: hovered.off,
-      onPointerOver: hovered.on,
-      background: option(hovered, "black", "white"),
-      border: "1px solid black",
-      color: option(hovered, "white", "black"),
-      font: "bold 24px serif",
-      margin: "24px",
-      padding: "24px",
-      content: option(hovered, "I am hovered.", "Hover me!"),
-    })
-  )
+export default view({
+  hovered: false,
+}, ({ hovered }) =>
+  element("section", {
+    onPointerLeave: hovered.off,
+    onPointerOver: hovered.on,
+    background: option(hovered, "black", "white"),
+    border: "1px solid black",
+    color: option(hovered, "white", "black"),
+    font: "bold 24px serif",
+    margin: "24px",
+    padding: "24px",
+    content: option(hovered, "I am hovered.", "Hover me!"),
+  })
 );
 ```
 
@@ -153,57 +149,60 @@ import {
   render,
 } from "viewscript-bridge";
 
-const FancyButton = view(
-  { onClick: stream(), content: string(), disabled: boolean(), hovered: false },
-  ({ onClick, content, disabled, hovered }) =>
-    element("button", {
-      onClick,
-      onPointerLeave: hovered.off,
-      onPointerOver: hovered.on,
-      "align-items": "center",
-      background: option(disabled.not.and(hovered), "lightgray", "lightgreen"),
-      color: "crimson",
-      cursor: "pointer",
-      disabled,
-      display: "flex",
-      "font-weight": "bold",
-      height: "100px",
-      "justify-content": "center",
-      width: "100px",
-      content,
-    })
+const FancyButton = view({
+  onClick: stream(),
+  content: string(),
+  disabled: boolean(),
+  hovered: false,
+}, ({ onClick, content, disabled, hovered }) =>
+  element("button", {
+    onClick,
+    onPointerLeave: hovered.off,
+    onPointerOver: hovered.on,
+    "align-items": "center",
+    background: option(disabled.not.and(hovered), "lightgray", "lightgreen"),
+    color: "crimson",
+    cursor: "pointer",
+    disabled,
+    display: "flex",
+    "font-weight": "bold",
+    height: "100px",
+    "justify-content": "center",
+    width: "100px",
+    content,
+  })
 );
 
-render(
-  view({ clicks: 0 }, ({ clicks }) =>
-    element("section", {
-      "align-items": "center",
-      border: "2px dashed red",
-      display: "flex",
-      "flex-direction": "column",
-      gap: "16px",
-      height: "200px",
-      "justify-content": "center",
-      margin: "24px",
-      padding: "12px",
-      width: "200px",
-      content: [
-        FancyButton({
-          onClick: clicks.add(1),
-          disabled: clicks.isEmpty,
-          content: "Increment",
-        }),
-        FancyButton({
-          onClick: clicks.reset,
-          disabled: clicks.isEmpty,
-          content: "Reset",
-        }),
-        element("span", {
-          content: clicks,
-        }),
-      ],
-    })
-  )
+export default view({
+  clicks: 0,
+}, ({ clicks }) =>
+  element("section", {
+    "align-items": "center",
+    border: "2px dashed red",
+    display: "flex",
+    "flex-direction": "column",
+    gap: "16px",
+    height: "200px",
+    "justify-content": "center",
+    margin: "24px",
+    padding: "12px",
+    width: "200px",
+    content: [
+      FancyButton({
+        onClick: clicks.add(1),
+        disabled: clicks.isEmpty,
+        content: "Increment",
+      }),
+      FancyButton({
+        onClick: clicks.reset,
+        disabled: clicks.isEmpty,
+        content: "Reset",
+      }),
+      element("span", {
+        content: clicks,
+      }),
+    ],
+  })
 );
 ```
 
