@@ -46,6 +46,8 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### HelloWorld
 
+_JavaScript and TypeScript_
+
 ```ts
 import { tag, render } from "viewscript-bridge";
 
@@ -57,6 +59,8 @@ const app = tag("p", {
 
 render(app);
 ```
+
+_ViewScript_
 
 ```
 <p> {
