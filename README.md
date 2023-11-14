@@ -154,6 +154,7 @@ view {
 import {
   view,
   stream,
+  field,
   string,
   boolean,
   tag,
@@ -164,8 +165,8 @@ import {
 const FancyButton = view(
   {
     onClick: stream(),
-    content: string(),
-    disabled: boolean(),
+    content: field(string),
+    disabled: field(boolean),
     hovered: false,
   },
   ({ onClick, content, disabled, hovered }) =>
