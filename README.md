@@ -163,7 +163,6 @@ _JavaScript and TypeScript_
 ```ts
 import {
   boolean,
-  field,
   render,
   stream,
   string,
@@ -175,11 +174,11 @@ import {
 const FancyButton = view(
   {
     onClick: stream(),
-    disabled: field(boolean),
-    content: field(string),
+    disabled: boolean,
     hovered: false,
+    content: string,
   },
-  ({ onClick, disabled, content, hovered }) =>
+  ({ onClick, disabled, hovered, content }) =>
     tag("button", {
       onClick,
       onPointerLeave: hovered.setTo(false),
@@ -241,9 +240,9 @@ _ViewScript 1.0 proposed syntax_
 FancyButton = view {
   onClick = stream
 
-  disabled = boolean field
-  content = string field
+  disabled = boolean
   hovered = false
+  content = string
 
   <button> {
     onClick
@@ -305,12 +304,12 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 TodoItem = model {
-  content = string field
+  content = string
   completed = false
 }
 
 TodoItemView = view {
-  data = TodoItem field
+  data = TodoItem
 
   <li> {
     onClick = data.completed.toggle
@@ -330,19 +329,19 @@ TodoItemView = view {
 }
 
 render view {
-  data = TodoItem field list
+  data = TodoItem list
 
   onFormData = action {
-    argument = FormDataEvent field
-    data.push TodoItem {
-      content = argument.formData.get "content"
+    take event = FormDataEvent
+    data.push new TodoItem {
+      content = event.formData.get "content"
     }
   }
 
   todoItemToView = TodoItemView method {
-    argument = TodoItem field
-    TodoItemView {
-      data = argument
+    take data = TodoItem
+    give TodoItemView {
+      data
     }
   }
 
