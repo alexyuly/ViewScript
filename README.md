@@ -317,16 +317,16 @@ TodoItemView = view {
 }
 
 render view {
-  todos = TodoItem field list
+  todoItems = TodoItem field list
 
   onFormData = action {
     argument = FormDataEvent field
-    todos.push TodoItem {
+    todoItems.push TodoItem {
       content = argument.formData.get "content"
     }
   }
 
-  todoItemToView = method {
+  todoItemToView = TodoItemView method {
     argument = TodoItem field
     TodoItemView {
       data = argument
@@ -355,7 +355,7 @@ render view {
         ]
       }
       <ul> {
-        content = todos.map todoItemToView
+        content = todoItems.map todoItemToView
       }
     ]
   }
