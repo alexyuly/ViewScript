@@ -49,21 +49,21 @@ In future, developers will be able to write apps using the ViewScript language, 
 _JavaScript and TypeScript_
 
 ```ts
-import { tag, render } from "viewscript-bridge";
+import { render, tag } from "viewscript-bridge";
 
-const app = tag("p", {
-  font: "18px cursive",
-  margin: "24px",
-  content: "Hello, world!",
-});
-
-render(app);
+render(
+  tag("p", {
+    font: "18px cursive",
+    margin: "24px",
+    content: "Hello, world!",
+  })
+);
 ```
 
 _ViewScript_
 
 ```
-<p> {
+render <p> {
   font = "18px cursive"
   margin = "24px"
   content = "Hello, world!"
@@ -73,25 +73,25 @@ _ViewScript_
 ### Log when button clicked
 
 ```ts
-import { tag, call, render } from "viewscript-bridge";
+import { call, render, tag } from "viewscript-bridge";
 
-const app = tag("button", {
-  onClick: call(console.log, "You clicked the button."),
-  background: "whitesmoke",
-  "border-radius": "4px",
-  cursor: "pointer",
-  display: "block",
-  "font-size": "18px",
-  margin: "24px",
-  padding: "12px",
-  content: "Click me!",
-});
-
-render(app);
+render(
+  tag("button", {
+    onClick: call(console.log, "You clicked the button."),
+    background: "whitesmoke",
+    "border-radius": "4px",
+    cursor: "pointer",
+    display: "block",
+    "font-size": "18px",
+    margin: "24px",
+    padding: "12px",
+    content: "Click me!",
+  })
+);
 ```
 
 ```
-<button> {
+render <button> {
   onClick = console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
@@ -107,31 +107,31 @@ render(app);
 ### Update section while hovered
 
 ```ts
-import { view, tag, when, render } from "viewscript-bridge";
+import { render, tag, view, when } from "viewscript-bridge";
 
-const app = view(
-  {
-    hovered: false,
-  },
-  ({ hovered }) =>
-    tag("section", {
-      onPointerLeave: hovered.off,
-      onPointerOver: hovered.on,
-      background: when(hovered, "black", "white"),
-      border: "1px solid black",
-      color: when(hovered, "white", "black"),
-      font: "bold 24px serif",
-      margin: "24px",
-      padding: "24px",
-      content: when(hovered, "I am hovered.", "Hover me!"),
-    })
+render(
+  view(
+    {
+      hovered: false,
+    },
+    ({ hovered }) =>
+      tag("section", {
+        onPointerLeave: hovered.off,
+        onPointerOver: hovered.on,
+        background: when(hovered, "black", "white"),
+        border: "1px solid black",
+        color: when(hovered, "white", "black"),
+        font: "bold 24px serif",
+        margin: "24px",
+        padding: "24px",
+        content: when(hovered, "I am hovered.", "Hover me!"),
+      })
+  )
 );
-
-render(app);
 ```
 
 ```
-view {
+render view {
   hovered = false
 
   <section> {
@@ -152,14 +152,14 @@ view {
 
 ```ts
 import {
-  view,
-  stream,
-  field,
-  string,
   boolean,
-  tag,
-  when,
+  field,
   render,
+  stream,
+  string,
+  tag,
+  view,
+  when,
 } from "viewscript-bridge";
 
 const FancyButton = view(
@@ -188,48 +188,48 @@ const FancyButton = view(
     })
 );
 
-const app = view(
-  {
-    clicks: 0,
-  },
-  ({ clicks }) =>
-    tag("section", {
-      "align-items": "center",
-      border: "2px dashed red",
-      display: "flex",
-      "flex-direction": "column",
-      gap: "16px",
-      height: "200px",
-      "justify-content": "center",
-      margin: "24px",
-      padding: "12px",
-      width: "200px",
-      content: [
-        FancyButton({
-          onClick: clicks.add(1),
-          disabled: clicks.isAtLeast(10),
-          content: "Increment",
-        }),
-        FancyButton({
-          onClick: clicks.setTo(0),
-          disabled: clicks.is(0),
-          content: "Reset",
-        }),
-        tag("span", {
-          content: clicks,
-        }),
-      ],
-    })
+render(
+  view(
+    {
+      clicks: 0,
+    },
+    ({ clicks }) =>
+      tag("section", {
+        "align-items": "center",
+        border: "2px dashed red",
+        display: "flex",
+        "flex-direction": "column",
+        gap: "16px",
+        height: "200px",
+        "justify-content": "center",
+        margin: "24px",
+        padding: "12px",
+        width: "200px",
+        content: [
+          FancyButton({
+            onClick: clicks.add(1),
+            disabled: clicks.isAtLeast(10),
+            content: "Increment",
+          }),
+          FancyButton({
+            onClick: clicks.setTo(0),
+            disabled: clicks.is(0),
+            content: "Reset",
+          }),
+          tag("span", {
+            content: clicks,
+          }),
+        ],
+      })
+  )
 );
-
-render(app);
 ```
 
 ```
 FancyButton = view {
   onClick = stream
-  content = field of string
-  disabled = field of boolean
+  content = string field
+  disabled = boolean field
   hovered = false
 
   <button> {
@@ -253,7 +253,7 @@ FancyButton = view {
   }
 }
 
-view {
+render view {
   clicks = 0
 
   <section> {
@@ -280,6 +280,82 @@ view {
       }
       <span> {
         content = clicks
+      }
+    ]
+  }
+}
+```
+
+### Todo List App
+
+_ViewScript 1.0 proposed syntax_
+
+```
+TodoItem = model {
+  content = string field
+  completed = false
+}
+
+TodoItemView = view {
+  data = field of TodoItem
+
+  <li> {
+    content = <label> {
+      display = "flex"
+      gap = "8px"
+      align-items = "center"
+      content = [
+        <input> {
+          type = "checkbox"
+          checked = data.completed
+          onChange = data.completed.toggle
+        }
+        data.content
+      ]
+    }
+  }
+}
+
+render view {
+  todos = TodoItem field list
+
+  onFormData = action {
+    argument = FormDataEvent field
+    todos.push TodoItem {
+      content = argument.formData.get "content"
+    }
+  }
+
+  todoItemToView = method {
+    argument = TodoItem field
+    TodoItemView {
+      data = argument
+    }
+  }
+
+  <section> {
+    content = [
+      <h1> {
+        content = "Todo List"
+      }
+      <form> {
+        display = "flex"
+        gap = "8px"
+        align-items = "center"
+        content = [
+          <input> {
+            type = "text"
+            name = "content"
+            placeholder = "Add a todo..."
+          }
+          <button> {
+            type = "submit"
+            content = "Add Todo"
+          }
+        ]
+      }
+      <ul> {
+        content = todos.map todoItemToView
       }
     ]
   }
