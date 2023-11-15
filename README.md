@@ -122,8 +122,8 @@ render(
     },
     ({ hovered }) =>
       tag("section", {
-        onPointerLeave: hovered.off,
-        onPointerOver: hovered.on,
+        onPointerLeave: hovered.setTo(false),
+        onPointerOver: hovered.setTo(true),
         background: when(hovered, "black", "white"),
         border: "1px solid black",
         color: when(hovered, "white", "black"),
@@ -143,8 +143,8 @@ render view {
   hovered = false
 
   <section> {
-    onPointerLeave = hovered.off
-    onPointerOver = hovered.on
+    onPointerLeave = hovered.setTo false
+    onPointerOver = hovered.setTo true
     background = if hovered then "black" else "white"
     border = "1px solid black"
     color = if hovered then "white" else "black"
@@ -182,8 +182,8 @@ const FancyButton = view(
   ({ onClick, disabled, content, hovered }) =>
     tag("button", {
       onClick,
-      onPointerLeave: hovered.off,
-      onPointerOver: hovered.on,
+      onPointerLeave: hovered.setTo(false),
+      onPointerOver: hovered.setTo(true),
       "align-items": "center",
       background: when(disabled.not.and(hovered), "lightgray", "lightgreen"),
       color: "crimson",
@@ -240,15 +240,15 @@ _ViewScript 1.0 proposed syntax_
 ```
 FancyButton = view {
   onClick = stream
+
   disabled = boolean field
   content = string field
-
   hovered = false
 
   <button> {
     onClick
-    onPointerLeave = hovered.off
-    onPointerOver = hovered.on
+    onPointerLeave = hovered.setTo false
+    onPointerOver = hovered.setTo true
     align-items = "center"
     background = if disabled (
       .not
