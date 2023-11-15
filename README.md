@@ -30,13 +30,13 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### Latest Release:
 
-- [**ViewScript v0.3.4**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.4) _(Pre-release)_
+- [**ViewScript 0.3.4**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.4) _(Pre-release)_
 
 ### Expected Releases:
 
-- **ViewScript v0.5** _Espresso_ _(Pre-release)_
+- **ViewScript 0.5** _Espresso_ _(Pre-release)_
   - Build a simple client-side todo list app
-- **ViewScript v1** _Absinthe_
+- **ViewScript 1.0** _Absinthe_
   - Compile ViewScript source code into abstract app objects
   - Bundle app objects with the Runtime as standalone executables
 
@@ -60,7 +60,7 @@ render(
 );
 ```
 
-_ViewScript_
+_ViewScript 1.0 proposed syntax_
 
 ```
 render <p> {
@@ -71,6 +71,8 @@ render <p> {
 ```
 
 ### Log when button clicked
+
+_JavaScript and TypeScript_
 
 ```ts
 import { call, render, tag } from "viewscript-bridge";
@@ -90,6 +92,8 @@ render(
 );
 ```
 
+_ViewScript 1.0 proposed syntax_
+
 ```
 render <button> {
   onClick = console.log "You clicked the button."
@@ -105,6 +109,8 @@ render <button> {
 ```
 
 ### Update section while hovered
+
+_JavaScript and TypeScript_
 
 ```ts
 import { render, tag, view, when } from "viewscript-bridge";
@@ -130,6 +136,8 @@ render(
 );
 ```
 
+_ViewScript 1.0 proposed syntax_
+
 ```
 render view {
   hovered = false
@@ -150,6 +158,8 @@ render view {
 
 ### Counter with increment and reset
 
+_JavaScript and TypeScript_
+
 ```ts
 import {
   boolean,
@@ -165,11 +175,11 @@ import {
 const FancyButton = view(
   {
     onClick: stream(),
-    content: field(string),
     disabled: field(boolean),
+    content: field(string),
     hovered: false,
   },
-  ({ onClick, content, disabled, hovered }) =>
+  ({ onClick, disabled, content, hovered }) =>
     tag("button", {
       onClick,
       onPointerLeave: hovered.off,
@@ -225,11 +235,14 @@ render(
 );
 ```
 
+_ViewScript 1.0 proposed syntax_
+
 ```
 FancyButton = view {
   onClick = stream
-  content = string field
   disabled = boolean field
+  content = string field
+
   hovered = false
 
   <button> {
