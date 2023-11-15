@@ -300,6 +300,7 @@ TodoItemView = view {
   data = TodoItem field
 
   <li> {
+    onClick = data.completed.toggle
     content = <label> {
       display = "flex"
       gap = "8px"
@@ -308,7 +309,6 @@ TodoItemView = view {
         <input> {
           type = "checkbox"
           checked = data.completed
-          onChange = data.completed.toggle
         }
         data.content
       ]
@@ -339,6 +339,7 @@ render view {
         content = "Todo List"
       }
       <form> {
+        onFormData
         display = "flex"
         gap = "8px"
         align-items = "center"
