@@ -297,7 +297,7 @@ TodoItem = model {
 }
 
 TodoItemView = view {
-  data = field of TodoItem
+  data = TodoItem field
 
   <li> {
     content = <label> {
