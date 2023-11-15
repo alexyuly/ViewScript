@@ -4,7 +4,7 @@ _Power Tools For Web Apps_
 
 ⚠️ **ViewScript is in its early stages of development.** It's not ready to use for building apps, but a pre-release demo is available now. Please continue to check here for updated documentation, releases, and future plans.
 
-## 🧨 Start
+## Start
 
 You'll need [Node.js](https://nodejs.org/) 18 to run ViewScript.
 
@@ -20,7 +20,7 @@ npm install
 npm start
 ```
 
-## 🧭 Overview
+## Overview
 
 Every ViewScript app is represented by a JSON object of type [App](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts#L90) from the [ViewScript Abstract Syntax Tree](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts).
 
@@ -34,13 +34,13 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### Expected Releases:
 
-- ☕️ **ViewScript v0.5** _Espresso_ _(Pre-release)_
+- **ViewScript v0.5** _Espresso_ _(Pre-release)_
   - Build a simple client-side todo list app
-- 🧪 **ViewScript v1** _Absinthe_
+- **ViewScript v1** _Absinthe_
   - Compile ViewScript source code into abstract app objects
   - Bundle app objects with the Runtime as standalone executables
 
-## 🧑‍💻 Code Examples
+## Code Examples
 
 [View Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
 
