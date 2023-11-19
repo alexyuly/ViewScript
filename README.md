@@ -79,7 +79,7 @@ import { call, render, tag } from "viewscript-bridge";
 
 render(
   tag("button", {
-    onClick: call(console.log, "You clicked the button."),
+    click: call(console.log, "You clicked the button."),
     background: "whitesmoke",
     "border-radius": "4px",
     cursor: "pointer",
@@ -96,7 +96,7 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 render <button> {
-  onClick = console.log "You clicked the button."
+  click = console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
@@ -122,8 +122,8 @@ render(
     },
     ({ hovered }) =>
       tag("section", {
-        onPointerLeave: hovered.setTo(false),
-        onPointerOver: hovered.setTo(true),
+        pointerLeave: hovered.setTo(false),
+        pointerOver: hovered.setTo(true),
         background: when(hovered, "black", "white"),
         border: "1px solid black",
         color: when(hovered, "white", "black"),
@@ -143,8 +143,8 @@ render view {
   hovered = false
 
   <section> {
-    onPointerLeave = hovered.setTo false
-    onPointerOver = hovered.setTo true
+    pointerLeave = hovered.setTo false
+    pointerOver = hovered.setTo true
     background = if hovered then "black" else "white"
     border = "1px solid black"
     color = if hovered then "white" else "black"
@@ -173,21 +173,22 @@ import {
 
 const FancyButton = view(
   {
-    onClick: stream(),
+    click: stream(),
     disabled: boolean,
     hovered: false,
     content: string,
   },
-  ({ onClick, disabled, hovered, content }) =>
+  ({ click, disabled, hovered, content }) =>
     tag("button", {
-      onClick,
-      onPointerLeave: hovered.setTo(false),
-      onPointerOver: hovered.setTo(true),
+      "align-items": "center",
+      click,
+      pointerLeave: hovered.setTo(false),
+      pointerOver: hovered.setTo(true),
+      disabled,
       "align-items": "center",
       background: when(disabled.not.and(hovered), "lightgray", "lightgreen"),
       color: "crimson",
       cursor: "pointer",
-      disabled,
       display: "flex",
       "font-weight": "bold",
       height: "100px",
@@ -216,12 +217,12 @@ render(
         width: "200px",
         content: [
           FancyButton({
-            onClick: clicks.add(1),
+            click: clicks.add(1),
             disabled: clicks.isAtLeast(10),
             content: "Increment",
           }),
           FancyButton({
-            onClick: clicks.setTo(0),
+            click: clicks.setTo(0),
             disabled: clicks.is(0),
             content: "Reset",
           }),
@@ -238,16 +239,16 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 FancyButton = view {
-  onClick = stream
-
+  click = stream
   disabled = boolean
   hovered = false
   content = string
 
   <button> {
-    onClick
-    onPointerLeave = hovered.setTo false
-    onPointerOver = hovered.setTo true
+    click
+    pointerLeave = hovered.setTo false
+    pointerOver = hovered.setTo true
+    disabled
     align-items = "center"
     background = if disabled (
       .not
@@ -255,7 +256,6 @@ FancyButton = view {
     ) then "lightgray" else "lightgreen"
     color = "crimson"
     cursor = "pointer"
-    disabled
     display = "flex"
     font-weight = "bold"
     height = "100px"
@@ -281,12 +281,12 @@ render view {
     width = "200px"
     content = [
       FancyButton {
-        onClick = clicks.add 1
+        click = clicks.add 1
         disabled = clicks.isAtLeast 10
         content = "Increment"
       }
       FancyButton {
-        onClick = clicks.setTo 0
+        click = clicks.setTo 0
         disabled = clicks.is 0
         content = "Reset"
       }
@@ -304,23 +304,23 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 TodoItem = model {
-  content = string
   completed = false
+  content = string
 }
 
 TodoItemView = view {
   data = TodoItem
 
   <li> {
-    onClick = data.completed.toggle
+    click = data.completed.toggle
     content = <label> {
+      align-items = "center"
       display = "flex"
       gap = "8px"
-      align-items = "center"
       content = [
         <input> {
-          type = "checkbox"
           checked = data.completed
+          type = "checkbox"
         }
         data.content
       ]
@@ -337,19 +337,19 @@ render view {
         content = "Todo List"
       }
       <form> {
-        onFormData = event -> {
+        formData = event -> {
           data.push new TodoItem {
             content = event.formData.get "content"
           }
         }
+        align-items = "center"
         display = "flex"
         gap = "8px"
-        align-items = "center"
         content = [
           <input> {
-            type = "text"
             name = "content"
             placeholder = "Add a todo..."
+            type = "text"
           }
           <button> {
             type = "submit"
