@@ -331,27 +331,18 @@ TodoItemView = view {
 render view {
   data = TodoItem list
 
-  onFormData = action {
-    take event = FormDataEvent
-    data.push new TodoItem {
-      content = event.formData.get "content"
-    }
-  }
-
-  todoItemToView = TodoItemView method {
-    take data = TodoItem
-    give TodoItemView {
-      data
-    }
-  }
-
   <section> {
     content = [
       <h1> {
         content = "Todo List"
       }
       <form> {
-        onFormData
+        onFormData = action {
+          take event = FormDataEvent
+          data.push new TodoItem {
+            content = event.formData.get "content"
+          }
+        }
         display = "flex"
         gap = "8px"
         align-items = "center"
@@ -368,7 +359,12 @@ render view {
         ]
       }
       <ul> {
-        content = data.map todoItemToView
+        content = data.map method {
+          take data = TodoItem
+          give TodoItemView {
+            data
+          }
+        }
       }
     ]
   }
