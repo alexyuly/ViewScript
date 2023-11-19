@@ -337,8 +337,7 @@ render view {
         content = "Todo List"
       }
       <form> {
-        onFormData = action {
-          take event = FormDataEvent
+        onFormData = event -> {
           data.push new TodoItem {
             content = event.formData.get "content"
           }
@@ -359,10 +358,9 @@ render view {
         ]
       }
       <ul> {
-        content = data.map method {
-          take data = TodoItem
-          give TodoItemView {
-            data
+        content = data.map item -> {
+          TodoItemView {
+            data = item
           }
         }
       }
