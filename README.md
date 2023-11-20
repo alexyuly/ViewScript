@@ -180,7 +180,6 @@ const FancyButton = view(
   },
   ({ click, disabled, hovered, content }) =>
     tag("button", {
-      "align-items": "center",
       click,
       pointerLeave: hovered.setTo(false),
       pointerOver: hovered.setTo(true),
