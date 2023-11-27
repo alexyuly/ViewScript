@@ -79,7 +79,7 @@ import { call, render, tag } from "viewscript-bridge";
 
 render(
   tag("button", {
-    onClick: call(console.log, "You clicked the button."),
+    click: call(console.log, "You clicked the button."),
     background: "whitesmoke",
     "border-radius": "4px",
     cursor: "pointer",
@@ -96,7 +96,7 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 render <button> {
-  onClick = console.log "You clicked the button."
+  click = console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
@@ -122,8 +122,8 @@ render(
     },
     ({ hovered }) =>
       tag("section", {
-        onPointerLeave: hovered.setTo(false),
-        onPointerOver: hovered.setTo(true),
+        pointerLeave: hovered.setTo(false),
+        pointerOver: hovered.setTo(true),
         background: when(hovered, "black", "white"),
         border: "1px solid black",
         color: when(hovered, "white", "black"),
@@ -143,8 +143,8 @@ render view {
   hovered = false
 
   <section> {
-    onPointerLeave = hovered.setTo false
-    onPointerOver = hovered.setTo true
+    pointerLeave = hovered.setTo false
+    pointerOver = hovered.setTo true
     background = if hovered then "black" else "white"
     border = "1px solid black"
     color = if hovered then "white" else "black"
@@ -173,16 +173,16 @@ import {
 
 const FancyButton = view(
   {
-    onClick: stream(),
+    click: stream(),
     disabled: boolean,
     hovered: false,
     content: string,
   },
   ({ click, disabled, hovered, content }) =>
     tag("button", {
-      onClick,
-      onPointerLeave: hovered.setTo(false),
-      onPointerOver: hovered.setTo(true),
+      click,
+      pointerLeave: hovered.setTo(false),
+      pointerOver: hovered.setTo(true),
       disabled,
       "align-items": "center",
       background: when(disabled.not.and(hovered), "lightgray", "lightgreen"),
@@ -216,12 +216,12 @@ render(
         width: "200px",
         content: [
           FancyButton({
-            onClick: clicks.add(1),
+            click: clicks.add(1),
             disabled: clicks.isAtLeast(10),
             content: "Increment",
           }),
           FancyButton({
-            onClick: clicks.setTo(0),
+            click: clicks.setTo(0),
             disabled: clicks.is(0),
             content: "Reset",
           }),
@@ -238,15 +238,15 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 FancyButton = view {
-  onClick = stream
+  click = stream
   disabled = boolean
   hovered = false
   content = string
 
   <button> {
-    onClick
-    onPointerLeave = hovered.setTo false
-    onPointerOver = hovered.setTo true
+    click
+    pointerLeave = hovered.setTo false
+    pointerOver = hovered.setTo true
     disabled
     align-items = "center"
     background = if disabled (
@@ -280,12 +280,12 @@ render view {
     width = "200px"
     content = [
       new FancyButton {
-        onClick = clicks.add 1
+        click = clicks.add 1
         disabled = clicks.isAtLeast 10
         content = "Increment"
       }
       new FancyButton {
-        onClick = clicks.setTo 0
+        click = clicks.setTo 0
         disabled = clicks.is 0
         content = "Reset"
       }
@@ -311,7 +311,7 @@ TodoItemView = view {
   data = TodoItem
 
   <li> {
-    onClick = data.completed.toggle
+    click = data.completed.toggle
     content = <label> {
       align-items = "center"
       display = "flex"
@@ -336,7 +336,7 @@ render view {
         content = "Todo List"
       }
       <form> {
-        onFormData = event -> {
+        formData = event -> {
           data.push new TodoItem {
             content = event.formData.get "content"
           }
