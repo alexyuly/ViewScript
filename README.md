@@ -354,10 +354,8 @@ render view {
         ]
       }
       <ul> {
-        content = data.map item -> {
-          new TodoItemView {
-            data = item
-          }
+        content = data.map item => new TodoItemView {
+          data = item
         }
       }
     ]
