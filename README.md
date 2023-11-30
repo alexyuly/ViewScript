@@ -367,7 +367,40 @@ render view {
 
 ### Fields
 
-Declare a field with a value or type.
+Declare a field by specifying a value. Fields are dynamic containers of values.
+
+```
+# Examples of declaring fields:
+
+false
+
+true
+
+0
+
+2.45
+
+-17/6
+
+"Hello, world!"
+
+[
+  1
+  "a"
+]
+
+new MyModel {
+  foo = "bar
+}
+
+<p> {
+  content = "some text"
+  font-weight = "bold"
+}
+
+new MyView
+
+```
 
 ### Methods
 
@@ -392,14 +425,14 @@ type : parameter => result
   # etc...
 }
 
-# Declare a method of an implicitly typed parameter to the given steps:
+# Declare an action of an implicitly typed parameter to the given steps:
 parameter -> {
   step_1
   step_2
   # etc...
 }
 
-# Declare a method of an explicitly typed parameter to the given steps:
+# Declare an action of an explicitly typed parameter to the given steps:
 type : parameter -> {
   step_1
   step_2
