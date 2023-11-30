@@ -142,7 +142,7 @@ _ViewScript 1.0 proposed syntax_
 render view {
   hovered = false
 
-  <section> {
+  render <section> {
     pointerLeave = hovered.setTo false
     pointerOver = hovered.setTo true
     background = if hovered then "black" else "white"
@@ -243,7 +243,7 @@ FancyButton = view {
   hovered = false
   content = string
 
-  <button> {
+  render <button> {
     click
     pointerLeave = hovered.setTo false
     pointerOver = hovered.setTo true
@@ -264,7 +264,7 @@ FancyButton = view {
 render view {
   clicks = 0
 
-  <section> {
+  render <section> {
     align-items = "center"
     border = "2px dashed red"
     display = "flex"
@@ -307,7 +307,7 @@ TodoItem = model {
 TodoItemView = view {
   data = TodoItem
 
-  <li> {
+  render <li> {
     click = data.completed.toggle
     content = <label> {
       align-items = "center"
@@ -327,7 +327,7 @@ TodoItemView = view {
 render view {
   data = TodoItem list
 
-  <section> {
+  render <section> {
     content = [
       <h1> {
         content = "Todo List"
@@ -367,13 +367,9 @@ render view {
 
 ### Scope
 
-A new scope is enclosed by curly braces.
+A new scope is enclosed by curly braces. Each scope has list of members. Each member is on a new line, with a unique name followed by an equals sign and a value.
 
-Each scope has list of members, each on a new line, with a unique name followed by an equals sign and a value.
-
-Each scope can be used as a definition or a declaration.
-
-A definition is used in the specification of a new type, while a declaration is used in the creation of a new instance of a type.
+Each scope can be used as a definition or a declaration. A definition is used in the specification of a new type, while a declaration is used in the creation of a new instance of a type.
 
 ### Fields
 
