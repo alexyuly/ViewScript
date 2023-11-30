@@ -390,7 +390,7 @@ true
 ]
 
 new MyModel {
-  foo = "bar
+  foo = "bar"
 }
 
 <p> {
