@@ -249,10 +249,7 @@ FancyButton = view {
     pointerOver = hovered.setTo true
     disabled
     align-items = "center"
-    background = if disabled (
-      .not
-      .and hovered
-    ) then "lightgray" else "lightgreen"
+    background = if disabled.not.(and hovered) then "lightgray" else "lightgreen"
     color = "crimson"
     cursor = "pointer"
     display = "flex"
