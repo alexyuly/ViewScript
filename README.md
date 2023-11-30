@@ -75,11 +75,11 @@ render <p> {
 _JavaScript and TypeScript_
 
 ```ts
-import { call, render, tag } from "viewscript-bridge";
+import { render, tag, window } from "viewscript-bridge";
 
 render(
   tag("button", {
-    click: call(console.log, "You clicked the button."),
+    click: window.console.log("You clicked the button."),
     background: "whitesmoke",
     "border-radius": "4px",
     cursor: "pointer",
@@ -96,7 +96,7 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 render <button> {
-  click = console.log "You clicked the button."
+  click = window.console.log "You clicked the button."
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
