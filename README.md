@@ -2,7 +2,7 @@
 
 _Power Tools For Web Apps_
 
-⚠️ **ViewScript is in its early stages of development.** It's not ready to use for building apps, but a pre-release demo is available now. Please continue to check here for updated documentation, releases, and future plans.
+> ⚠️ **ViewScript is in its early stages of development.** It's not ready to use for building apps, but a pre-release demo is available now. Please continue to check here for updated documentation, releases, and future plans.
 
 ## Start
 
@@ -40,7 +40,7 @@ In future, developers will be able to write apps using the ViewScript language, 
   - Compile ViewScript source code into abstract app objects
   - Bundle app objects with the Runtime as standalone executables
 
-## Code Examples
+## Code Examples _(under construction)_
 
 [View Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
 
@@ -362,3 +362,48 @@ render view {
   }
 }
 ```
+
+## ViewScript 1.0 Language Specification _(under construction)_
+
+### Fields
+
+Declare a field with a value or type.
+
+### Methods
+
+```
+# Declare a method of no parameter to the given result:
+=> result
+
+# Declare a method of an implicitly typed parameter to the given result:
+parameter => result
+
+# Declare a method of an explicitly typed parameter to the given result:
+type : parameter => result
+```
+
+### Actions
+
+```
+# Declare an action of no parameter to the given steps:
+-> {
+  step_1
+  step_2
+  # etc...
+}
+
+# Declare a method of an implicitly typed parameter to the given steps:
+parameter -> {
+  step_1
+  step_2
+  # etc...
+}
+
+# Declare a method of an explicitly typed parameter to the given steps:
+type : parameter -> {
+  step_1
+  step_2
+  # etc...
+}
+```
+
