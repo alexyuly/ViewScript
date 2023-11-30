@@ -333,11 +333,11 @@ render view {
         content = "Todo List"
       }
       <form> {
-        formData = event -> {
+        formData = event -> [
           data.push new TodoItem {
             content = event.formData.get "content"
           }
-        }
+        ]
         align-items = "center"
         display = "flex"
         gap = "8px"
@@ -365,42 +365,19 @@ render view {
 
 ## ViewScript 1.0 Language Specification _(under construction)_
 
+### Scope
+
+A new scope is enclosed by curly braces.
+
+Each scope has list of members, each on a new line, with a unique name followed by an equals sign and a value.
+
+Each scope can be used as a definition or a declaration.
+
+A definition is used in the specification of a new type, while a declaration is used in the creation of a new instance of a type.
+
 ### Fields
 
-Declare a field by specifying a value. Fields are dynamic containers of values.
-
-```
-# Examples of declaring fields:
-
-false
-
-true
-
-0
-
-2.45
-
--17/6
-
-"Hello, world!"
-
-[
-  1
-  "a"
-]
-
-new MyModel {
-  foo = "bar"
-}
-
-<p> {
-  content = "some text"
-  font-weight = "bold"
-}
-
-new MyView
-
-```
+Declare a field by specifying a value.
 
 ### Methods
 
@@ -419,24 +396,24 @@ type : parameter => result
 
 ```
 # Declare an action of no parameter to the given steps:
--> {
+-> [
   step_1
   step_2
   # etc...
-}
+]
 
 # Declare an action of an implicitly typed parameter to the given steps:
-parameter -> {
+parameter -> [
   step_1
   step_2
   # etc...
-}
+]
 
 # Declare an action of an explicitly typed parameter to the given steps:
-type : parameter -> {
+type : parameter -> [
   step_1
   step_2
   # etc...
-}
+]
 ```
 
