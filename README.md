@@ -102,7 +102,7 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 FancyButton = view {
-  click: stream
+  click: output
   disabled: boolean
   content: string
 
@@ -219,8 +219,8 @@ render view {
         ]
       }
       <ul> {
-        content = data.map item => TodoItemView {
-          data = item
+        content = data.map todoItem => TodoItemView {
+          data = todoItem
         }
       }
     ]
