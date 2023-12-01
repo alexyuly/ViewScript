@@ -104,8 +104,8 @@ _ViewScript 1.0 proposed syntax_
 FancyButton = view {
   click = stream
   disabled = boolean
-  hovered = false
   content = string
+  hovered = false
 
   render <button> {
     click
@@ -197,11 +197,11 @@ render view {
         content = "Todo List"
       }
       <form> {
-        formData = event -> [
+        formData = event -> {
           data.push new TodoItem {
             content = event.formData.get "content"
           }
-        ]
+        }
         align-items = "center"
         display = "flex"
         gap = "8px"
@@ -256,23 +256,23 @@ type : parameter => result
 
 ```
 # Declare an action of no parameter to the given steps:
--> [
+-> {
   step_1
   step_2
   # etc...
-]
+}
 
 # Declare an action of an implicitly typed parameter to the given steps:
-parameter -> [
+parameter -> {
   step_1
   step_2
   # etc...
-]
+}
 
 # Declare an action of an explicitly typed parameter to the given steps:
-type : parameter -> [
+type : parameter -> {
   step_1
   step_2
   # etc...
-]
+}
 ```
