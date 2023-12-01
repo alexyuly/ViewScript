@@ -42,23 +42,9 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ## Code Examples _(under construction)_
 
-[View Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
+[View TypeScript Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
 
 ### HelloWorld
-
-_JavaScript and TypeScript_
-
-```ts
-import { render, tag } from "viewscript-bridge";
-
-render(
-  tag("p", {
-    font: "18px cursive",
-    margin: "24px",
-    content: "Hello, world!",
-  })
-);
-```
 
 _ViewScript 1.0 proposed syntax_
 
@@ -71,26 +57,6 @@ render <p> {
 ```
 
 ### Log when button clicked
-
-_JavaScript and TypeScript_
-
-```ts
-import { render, tag, window } from "viewscript-bridge";
-
-render(
-  tag("button", {
-    click: window.console.log("You clicked the button."),
-    background: "whitesmoke",
-    "border-radius": "4px",
-    cursor: "pointer",
-    display: "block",
-    "font-size": "18px",
-    margin: "24px",
-    padding: "12px",
-    content: "Click me!",
-  })
-);
-```
 
 _ViewScript 1.0 proposed syntax_
 
@@ -109,32 +75,6 @@ render <button> {
 ```
 
 ### Update section while hovered
-
-_JavaScript and TypeScript_
-
-```ts
-import { render, tag, view, when } from "viewscript-bridge";
-
-render(
-  view(
-    {
-      hovered: false,
-    },
-    ({ hovered }) =>
-      tag("section", {
-        pointerLeave: hovered.setTo(false),
-        pointerOver: hovered.setTo(true),
-        background: when(hovered, "black", "white"),
-        border: "1px solid black",
-        color: when(hovered, "white", "black"),
-        font: "bold 24px serif",
-        margin: "24px",
-        padding: "24px",
-        content: when(hovered, "I am hovered.", "Hover me!"),
-      })
-  )
-);
-```
 
 _ViewScript 1.0 proposed syntax_
 
@@ -157,82 +97,6 @@ render view {
 ```
 
 ### Counter with increment and reset
-
-_JavaScript and TypeScript_
-
-```ts
-import {
-  boolean,
-  render,
-  stream,
-  string,
-  tag,
-  view,
-  when,
-} from "viewscript-bridge";
-
-const FancyButton = view(
-  {
-    click: stream(),
-    disabled: boolean,
-    hovered: false,
-    content: string,
-  },
-  ({ click, disabled, hovered, content }) =>
-    tag("button", {
-      click,
-      pointerLeave: hovered.setTo(false),
-      pointerOver: hovered.setTo(true),
-      disabled,
-      "align-items": "center",
-      background: when(disabled.not.and(hovered), "lightgray", "lightgreen"),
-      color: "crimson",
-      cursor: "pointer",
-      display: "flex",
-      "font-weight": "bold",
-      height: "100px",
-      "justify-content": "center",
-      width: "100px",
-      content,
-    })
-);
-
-render(
-  view(
-    {
-      clicks: 0,
-    },
-    ({ clicks }) =>
-      tag("section", {
-        "align-items": "center",
-        border: "2px dashed red",
-        display: "flex",
-        "flex-direction": "column",
-        gap: "16px",
-        height: "200px",
-        "justify-content": "center",
-        margin: "24px",
-        padding: "12px",
-        width: "200px",
-        content: [
-          FancyButton({
-            click: clicks.add(1),
-            disabled: clicks.isAtLeast(10),
-            content: "Increment",
-          }),
-          FancyButton({
-            click: clicks.setTo(0),
-            disabled: clicks.is(0),
-            content: "Reset",
-          }),
-          tag("span", {
-            content: clicks,
-          }),
-        ],
-      })
-  )
-);
-```
 
 _ViewScript 1.0 proposed syntax_
 
@@ -412,4 +276,3 @@ type : parameter -> [
   # etc...
 ]
 ```
-
