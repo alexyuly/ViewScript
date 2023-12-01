@@ -164,8 +164,8 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 TodoItem = model {
-  completed = false
   content = string
+  completed = false
 }
 
 TodoItemView = view {
