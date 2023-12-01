@@ -141,12 +141,12 @@ render view {
     padding = "12px"
     width = "200px"
     content = [
-      new FancyButton {
+      FancyButton {
         click = clicks.add 1
         disabled = clicks.isAtLeast 10
         content = "Increment"
       }
-      new FancyButton {
+      FancyButton {
         click = clicks.setTo 0
         disabled = clicks.is 0
         content = "Reset"
@@ -190,7 +190,7 @@ TodoItemView = view {
 }
 
 render view {
-  data = new TodoItem list
+  data = TodoItem list
 
   render <section> {
     content = [
@@ -199,7 +199,7 @@ render view {
       }
       <form> {
         formData = event -> {
-          data.push new TodoItem {
+          data.push TodoItem {
             content = event.formData.get "content"
           }
         }
@@ -219,7 +219,7 @@ render view {
         ]
       }
       <ul> {
-        content = data.map item => new TodoItemView {
+        content = data.map item => TodoItemView {
           data = item
         }
       }
