@@ -102,9 +102,10 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 FancyButton = view {
-  click : stream
-  disabled : boolean
-  content : string
+  click: stream
+  disabled: boolean
+  content: string
+
   hovered = false
 
   render <button> {
@@ -164,12 +165,12 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 TodoItem = model {
-  content : string
+  content: string
   completed = false
 }
 
 TodoItemView = view {
-  data : TodoItem
+  data: TodoItem
 
   render <li> {
     click = data.completed.toggle
