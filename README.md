@@ -139,10 +139,8 @@ render(
 _ViewScript 1.0 proposed syntax_
 
 ```
-render view:
-  define {
-    hovered = false
-  }
+render view {
+  hovered = false
 
   render <section> {
     pointerLeave = hovered.setTo false
@@ -155,6 +153,7 @@ render view:
     padding = "24px"
     content = if hovered then "I am hovered." else "Hover me!"
   }
+}
 ```
 
 ### Counter with increment and reset
@@ -238,7 +237,7 @@ render(
 _ViewScript 1.0 proposed syntax_
 
 ```
-view FancyButton {
+FancyButton = view {
   click = stream
   disabled = boolean
   hovered = false
