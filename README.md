@@ -250,7 +250,7 @@ Declare a field by specifying a value.
 parameter => result
 
 # Declare a method of an explicitly typed parameter to the given result:
-parameter : type => result
+parameter: type => result
 ```
 
 ### Actions
@@ -271,7 +271,7 @@ parameter -> {
 }
 
 # Declare an action of an explicitly typed parameter to the given steps:
-parameter : type -> {
+parameter: type -> {
   step_1
   step_2
   # etc...
