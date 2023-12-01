@@ -325,7 +325,7 @@ TodoItemView = view {
 }
 
 render view {
-  data = TodoItem list
+  data = new TodoItem list
 
   render <section> {
     content = [
