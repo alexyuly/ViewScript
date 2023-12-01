@@ -1,17 +1,33 @@
-import { boolean, element, render, view, when } from "viewscript-bridge";
+import { render, store, when } from "viewscript-bridge";
 
-const App = view({ hovered: boolean(false) }, ({ hovered }) =>
-  element("section", {
-    background: when(hovered(), "black", "white"),
+render(() => {
+  const hovered = store(false);
+
+  render("<section>", {
+    pointerLeave: hovered.setTo(false),
+    pointerOver: hovered.setTo(true),
+    background: when(hovered).then("black").else("white"),
     border: "1px solid black",
-    color: when(hovered(), "white", "black"),
-    content: when(hovered(), "I am hovered.", "Hover me!"),
+    color: when(hovered).then("white").else("black"),
     font: "bold 24px serif",
     margin: "24px",
     padding: "24px",
-    pointerleave: hovered.disable,
-    pointerover: hovered.enable,
-  })
-);
+    content: when(hovered).then("I am hovered.").else("Hover me!"),
+  });
+});
 
-render(App());
+// render {
+//   hovered = false
+
+//   render <section> {
+//     pointerLeave = hovered.setTo false
+//     pointerOver = hovered.setTo true
+//     background = if hovered then "black" else "white"
+//     border = "1px solid black"
+//     color = if hovered then "white" else "black"
+//     font = "bold 24px serif"
+//     margin = "24px"
+//     padding = "24px"
+//     content = if hovered then "I am hovered." else "Hover me!"
+//   }
+// }

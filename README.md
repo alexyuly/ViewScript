@@ -79,7 +79,7 @@ render <button> {
 _ViewScript 1.0 proposed syntax_
 
 ```
-render view {
+render {
   hovered = false
 
   render <section> {
@@ -126,7 +126,7 @@ FancyButton = view {
   }
 }
 
-render view {
+render {
   clicks = 0
 
   render <section> {
@@ -189,7 +189,7 @@ TodoItemView = view {
   }
 }
 
-render view {
+render {
   data = TodoItem list
 
   render <section> {
