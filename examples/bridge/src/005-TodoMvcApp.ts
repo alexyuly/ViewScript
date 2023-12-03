@@ -36,7 +36,7 @@ const TodoItemView = view<{
   data: typeof TodoItem;
 }>(({ data }) => {
   return tag("<li>", {
-    click: data.completed.toggle,
+    click: data.completed.toggle(),
     content: tag("<label>", {
       "align-items": "center",
       display: "flex",
@@ -98,7 +98,6 @@ render(() => {
         content: "Todo List",
       }),
       tag("<form>", {
-        // TODO fix:
         submit: (event) => event.preventDefault(),
         formData: (event) =>
           todoList.push(
@@ -122,7 +121,6 @@ render(() => {
         ],
       }),
       tag("<ul>", {
-        // TODO fix:
         content: todoList.map((item) =>
           TodoItemView({
             data: item,

@@ -38,7 +38,7 @@ const FancyButton = view<{
     pointerOver: hovered.setTo(true),
     disabled,
     "align-items": "center",
-    background: when(disabled.not.and(hovered)).then("lightgray").else("lightgreen"),
+    background: when(disabled.not().and(hovered)).then("lightgray").else("lightgreen"),
     color: "crimson",
     cursor: "pointer",
     display: "flex",
