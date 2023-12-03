@@ -62,7 +62,7 @@ _ViewScript 1.0 proposed syntax_
 
 ```
 render <button> {
-  click = window.console.log "You clicked the button."
+  click = window.console.(log "You clicked the button.")
   background = "whitesmoke"
   border-radius = "4px"
   cursor = "pointer"
@@ -79,12 +79,12 @@ render <button> {
 _ViewScript 1.0 proposed syntax_
 
 ```
-render {
+render view {
   hovered = false
 
   render <section> {
-    pointerLeave = hovered.setTo false
-    pointerOver = hovered.setTo true
+    pointerLeave = hovered.(setTo false)
+    pointerOver = hovered.(setTo true)
     background = if hovered then "black" else "white"
     border = "1px solid black"
     color = if hovered then "white" else "black"
@@ -110,8 +110,8 @@ FancyButton = view {
 
   render <button> {
     click
-    pointerLeave = hovered.setTo false
-    pointerOver = hovered.setTo true
+    pointerLeave = hovered.(setTo false)
+    pointerOver = hovered.(setTo true)
     disabled
     align-items = "center"
     background = if disabled.not.(and hovered) then "lightgray" else "lightgreen"
@@ -126,7 +126,7 @@ FancyButton = view {
   }
 }
 
-render {
+render view {
   clicks = 0
 
   render <section> {
@@ -142,13 +142,13 @@ render {
     width = "200px"
     content = [
       FancyButton {
-        click = clicks.add 1
-        disabled = clicks.isAtLeast 10
+        click = clicks.(add 1)
+        disabled = clicks.(isAtLeast 10)
         content = "Increment"
       }
       FancyButton {
-        click = clicks.setTo 0
-        disabled = clicks.is 0
+        click = clicks.(setTo 0)
+        disabled = clicks.(is 0)
         content = "Reset"
       }
       <span> {
@@ -189,8 +189,8 @@ TodoItemView = view {
   }
 }
 
-render {
-  data = TodoItem list
+render view {
+  todoList = TodoItem list
 
   render <section> {
     content = [
@@ -198,11 +198,10 @@ render {
         content = "Todo List"
       }
       <form> {
-        formData = event -> {
-          data.push TodoItem {
-            content = event.formData.get "content"
-          }
-        }
+        submit = event -> event.preventDefault
+        formData = event -> todoList.(push TodoItem {
+          content = event.formData.(get "content")
+        })
         align-items = "center"
         display = "flex"
         gap = "8px"
@@ -219,9 +218,9 @@ render {
         ]
       }
       <ul> {
-        content = data.map todoItem => TodoItemView {
-          data = todoItem
-        }
+        content = data.(map item => TodoItemView {
+          data = item
+        })
       }
     ]
   }
