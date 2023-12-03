@@ -229,12 +229,6 @@ render view {
 
 ## ViewScript 1.0 Language Specification _(under construction)_
 
-### Scope
-
-A new scope is enclosed by curly braces. Each scope has list of members. Each member is on a new line, with a unique name followed by an equals sign and a value.
-
-Each scope can be used as a definition or a declaration. A definition is used in the specification of a new type, while a declaration is used in the creation of a new instance of a type.
-
 ### Fields
 
 Declare a field by specifying a value.
@@ -243,7 +237,7 @@ Declare a field by specifying a value.
 
 ```
 # Declare a method of no parameter to the given result:
-=> result
+new result
 
 # Declare a method of an implicitly typed parameter to the given result:
 parameter => result
@@ -256,11 +250,14 @@ parameter: type => result
 
 ```
 # Declare an action of no parameter to the given steps:
--> {
+do {
   step_1
   step_2
   # etc...
 }
+
+# Declare an action of an implicitly typed parameter to the given single step:
+parameter -> step
 
 # Declare an action of an implicitly typed parameter to the given steps:
 parameter -> {
@@ -268,6 +265,9 @@ parameter -> {
   step_2
   # etc...
 }
+
+# Declare an action of an explicitly typed parameter to the given single step:
+parameter: type -> step
 
 # Declare an action of an explicitly typed parameter to the given steps:
 parameter: type -> {
