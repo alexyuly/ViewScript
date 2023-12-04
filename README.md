@@ -82,7 +82,7 @@ _ViewScript 1.0 proposed syntax_
 render view {
   hovered = false
 
-  render <section> {
+  <section> {
     pointerLeave = hovered.(setTo false)
     pointerOver = hovered.(setTo true)
     background = if hovered then "black" else "white"
@@ -108,7 +108,7 @@ FancyButton = view {
 
   hovered = false
 
-  render <button> {
+  <button> {
     click
     pointerLeave = hovered.(setTo false)
     pointerOver = hovered.(setTo true)
@@ -129,7 +129,7 @@ FancyButton = view {
 render view {
   clicks = 0
 
-  render <section> {
+  <section> {
     align-items = "center"
     border = "2px dashed red"
     display = "flex"
@@ -172,7 +172,7 @@ TodoItem = model {
 TodoItemView = view {
   data: TodoItem
 
-  render <li> {
+  <li> {
     click = data.completed.toggle
     content = <label> {
       align-items = "center"
@@ -192,7 +192,7 @@ TodoItemView = view {
 render view {
   todoList = TodoItem list
 
-  render <section> {
+  <section> {
     content = [
       <h1> {
         content = "Todo List"
