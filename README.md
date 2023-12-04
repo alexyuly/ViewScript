@@ -237,7 +237,7 @@ Declare a field by specifying a value.
 
 ```
 # Declare a method of no parameter to the given result:
-new result
+make result
 
 # Declare a method of an implicitly typed parameter to the given result:
 parameter => result
