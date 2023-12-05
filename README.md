@@ -218,7 +218,7 @@ render view {
         ]
       }
       <ul> {
-        content = data.(map item => TodoItemView {
+        content = todoList.(map item => TodoItemView {
           data = item
         })
       }
