@@ -1,4 +1,4 @@
-import { model, render, store, tag, view } from "viewscript-bridge";
+import { field, model, render, tag, view } from "viewscript-bridge";
 
 // TodoItem = model {
 //   content: string
@@ -9,7 +9,7 @@ const TodoItem = model<{
   content: string;
 }>((scope) => ({
   ...scope,
-  completed: store(false),
+  completed: field(false),
 }));
 
 // TodoItemView = view {

@@ -1,4 +1,4 @@
-import { _if, render, store, tag } from "viewscript-bridge";
+import { _if, field, render, tag } from "viewscript-bridge";
 
 // render view {
 //   hovered = false
@@ -17,7 +17,7 @@ import { _if, render, store, tag } from "viewscript-bridge";
 // }
 
 render(() => {
-  const hovered = store(false);
+  const hovered = field(false);
 
   return tag("section", {
     pointerLeave: hovered.setTo(false),

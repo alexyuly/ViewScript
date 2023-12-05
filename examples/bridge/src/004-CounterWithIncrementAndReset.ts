@@ -1,4 +1,4 @@
-import { _if, render, store, tag, view, Output } from "viewscript-bridge";
+import { _if, field, render, tag, view, Output } from "viewscript-bridge";
 
 // FancyButton = view {
 //   content: string
@@ -29,7 +29,7 @@ const FancyButton = view<{
   click: Output;
   disabled: boolean;
 }>(({ content, click, disabled }) => {
-  const hovered = store(false);
+  const hovered = field(false);
 
   return tag("button", {
     content,
@@ -82,7 +82,7 @@ const FancyButton = view<{
 // }
 
 render(() => {
-  const clicks = store(0);
+  const clicks = field(0);
 
   return tag("section", {
     "align-items": "center",
