@@ -44,85 +44,76 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 [View TypeScript Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
 
-### HelloWorld
-
-_ViewScript 1.0 proposed syntax_
+## ViewScript 1.0 Proposed Syntax (Examples):
 
 ```
 render <p> {
-  font = "18px cursive"
-  margin = "24px"
-  content = "Hello, world!"
+  font: "18px cursive"
+  margin: "24px"
+  content: "Hello, world!"
 }
-```
 
-### Log when button clicked
+# ----------- #
 
-_ViewScript 1.0 proposed syntax_
 
-```
+
 render <button> {
-  click = window.console.(log "You clicked the button.")
-  background = "whitesmoke"
-  border-radius = "4px"
-  cursor = "pointer"
-  display = "block"
-  font-size = "18px"
-  margin = "24px"
-  padding = "12px"
-  content = "Click me!"
+  click: window.console.(log "You clicked the button.")
+  background: "whitesmoke"
+  border-radius: "4px"
+  cursor: "pointer"
+  display: "block"
+  font-size: "18px"
+  margin: "24px"
+  padding: "12px"
+  content: "Click me!"
 }
-```
 
-### Update section while hovered
+# ----------- #
 
-_ViewScript 1.0 proposed syntax_
 
-```
+
 render view {
   hovered = false
 
   <section> {
-    pointerLeave = hovered.(setTo false)
-    pointerOver = hovered.(setTo true)
-    background = if hovered then "black" else "white"
-    border = "1px solid black"
-    color = if hovered then "white" else "black"
-    font = "bold 24px serif"
-    margin = "24px"
-    padding = "24px"
-    content = if hovered then "I am hovered." else "Hover me!"
+    pointerLeave: hovered.(setTo false)
+    pointerOver: hovered.(setTo true)
+    content: if hovered then "I am hovered." else "Hover me!"
+    color: if hovered then "white" else "black"
+    background: if hovered then "black" else "white"
+    border: "1px solid black"
+    font: "bold 24px serif"
+    margin: "24px"
+    padding: "24px"
   }
 }
-```
 
-### Counter with increment and reset
+# ----------- #
 
-_ViewScript 1.0 proposed syntax_
 
-```
+
 FancyButton = view {
+  content: string
   click: output
   disabled: boolean
-  content: string
-
   hovered = false
 
   <button> {
-    click
-    pointerLeave = hovered.(setTo false)
-    pointerOver = hovered.(setTo true)
-    disabled
-    align-items = "center"
-    background = if disabled.not.(and hovered) then "lightgray" else "lightgreen"
-    color = "crimson"
-    cursor = "pointer"
-    display = "flex"
-    font-weight = "bold"
-    height = "100px"
-    justify-content = "center"
-    width = "100px"
     content
+    click
+    disabled
+    pointerLeave: hovered.(setTo false)
+    pointerOver: hovered.(setTo true)
+    background: if disabled.not.(and hovered) then "lightgray" else "lightgreen"
+    align-items: "center"
+    color: "crimson"
+    cursor: "pointer"
+    display: "flex"
+    font-weight: "bold"
+    height: "100px"
+    justify-content: "center"
+    width: "100px"
   }
 }
 
@@ -130,40 +121,38 @@ render view {
   clicks = 0
 
   <section> {
-    align-items = "center"
-    border = "2px dashed red"
-    display = "flex"
-    flex-direction = "column"
-    gap = "16px"
-    height = "200px"
-    justify-content = "center"
-    margin = "24px"
-    padding = "12px"
-    width = "200px"
-    content = [
+    align-items: "center"
+    border: "2px dashed red"
+    display: "flex"
+    flex-direction: "column"
+    gap: "16px"
+    height: "200px"
+    justify-content: "center"
+    margin: "24px"
+    padding: "12px"
+    width: "200px"
+    content: [
       FancyButton {
-        click = clicks.(add 1)
-        disabled = clicks.(isAtLeast 10)
-        content = "Increment"
+        content: "Increment"
+        click: clicks.(add 1)
+        disabled: clicks.(isAtLeast 10)
       }
       FancyButton {
-        click = clicks.(setTo 0)
-        disabled = clicks.(is 0)
-        content = "Reset"
+        content: "Reset"
+        click: clicks.(setTo 0)
+        disabled: clicks.(is 0)
       }
       <span> {
-        content = clicks
+        content: clicks
       }
     ]
   }
 }
-```
 
-### Todo List App
+# ----------- #
 
-_ViewScript 1.0 proposed syntax_
 
-```
+
 TodoItem = model {
   content: string
   completed = false
@@ -173,15 +162,15 @@ TodoItemView = view {
   data: TodoItem
 
   <li> {
-    click = data.completed.toggle
-    content = <label> {
-      align-items = "center"
-      display = "flex"
-      gap = "8px"
-      content = [
+    click: data.completed.toggle
+    content: <label> {
+      align-items: "center"
+      display: "flex"
+      gap: "8px"
+      content: [
         <input> {
-          checked = data.completed
-          type = "checkbox"
+          checked: data.completed
+          type: "checkbox"
         }
         data.content
       ]
@@ -193,38 +182,39 @@ render view {
   todoList = TodoItem list
 
   <section> {
-    content = [
+    content: [
       <h1> {
-        content = "Todo List"
+        content: "Todo List"
       }
       <form> {
-        submit = event -> event.preventDefault
-        formData = event -> todoList.(push TodoItem {
-          content = event.formData.(get "content")
+        submit: event -> event.preventDefault
+        formData: event -> todoList.(push TodoItem {
+          content: event.formData.(get "content")
         })
-        align-items = "center"
-        display = "flex"
-        gap = "8px"
-        content = [
+        align-items: "center"
+        display: "flex"
+        gap: "8px"
+        content: [
           <input> {
-            name = "content"
-            placeholder = "Add a todo..."
-            type = "text"
+            type: "text"
+            name: "content"
+            placeholder: "Add a todo..."
           }
           <button> {
-            type = "submit"
-            content = "Add Todo"
+            type: "submit"
+            content: "Add Todo"
           }
         ]
       }
       <ul> {
-        content = todoList.(map item => TodoItemView {
-          data = item
+        content: todoList.(map item => TodoItemView {
+          data: item
         })
       }
     ]
   }
 }
+
 ```
 
 ## ViewScript 1.0 Language Specification _(under construction)_
