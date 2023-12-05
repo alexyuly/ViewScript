@@ -1,33 +1,33 @@
-import { render, store, tag, when } from "viewscript-bridge";
+import { _if, render, store, tag } from "viewscript-bridge";
 
 // render view {
 //   hovered = false
 
-//   render <section> {
-//     pointerLeave = hovered.(setTo false)
-//     pointerOver = hovered.(setTo true)
-//     background = if hovered then "black" else "white"
-//     border = "1px solid black"
-//     color = if hovered then "white" else "black"
-//     font = "bold 24px serif"
-//     margin = "24px"
-//     padding = "24px"
-//     content = if hovered then "I am hovered." else "Hover me!"
+//   <section> {
+//     pointerLeave: hovered.(setTo false)
+//     pointerOver: hovered.(setTo true)
+//     content: if hovered then "I am hovered." else "Hover me!"
+//     color: if hovered then "white" else "black"
+//     background: if hovered then "black" else "white"
+//     border: "1px solid black"
+//     font: "bold 24px serif"
+//     margin: "24px"
+//     padding: "24px"
 //   }
 // }
 
 render(() => {
   const hovered = store(false);
 
-  return tag("<section>", {
+  return tag("section", {
     pointerLeave: hovered.setTo(false),
     pointerOver: hovered.setTo(true),
-    background: when(hovered).then("black").else("white"),
+    content: _if(hovered).then("I am hovered.").else("Hover me!"),
+    color: _if(hovered).then("white").else("black"),
+    background: _if(hovered).then("black").else("white"),
     border: "1px solid black",
-    color: when(hovered).then("white").else("black"),
     font: "bold 24px serif",
     margin: "24px",
     padding: "24px",
-    content: when(hovered).then("I am hovered.").else("Hover me!"),
   });
 });

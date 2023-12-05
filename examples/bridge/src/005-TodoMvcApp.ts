@@ -15,16 +15,16 @@ const TodoItem = model<{
 // TodoItemView = view {
 //   data: TodoItem
 
-//   render <li> {
-//     click = data.completed.toggle
-//     content = <label> {
-//       align-items = "center"
-//       display = "flex"
-//       gap = "8px"
-//       content = [
+//   <li> {
+//     click: data.completed.toggle
+//     content: <label> {
+//       align-items: "center"
+//       display: "flex"
+//       gap: "8px"
+//       content: [
 //         <input> {
-//           checked = data.completed
-//           type = "checkbox"
+//           checked: data.completed
+//           type: "checkbox"
 //         }
 //         data.content
 //       ]
@@ -35,14 +35,14 @@ const TodoItem = model<{
 const TodoItemView = view<{
   data: typeof TodoItem;
 }>(({ data }) => {
-  return tag("<li>", {
+  return tag("li", {
     click: data.completed.toggle(),
-    content: tag("<label>", {
+    content: tag("label", {
       "align-items": "center",
       display: "flex",
       gap: "8px",
       content: [
-        tag("<input>", {
+        tag("input", {
           checked: data.completed,
           type: "checkbox",
         }),
@@ -55,34 +55,34 @@ const TodoItemView = view<{
 // render view {
 //   todoList = TodoItem list
 
-//   render <section> {
-//     content = [
+//   <section> {
+//     content: [
 //       <h1> {
-//         content = "Todo List"
+//         content: "Todo List"
 //       }
 //       <form> {
-//         submit = event -> event.preventDefault
-//         formData = event -> todoList.(push TodoItem {
-//           content = event.formData.(get "content")
+//         submit: event -> event.preventDefault
+//         formData: event -> todoList.(push TodoItem {
+//           content: event.formData.(get "content")
 //         })
-//         align-items = "center"
-//         display = "flex"
-//         gap = "8px"
-//         content = [
+//         align-items: "center"
+//         display: "flex"
+//         gap: "8px"
+//         content: [
 //           <input> {
-//             name = "content"
-//             placeholder = "Add a todo..."
-//             type = "text"
+//             type: "text"
+//             name: "content"
+//             placeholder: "Add a todo..."
 //           }
 //           <button> {
-//             type = "submit"
-//             content = "Add Todo"
+//             type: "submit"
+//             content: "Add Todo"
 //           }
 //         ]
 //       }
 //       <ul> {
-//         content = data.(map item => TodoItemView {
-//           data = item
+//         content: todoList.(map item => TodoItemView {
+//           data: item
 //         })
 //       }
 //     ]
@@ -92,12 +92,12 @@ const TodoItemView = view<{
 render(() => {
   const todoList = TodoItem.list();
 
-  return tag("<section>", {
+  return tag("section", {
     content: [
-      tag("<h1>", {
+      tag("h1", {
         content: "Todo List",
       }),
-      tag("<form>", {
+      tag("form", {
         submit: (event) => event.preventDefault(),
         formData: (event) =>
           todoList.push(
@@ -109,18 +109,18 @@ render(() => {
         display: "flex",
         gap: "8px",
         content: [
-          tag("<input>", {
+          tag("input", {
             name: "content",
             placeholder: "Add a todo...",
             type: "text",
           }),
-          tag("<button>", {
+          tag("button", {
             type: "submit",
             content: "Add Todo",
           }),
         ],
       }),
-      tag("<ul>", {
+      tag("ul", {
         content: todoList.map((item) =>
           TodoItemView({
             data: item,
