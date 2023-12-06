@@ -49,18 +49,18 @@ In future, developers will be able to write apps using the ViewScript language, 
 ## ViewScript 1.0 Proposed Syntax (Examples):
 
 ```
-render <p> {
+# ---------------------------------
+
+<p> {
   font: "18px cursive"
   margin: "24px"
   content: "Hello, world!"
 }
 
 
+# ---------------------------------
 
-
-
-
-render <button> {
+<button> {
   click: window.console.(log "You clicked the button.")
   background: "whitesmoke"
   border-radius: "4px"
@@ -73,31 +73,26 @@ render <button> {
 }
 
 
+# ---------------------------------
 
+hovered = false
 
-
-
-render view {
-  hovered = false
-
-  <section> {
-    pointerLeave: hovered.(setTo false)
-    pointerOver: hovered.(setTo true)
-    content: if hovered then "I am hovered." else "Hover me!"
-    color: if hovered then "white" else "black"
-    background: if hovered then "black" else "white"
-    border: "1px solid black"
-    font: "bold 24px serif"
-    margin: "24px"
-    padding: "24px"
-  }
+<section> {
+  pointerLeave: hovered.(setTo false)
+  pointerOver: hovered.(setTo true)
+  content: if hovered then "I am hovered." else "Hover me!"
+  color: if hovered then "white" else "black"
+  background: if hovered then "black" else "white"
+  border: "1px solid black"
+  font: "bold 24px serif"
+  margin: "24px"
+  padding: "24px"
 }
 
 
+# ---------------------------------
 
-
-
-FancyButton = view {
+CustomButton = view {
   content: string
   click: output
   disabled: boolean
@@ -122,42 +117,38 @@ FancyButton = view {
   }
 }
 
+clicks = 0
 
-render view {
-  clicks = 0
-
-  <section> {
-    align-items: "center"
-    border: "2px dashed red"
-    display: "flex"
-    flex-direction: "column"
-    gap: "16px"
-    height: "200px"
-    justify-content: "center"
-    margin: "24px"
-    padding: "12px"
-    width: "200px"
-    content: [
-      FancyButton {
-        content: "Increment"
-        click: clicks.(add 1)
-        disabled: clicks.(isAtLeast 10)
-      }
-      FancyButton {
-        content: "Reset"
-        click: clicks.(setTo 0)
-        disabled: clicks.(is 0)
-      }
-      <span> {
-        content: clicks
-      }
-    ]
-  }
+<section> {
+  align-items: "center"
+  border: "2px dashed red"
+  display: "flex"
+  flex-direction: "column"
+  gap: "16px"
+  height: "200px"
+  justify-content: "center"
+  margin: "24px"
+  padding: "12px"
+  width: "200px"
+  content: [
+    CustomButton {
+      content: "Increment"
+      click: clicks.(add 1)
+      disabled: clicks.(isAtLeast 10)
+    }
+    CustomButton {
+      content: "Reset"
+      click: clicks.(setTo 0)
+      disabled: clicks.(is 0)
+    }
+    <span> {
+      content: clicks
+    }
+  ]
 }
 
 
-
-
+# ---------------------------------
 
 TodoItem = model {
   content: string
@@ -181,66 +172,58 @@ TodoItem = model {
   }
 }
 
+todoList = TodoItem list
 
-render view {
-  todoList = TodoItem list
-
-  <section> {
-    content: [
-      <h1> {
-        content: "Todo List"
+<section> {
+  content: [
+    <h1> {
+      content: "Todo List"
+    }
+    <hr>
+    <h2> {
+      content: "Add a todo item:"
+    }
+    <form> {
+      submit: event -> {
+        event.preventDefault
       }
-      <hr>
-      <h2> {
-        content: "Add a todo item:"
+      formData: event -> {
+        todoList.(push TodoItem {
+          content: event.formData.(get "content")
+        })
       }
-      <form> {
-        submit: event -> {
-          event.preventDefault
+      align-items: "center"
+      display: "flex"
+      gap: "8px"
+      content: [
+        <input> {
+          type: "text"
+          name: "content"
+          placeholder: "Something to do..."
         }
-        formData: event -> {
-          todoList.(push TodoItem {
-            content: event.formData.(get "content")
-          })
+        <button> {
+          type: "submit"
+          content: "Add item"
         }
-        align-items: "center"
-        display: "flex"
-        gap: "8px"
-        content: [
-          <input> {
-            type: "text"
-            name: "content"
-            placeholder: "Something to do..."
-          }
-          <button> {
-            type: "submit"
-            content: "Add item"
-          }
-        ]
-      }
-      <hr>
-      <h2> {
-        content: "Outstanding items:"
-      }
-      <ul> {
-        content: todoList.(filter it.completed.not).(map it.show)
-      }
-      <hr>
-      <h2> {
-        content: "Completed items:"
-      }
-      <ul> {
-        color: "gray"
-        content: todoList.(filter it.completed).(map it.show)
-      }
-    ]
-  }
+      ]
+    }
+    <hr>
+    <h2> {
+      content: "Outstanding items:"
+    }
+    <ul> {
+      content: todoList.(filter it.completed.not).(map it.show)
+    }
+    <hr>
+    <h2> {
+      content: "Completed items:"
+    }
+    <ul> {
+      color: "gray"
+      content: todoList.(filter it.completed).(map it.show)
+    }
+  ]
 }
-
-
-
-
-
 
 
 ```
