@@ -49,7 +49,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 ## ViewScript 1.0 Proposed Syntax (Examples):
 
 ```
-# ---------------------------------
+# Hello world:
 
 <p> {
   font: "18px cursive"
@@ -58,7 +58,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 }
 
 
-# ---------------------------------
+# Button click:
 
 <button> {
   click: window.console.(log "You clicked the button.")
@@ -73,7 +73,7 @@ In future, developers will be able to write apps using the ViewScript language, 
 }
 
 
-# ---------------------------------
+# Button hover:
 
 hovered = false
 
@@ -90,7 +90,7 @@ hovered = false
 }
 
 
-# ---------------------------------
+# Reusable view:
 
 CustomButton = view {
   content: string
@@ -148,7 +148,7 @@ clicks = 0
 }
 
 
-# ---------------------------------
+# Basic to-do list:
 
 TodoItem = model {
   content: string
