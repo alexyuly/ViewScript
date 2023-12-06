@@ -161,7 +161,6 @@ render view {
 TodoItem = model {
   content: string
 
-
   completed = false
 
   show = <li> {
