@@ -55,7 +55,8 @@ render <p> {
   content: "Hello, world!"
 }
 
-# ----------- #
+
+
 
 
 
@@ -71,7 +72,8 @@ render <button> {
   content: "Click me!"
 }
 
-# ----------- #
+
+
 
 
 
@@ -91,7 +93,7 @@ render view {
   }
 }
 
-# ----------- #
+
 
 
 
@@ -99,6 +101,8 @@ FancyButton = view {
   content: string
   click: output
   disabled: boolean
+
+
   hovered = false
 
   <button> {
@@ -107,7 +111,7 @@ FancyButton = view {
     disabled
     pointerLeave: hovered.(setTo false)
     pointerOver: hovered.(setTo true)
-    background: if disabled.not.(and hovered) then "lightgray" else "lightgreen"
+    background: if disabled.not.(and hovered) then "gray" else "lightgreen"
     align-items: "center"
     color: "crimson"
     cursor: "pointer"
@@ -151,30 +155,28 @@ render view {
   }
 }
 
-# ----------- #
+
 
 
 
 TodoItem = model {
   content: string
+
+
   completed = false
-}
 
-TodoItemView = view {
-  data: TodoItem
-
-  <li> {
-    click: data.completed.toggle
+  show = <li> {
+    click: completed.toggle
     content: <label> {
       align-items: "center"
       display: "flex"
       gap: "8px"
       content: [
         <input> {
-          checked: data.completed
+          checked: completed
           type: "checkbox"
         }
-        data.content
+        content
       ]
     }
   }
@@ -188,11 +190,19 @@ render view {
       <h1> {
         content: "Todo List"
       }
+      <hr>
+      <h2> {
+        content: "Add a todo item:"
+      }
       <form> {
-        submit: event -> event.preventDefault
-        formData: event -> todoList.(push TodoItem {
-          content: event.formData.(get "content")
-        })
+        submit: event -> {
+          event.preventDefault
+        }
+        formData: event -> {
+          todoList.(push TodoItem {
+            content: event.formData.(get "content")
+          })
+        }
         align-items: "center"
         display: "flex"
         gap: "8px"
@@ -200,22 +210,40 @@ render view {
           <input> {
             type: "text"
             name: "content"
-            placeholder: "Add a todo..."
+            placeholder: "Something to do..."
           }
           <button> {
             type: "submit"
-            content: "Add Todo"
+            content: "Add item"
           }
         ]
       }
+      <hr>
+      <h2> {
+        content: "Outstanding items:"
+      }
       <ul> {
-        content: todoList.(map item => TodoItemView {
-          data: item
-        })
+        content: todoList.(filter it.completed.not).(map it.show)
+      }
+      <hr>
+      <h2> {
+        content: "Completed items:"
+      }
+      <ul> {
+        color: "gray"
+        content: todoList.(filter it.completed).(map it.show)
       }
     ]
   }
 }
+
+
+
+
+
+
+
+
 
 ```
 
