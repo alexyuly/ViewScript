@@ -122,6 +122,7 @@ FancyButton = view {
   }
 }
 
+
 render view {
   clicks = 0
 
@@ -179,6 +180,7 @@ TodoItem = model {
     }
   }
 }
+
 
 render view {
   todoList = TodoItem list
