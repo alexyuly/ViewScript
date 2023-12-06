@@ -102,7 +102,6 @@ FancyButton = view {
   click: output
   disabled: boolean
 
-
   hovered = false
 
   <button> {
@@ -236,8 +235,6 @@ render view {
     ]
   }
 }
-
-
 
 
 
