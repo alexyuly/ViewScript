@@ -46,6 +46,6 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ## ⚠️ _Under Construction:_ Documentation, Diagrams, & Examples
 
-- [ViewScript 1.0: Book](https://docs.google.com/document/d/1FADXT42Daa-4YFBgTGaiyLLBy1zV9O_zxFS_s1z7oVw/edit#heading=h.2hu3wyitn5in)
+- [ViewScript 1.0: Book](https://docs.google.com/document/d/1FADXT42Daa-4YFBgTGaiyLLBy1zV9O_zxFS_s1z7oVw/edit)
 - [ViewScript 1.0: Runtime Component Architecture](https://docs.google.com/drawings/d/1LRafgAPSCHSI-0Jk1Wtl2VgzIShv9PL5g_7FgzXjw0s/edit)
 - [ViewScript: "fast" pattern overview diagram](https://docs.google.com/drawings/d/1Z5MlcPyXpO_ABCGuZKSg4KjQxWoTkmwedCKvHPJ92SA/edit)
