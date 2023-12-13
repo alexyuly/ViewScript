@@ -6,7 +6,7 @@ _Power Tools For Web Apps_
 
 ## Start
 
-You'll need [Node.js](https://nodejs.org/) 18 to run ViewScript.
+You'll need [Node.js](https://nodejs.org/) 20 to run ViewScript.
 
 ```
 npm install viewscript-toolkit --global
@@ -34,13 +34,14 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### Expected Releases:
 
-- **ViewScript 0.4** _Vermouth_ _(Pre-release)_
+- **ViewScript 0.4** _(Pre-release)_
   - Build a client-side todo list app
-- **ViewScript 0.5** _Espresso_ _(Pre-release)_
+- **ViewScript 0.5** _(Pre-release)_
   - Add network requests to the todo list app
+  - Implement tasks and task instances
 - **ViewScript 1.0** _Absinthe_
-  - Compile ViewScript source code into abstract app objects
-  - Bundle app objects with the Runtime as standalone executables
+  - Compile ViewScript source code into app trees
+  - Bundle app trees with ViewScript Runtime as standalone HTML and JS
 
 ## Code Examples _(under construction)_
 
