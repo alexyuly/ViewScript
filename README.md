@@ -40,6 +40,7 @@ In future, developers will be able to write apps using the ViewScript language, 
   - Add network requests to the todo list app using ViewScript Bridge
   - Implement tasks and task instances
 - **ViewScript 1.0** _Absinthe_
+  - Introduce the ViewScript programming language
   - Compile ViewScript source code into app trees
   - Bundle app trees with ViewScript Runtime as standalone HTML and JS
 
