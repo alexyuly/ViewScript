@@ -1,13 +1,11 @@
-import { render } from "viewscript-bridge";
+import { render, tag } from "viewscript-bridge";
 
-// render <p> {
-//   font: "18px cursive"
-//   margin: "24px"
+render(
+  tag("p", {
+    content: "Hello, world!",
+  })
+);
+
+// <p> {
 //   content: "Hello, world!"
 // }
-
-render("p", {
-  font: "18px cursive",
-  margin: "24px",
-  content: "Hello, world!",
-});

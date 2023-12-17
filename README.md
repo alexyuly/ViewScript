@@ -36,9 +36,9 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 - **ViewScript 0.4** _(Pre-release)_
   - Build a client-side todo list app using ViewScript Bridge
-- **ViewScript 0.5** _(Pre-release)_
+- **ViewScript 0.5** _Espresso (Pre-release)_
   - Add network requests to the todo list app using ViewScript Bridge
-  - Implement tasks and task instances
+  - Implement tasks, models, and methods
 - **ViewScript 1.0** _Absinthe_
   - Introduce the ViewScript programming language
   - Compile ViewScript source code into app trees
