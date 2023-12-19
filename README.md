@@ -44,6 +44,10 @@ In future, developers will be able to write apps using the ViewScript language, 
   - Compile ViewScript source code into app trees
   - Bundle app trees with ViewScript Runtime as standalone HTML and JS
 
+## ViewScript-Bridge Code Examples
+
+https://github.com/alexyuly/ViewScript/tree/main/examples/bridge/src
+
 ## ⚠️ _Under Construction:_ Documentation, Diagrams, & Examples
 
 - [ViewScript 1.0: Book](https://docs.google.com/document/d/1FADXT42Daa-4YFBgTGaiyLLBy1zV9O_zxFS_s1z7oVw/edit)

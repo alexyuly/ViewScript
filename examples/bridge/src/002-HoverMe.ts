@@ -1,7 +1,7 @@
-import { imply, render, tag, value } from "viewscript-bridge";
+import { boolean, imply, render, tag } from "viewscript-bridge";
 
 render(() => {
-  const hovered = value(false);
+  const hovered = boolean(false);
 
   return tag("p", {
     content: imply(hovered).then("I'm hovered.").else("Hover me!"),
