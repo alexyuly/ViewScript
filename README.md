@@ -50,6 +50,6 @@ https://github.com/alexyuly/ViewScript/tree/main/examples/bridge/src
 
 ## ⚠️ _Under Construction:_ Documentation, Diagrams, & Examples
 
-- [ViewScript 1.0: Book](https://docs.google.com/document/d/1FADXT42Daa-4YFBgTGaiyLLBy1zV9O_zxFS_s1z7oVw/edit)
+- _(Please contact me to request access to this book:)_ [Introducing ViewScript](https://www.notion.so/Introducing-ViewScript-2095ed387eef4a0bb1c3b3e65ce9bd49?pvs=4)
 - [ViewScript 1.0: Runtime Component Architecture](https://docs.google.com/drawings/d/1LRafgAPSCHSI-0Jk1Wtl2VgzIShv9PL5g_7FgzXjw0s/edit)
 - [ViewScript: "fast" pattern overview diagram](https://docs.google.com/drawings/d/1Z5MlcPyXpO_ABCGuZKSg4KjQxWoTkmwedCKvHPJ92SA/edit)
