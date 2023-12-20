@@ -8,10 +8,12 @@ const TodoItem = view<{
   return tag("li", {
     click: completed.toggle,
     content: tag("label", {
+      cursor: "pointer",
       display: "flex",
       "align-items": "center",
       content: [
         tag("input", {
+          cursor: "inherit",
           type: "checkbox",
           checked: completed,
         }),
@@ -37,6 +39,7 @@ render(() => {
               content: Window.FormData(Event.target).get("content"),
             })
           ),
+          // TODO Reset the form
         ],
         display: "flex",
         "align-items": "center",
@@ -67,57 +70,61 @@ render(() => {
   });
 });
 
-// // TodoItem = view {
-// //   require content: string
+// TodoItem = view {
+//   require content: string
 
-// //   completed = false
+//   completed = false
 
-// //   <li> {
-// //     click: completed:toggle
-// //     content: <label> {
-// //       display: "flex"
-// //       align-items: "center"
-// //       content: [
-// //         <input> {
-// //           type: "checkbox"
-// //           checked: completed
-// //         }
-// //         <span> {
-// //           content
-// //           text-decoration: if completed then "line-through" else "none"
-// //         }
-// //       ]
-// //     }
-// //   }
-// // }
+//   <li> {
+//     click: completed:toggle
+//     content: <label> {
+//       cursor: "pointer"
+//       display: "flex"
+//       align-items: "center"
+//       content: [
+//         <input> {
+//           cursor: "inherit"
+//           type: "checkbox"
+//           checked: completed
+//         }
+//         <span> {
+//           content
+//           text-decoration: if completed then "line-through" else "none"
+//         }
+//       ]
+//     }
+//   }
+// }
 
-// // todoItems = TodoItem list
+// todoItems = TodoItem list
 
-// // <main> {
-// //   content: [
-// //     <form> {
-// //       submit: event -> event:preventDefault
-// //       formData: event -> todoItems:push TodoItem {
-// //         content: event.formData(get "content")
-// //       }
-// //       display: "flex"
-// //       align-items: "center"
-// //       gap: "1rem"
-// //       margin: "1rem"
-// //       content: [
-// //         <input> {
-// //           type: "text"
-// //           name: "content"
-// //           placeholder: "What do you want to do?"
-// //         }
-// //         <button> {
-// //           type: "submit"
-// //         }
-// //       ]
-// //     }
-// //     <ul> {
-// //       margin: "1rem"
-// //       content: todoItems
-// //     }
-// //   ]
-// // }
+// <main> {
+//   content: [
+//     <form> {
+//       submit: event -> {
+//         event:preventDefault
+//         todoItems:push TodoItem {
+//           content: window(FormData event.target)(get "content")
+//         }
+//       }
+//       display: "flex"
+//       align-items: "center"
+//       gap: "1rem"
+//       margin: "1rem"
+//       content: [
+//         <input> {
+//           type: "text"
+//           name: "content"
+//           placeholder: "What do you want to do?"
+//         }
+//         <button> {
+//           type: "submit"
+//         }
+//       ]
+//     }
+//     <ul> {
+//       margin: "1rem"
+//       content: todoItems
+//     }
+//   ]
+// }
