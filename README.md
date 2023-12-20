@@ -31,11 +31,10 @@ In future, developers will be able to write apps using the ViewScript language, 
 ### Latest Release:
 
 - [**ViewScript 0.4.0**](https://github.com/alexyuly/ViewScript/releases/tag/v0.4.0) _(Pre-release)_
+  - Build a client-side todo list app using ViewScript Bridge
 
 ### Expected Releases:
 
-- **ViewScript 0.4** _(Pre-release)_
-  - Build a client-side todo list app using ViewScript Bridge
 - **ViewScript 0.5** _Espresso (Pre-release)_
   - Add network requests to the todo list app using ViewScript Bridge
   - Implement tasks, models, and methods
