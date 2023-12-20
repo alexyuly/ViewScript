@@ -2,11 +2,11 @@
 
 _Power Tools For Web Apps_
 
-⚠️ **ViewScript is in its early stages of development.** It's not ready to use for building apps, but a pre-release demo is available now. Please continue to check here for updated documentation, releases, and future plans.
+> ⚠️ **ViewScript is in its early stages of development.** It's not ready to use for building apps, but a pre-release demo is available now. Please continue to check here for updated documentation, releases, and future plans.
 
-## 🧨 Start
+## Start
 
-You'll need [Node.js](https://nodejs.org/) 18 to run ViewScript.
+You'll need [Node.js](https://nodejs.org/) 20 to run ViewScript.
 
 ```
 npm install viewscript-toolkit --global
@@ -20,7 +20,7 @@ npm install
 npm start
 ```
 
-## 🧭 Overview
+## Overview
 
 Every ViewScript app is represented by a JSON object of type [App](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts#L90) from the [ViewScript Abstract Syntax Tree](https://github.com/alexyuly/ViewScript-Runtime/blob/main/lib/abstract.ts).
 
@@ -30,231 +30,26 @@ In future, developers will be able to write apps using the ViewScript language, 
 
 ### Latest Release:
 
-- [**ViewScript v0.3.4**](https://github.com/alexyuly/ViewScript/releases/tag/v0.3.4) _(Pre-release)_
+- [**ViewScript 0.4.0**](https://github.com/alexyuly/ViewScript/releases/tag/v0.4.0) _(Pre-release)_
 
 ### Expected Releases:
 
-- ☕️ **ViewScript v0.5** _Espresso_ _(Pre-release)_
-  - Build a simple client-side todo list app
-- 🧪 **ViewScript v1** _Absinthe_
-  - Compile ViewScript source code into abstract app objects
-  - Bundle app objects with the Runtime as standalone executables
+- **ViewScript 0.4** _(Pre-release)_
+  - Build a client-side todo list app using ViewScript Bridge
+- **ViewScript 0.5** _Espresso (Pre-release)_
+  - Add network requests to the todo list app using ViewScript Bridge
+  - Implement tasks, models, and methods
+- **ViewScript 1.0** _Absinthe_
+  - Introduce the ViewScript programming language
+  - Compile ViewScript source code into app trees
+  - Bundle app trees with ViewScript Runtime as standalone HTML and JS
 
-## 🧑‍💻 Code Examples
+## ViewScript-Bridge Code Examples
 
-[View Source...](https://github.com/alexyuly/ViewScript-Toolkit/tree/main/examples/bridge/src)
+https://github.com/alexyuly/ViewScript/tree/main/examples/bridge/src
 
-### HelloWorld
+## ⚠️ _Under Construction:_ Documentation, Diagrams, & Examples
 
-```ts
-import { element, render } from "viewscript-bridge";
-
-const App = element("p", {
-  content: "Hello, world!",
-  font: "18px cursive",
-  margin: "24px",
-});
-
-render(App);
-```
-
-_Proposed ViewScript v1.0 syntax:_
-
-```
-define App as <p>
-  content = "Hello, world!"
-  font = "18px cursive"
-  margin = "24px"
-
-render App
-```
-
-### Log when button clicked
-
-```ts
-import { browser, element, render } from "viewscript-bridge";
-
-const App = element("button", {
-  background: "whitesmoke",
-  "border-radius": "4px",
-  click: browser.console.log("You clicked the button."),
-  content: "Click me!",
-  cursor: "pointer",
-  display: "block",
-  "font-size": "18px",
-  margin: "24px",
-  padding: "12px",
-});
-
-render(App);
-```
-
-_Proposed ViewScript v1.0 syntax:_
-
-```
-define App as <button>
-  background = "whitesmoke"
-  border-radius = "4px"
-  click = browser.console.log "You clicked the button."
-  content = "Click me!"
-  cursor = "pointer"
-  display = "block"
-  font-size = "18px"
-  margin = "24px"
-  padding = "12px"
-
-render App
-```
-
-### Update section while hovered
-
-```ts
-import { boolean, element, render, view, when } from "viewscript-bridge";
-
-const App = view({ hovered: boolean(false) }, ({ hovered }) =>
-  element("section", {
-    background: when(hovered(), "black", "white"),
-    border: "1px solid black",
-    color: when(hovered(), "white", "black"),
-    content: when(hovered(), "I am hovered.", "Hover me!"),
-    font: "bold 24px serif",
-    margin: "24px",
-    padding: "24px",
-    pointerleave: hovered.disable,
-    pointerover: hovered.enable,
-  })
-);
-
-render(App());
-```
-
-_Proposed ViewScript v1.0 syntax:_
-
-```
-define App as view
-  define hovered as boolean = false
-
-  render <section>
-    background = when hovered then "black" else "white"
-    border = "1px solid black"
-    color = when hovered then "white" else "black"
-    content = when hovered then "I am hovered." else "Hover me!"
-    font = "bold 24px serif"
-    margin = "24px"
-    padding = "24px"
-    pointerleave = hovered.disable
-    pointerover = hovered.enable
-
-
-render App
-```
-
-### Counter with increment and reset
-
-```ts
-import {
-  element,
-  number,
-  render,
-  stream,
-  string,
-  view,
-} from "viewscript-bridge";
-
-const FancyButton = view(
-  { click: stream(), content: string() },
-  ({ click, content }) =>
-    element("button", {
-      "align-items": "center",
-      background: "lightgreen",
-      click: click(),
-      color: "crimson",
-      content: content(),
-      cursor: "pointer",
-      display: "flex",
-      "font-weight": "bold",
-      height: "100px",
-      "justify-content": "center",
-      width: "100px",
-    })
-);
-
-const App = view({ clicks: number(0) }, ({ clicks }) =>
-  element("section", {
-    "align-items": "center",
-    border: "2px dashed red",
-    display: "flex",
-    "flex-direction": "column",
-    gap: "16px",
-    height: "200px",
-    "justify-content": "center",
-    margin: "24px",
-    padding: "12px",
-    width: "200px",
-    content: [
-      FancyButton({
-        click: clicks.add(1),
-        content: "Increment",
-      }),
-      FancyButton({
-        click: clicks.reset,
-        content: "Reset",
-      }),
-      element("span", {
-        content: clicks(),
-      }),
-    ],
-  })
-);
-
-render(App());
-```
-
-_Proposed ViewScript v1.0 syntax:_
-
-```
-define FancyButton as view
-  define click as stream
-  define content as string
-
-  render <button>
-    align-items = "center"
-    background = "lightgreen"
-    click
-    color = "crimson"
-    content
-    cursor = "pointer"
-    display = "flex"
-    font-weight = "bold"
-    height = "100px"
-    justify-content = "center"
-    width = "100px"
-
-
-define App as view
-  define clicks as number = 0
-
-  render <section>
-    align-items = "center"
-    border = "2px dashed red"
-    display = "flex"
-    flex-direction = "column"
-    gap = "16px"
-    height = "200px"
-    justify-content = "center"
-    margin = "24px"
-    padding = "12px"
-    width = "200px"
-    content =
-    - FancyButton
-        click = clicks.add 1
-        content = "Increment"
-    - FancyButton
-        click = clicks.reset
-        content = "Reset"
-    - <span>
-        content = clicks
-
-
-render App
-```
+- _(Please contact me to request access to this book:)_ [Introducing ViewScript](https://www.notion.so/Introducing-ViewScript-2095ed387eef4a0bb1c3b3e65ce9bd49?pvs=4)
+- [ViewScript 1.0: Runtime Component Architecture](https://docs.google.com/drawings/d/1LRafgAPSCHSI-0Jk1Wtl2VgzIShv9PL5g_7FgzXjw0s/edit)
+- [ViewScript: "fast" pattern overview diagram](https://docs.google.com/drawings/d/1Z5MlcPyXpO_ABCGuZKSg4KjQxWoTkmwedCKvHPJ92SA/edit)
