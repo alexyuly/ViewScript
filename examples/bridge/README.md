@@ -1,6 +1,6 @@
 # %VIEWSCRIPT_UNTITLED_PROJECT_NAME%
 
-👋 Welcome to your new ViewScript v0.3.4 project.
+👋 Welcome to your new ViewScript v0.4.0 project.
 
 🙌 Have fun!
 
