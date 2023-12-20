@@ -6,16 +6,16 @@ const TodoItem = view<{
   const completed = boolean(false);
 
   return tag("li", {
-    click: completed.toggle,
     content: tag("label", {
-      cursor: "pointer",
       display: "flex",
       "align-items": "center",
+      cursor: "pointer",
       content: [
         tag("input", {
-          cursor: "inherit",
           type: "checkbox",
           checked: completed,
+          change: completed.toggle,
+          cursor: "inherit",
         }),
         tag("span", {
           content,
