@@ -1,4 +1,4 @@
-import { Event, FormDataEvent, boolean, imply, render, tag, view } from "viewscript-bridge";
+import { Event, Window, boolean, imply, render, tag, view } from "viewscript-bridge";
 
 const TodoItem = view<{
   content: string;
@@ -24,19 +24,20 @@ const TodoItem = view<{
   });
 });
 
-const todoItems = TodoItem.list();
+render(() => {
+  const todoItems = TodoItem.list();
 
-render(
-  tag("main", {
+  return tag("main", {
     content: [
       tag("form", {
-        submit: () => Event.preventDefault,
-        formData: () =>
+        submit: () => [
+          Event.preventDefault,
           todoItems.push(
             TodoItem({
-              content: FormDataEvent.formData.get("content"),
+              content: Window.FormData(Event.target).get("content"),
             })
           ),
+        ],
         display: "flex",
         "align-items": "center",
         gap: "1rem",
@@ -46,9 +47,15 @@ render(
             type: "text",
             name: "content",
             placeholder: "What do you want to do?",
+            padding: "8px",
+            width: "200px",
           }),
           tag("button", {
             type: "submit",
+            content: "Add todo",
+            cursor: "pointer",
+            "font-weight": "bold",
+            padding: "8px",
           }),
         ],
       }),
@@ -57,8 +64,8 @@ render(
         content: todoItems,
       }),
     ],
-  })
-);
+  });
+});
 
 // // TodoItem = view {
 // //   require content: string
