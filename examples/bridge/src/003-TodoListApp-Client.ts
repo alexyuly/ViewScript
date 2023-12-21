@@ -1,4 +1,4 @@
-import { Event, Window, boolean, imply, render, tag, view } from "viewscript-bridge";
+import { SubmitEvent, FormData, boolean, render, tag, view, when } from "viewscript-bridge";
 
 const TodoItem = view<{
   content: string;
@@ -19,7 +19,7 @@ const TodoItem = view<{
         }),
         tag("span", {
           content,
-          "text-decoration": imply(completed).then("line-through").else("none"),
+          "text-decoration": when(completed).then("line-through").else("none"),
         }),
       ],
     }),
@@ -33,13 +33,13 @@ render(() => {
     content: [
       tag("form", {
         submit: () => [
-          Event.preventDefault,
+          SubmitEvent.preventDefault,
           todoItems.push(
             TodoItem({
-              content: Window.FormData(Event.target).get("content"),
+              content: FormData(SubmitEvent.target).get("content"),
             })
           ),
-          // TODO Reset the form
+          SubmitEvent.target.reset,
         ],
         display: "flex",
         "align-items": "center",
@@ -50,6 +50,7 @@ render(() => {
             type: "text",
             name: "content",
             placeholder: "What do you want to do?",
+            required: true,
             padding: "8px",
             width: "200px",
           }),
@@ -76,16 +77,16 @@ render(() => {
 //   completed = false
 
 //   <li> {
-//     click: completed:toggle
 //     content: <label> {
-//       cursor: "pointer"
 //       display: "flex"
 //       align-items: "center"
+//       cursor: "pointer"
 //       content: [
 //         <input> {
-//           cursor: "inherit"
 //           type: "checkbox"
 //           checked: completed
+//           change: completed:toggle
+//           cursor: "inherit"
 //         }
 //         <span> {
 //           content
@@ -104,8 +105,9 @@ render(() => {
 //       submit: event -> {
 //         event:preventDefault
 //         todoItems:push TodoItem {
-//           content: window(FormData event.target)(get "content")
+//           content: (FormData event.target)(get "content")
 //         }
+//         event.target:reset
 //       }
 //       display: "flex"
 //       align-items: "center"
@@ -116,9 +118,15 @@ render(() => {
 //           type: "text"
 //           name: "content"
 //           placeholder: "What do you want to do?"
+//           padding: "8px"
+//           width: "200px"
 //         }
 //         <button> {
 //           type: "submit"
+//           content: "Add todo"
+//           cursor: "pointer"
+//           font-weight: "bold"
+//           padding: "8px"
 //         }
 //       ]
 //     }

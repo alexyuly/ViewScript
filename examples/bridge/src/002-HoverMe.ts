@@ -1,10 +1,10 @@
-import { boolean, imply, render, tag } from "viewscript-bridge";
+import { boolean, render, tag, when } from "viewscript-bridge";
 
 render(() => {
   const hovered = boolean(false);
 
   return tag("p", {
-    content: imply(hovered).then("I'm hovered.").else("Hover me!"),
+    content: when(hovered).then("I'm hovered.").else("Hover me!"),
     border: "1px solid blue",
     padding: "1rem",
     cursor: "pointer",
