@@ -1,4 +1,4 @@
-import { SubmitEvent, FormData, boolean, render, tag, view, when } from "viewscript-bridge";
+import { FormData, SubmitEvent, boolean, render, tag, view, when } from "viewscript-bridge";
 
 const TodoItem = view<{
   content: string;
