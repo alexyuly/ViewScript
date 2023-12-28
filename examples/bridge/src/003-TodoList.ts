@@ -1,32 +1,30 @@
 import { FormData, SubmitEvent, boolean, render, tag, view, when } from "viewscript-bridge";
 
-const TodoItem = view<{
-  content: string;
-}>(({ content }) => {
-  const completed = boolean(false);
-
-  return tag("li", {
-    content: tag("label", {
-      display: "flex",
-      "align-items": "center",
-      cursor: "pointer",
-      content: [
-        tag("input", {
-          type: "checkbox",
-          checked: completed,
-          change: completed.toggle,
-          cursor: "inherit",
-        }),
-        tag("span", {
-          content,
-          "text-decoration": when(completed).then("line-through").else("none"),
-        }),
-      ],
-    }),
-  });
-});
-
 render(() => {
+  const TodoItem = view(({ content }) => {
+    const completed = boolean(false);
+
+    return tag("li", {
+      content: tag("label", {
+        display: "flex",
+        "align-items": "center",
+        cursor: "pointer",
+        content: [
+          tag("input", {
+            type: "checkbox",
+            checked: completed,
+            change: completed.toggle,
+            cursor: "inherit",
+          }),
+          tag("span", {
+            content,
+            "text-decoration": when(completed).then("line-through").else("none"),
+          }),
+        ],
+      }),
+    });
+  });
+
   const todoItems = TodoItem.list();
 
   return tag("main", {
