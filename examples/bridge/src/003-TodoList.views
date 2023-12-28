@@ -1,5 +1,5 @@
 TodoItem = view {
-  require content: string
+  content: string
 
   completed = false
 
