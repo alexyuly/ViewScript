@@ -39,11 +39,7 @@ App(
                   Atom("span", {
                     content: Field(Reference(null, "content")),
                     "text-decoration": Field(
-                      Implication(
-                        Field(Reference(null, "completed")),
-                        Field(RawValue("line-through")),
-                        Field(RawValue("none"))
-                      )
+                      Implication(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
                     ),
                   })
                 ),
@@ -72,13 +68,7 @@ App(
                       ViewInstance("TodoItem", {
                         content: Field(
                           Expression(
-                            Field(
-                              Expression(
-                                null,
-                                "FormData",
-                                Field(Reference(Field(Reference(null, "event")), "target"))
-                              )
-                            ),
+                            Field(Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))),
                             "get",
                             Field(RawValue("content"))
                           )
