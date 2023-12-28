@@ -6,7 +6,3 @@ App(
     content: Field(RawValue("Hello, world!")),
   })
 );
-
-// <p> {
-//   content: "Hello, world!"
-// }
