@@ -21,6 +21,7 @@ App(
         Field(RawValue("Hover me!"))
       )
     ),
+    background: Field(Implication(Field(Reference(null, "hovered")), Field(RawValue("lightgray")))),
     border: Field(RawValue("1px solid blue")),
     padding: Field(RawValue("1rem")),
     cursor: Field(RawValue("pointer")),
@@ -33,6 +34,7 @@ App(
 
 // <p> {
 //   content: if hovered then "I'm hovered." else "Hover me!"
+//   background: if hovered then "lightgray"
 //   border: "1px solid blue"
 //   padding: "1rem"
 //   cursor: "pointer"

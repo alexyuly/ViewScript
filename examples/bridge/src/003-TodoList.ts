@@ -3,6 +3,7 @@ import {
   View,
   Field,
   Atom,
+  ViewInstance,
   RawValue,
   Reference,
   Expression,
@@ -10,7 +11,6 @@ import {
   Action,
   Call,
   Procedure,
-  ViewInstance,
 } from "viewscript-bridge";
 
 App(
