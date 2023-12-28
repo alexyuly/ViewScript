@@ -1,7 +1,7 @@
-import { render, view, boolean, tag, _if, SubmitEvent, FormData } from "viewscript-bridge";
+import { render, view, boolean, tag, _if, list, SubmitEvent, FormData } from "viewscript-bridge";
 
 render(() => {
-  const TodoItem = view(({ content }) => {
+  const TodoItem = view("TodoItem", ({ content }) => {
     const completed = boolean("completed", false);
 
     return tag("li", {
@@ -25,7 +25,7 @@ render(() => {
     });
   });
 
-  const todoItems = TodoItem.list();
+  const todoItems = list("todoItems");
 
   return tag("main", {
     content: [
