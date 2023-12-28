@@ -1,8 +1,9 @@
-import { render, tag } from "viewscript-bridge";
+import { App, Field, Atom, RawValue } from "viewscript-bridge";
 
-render(
-  tag("p", {
-    content: "Hello, world!",
+App(
+  {},
+  Atom("p", {
+    content: Field(RawValue("Hello, world!")),
   })
 );
 
