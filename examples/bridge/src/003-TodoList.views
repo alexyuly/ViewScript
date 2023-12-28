@@ -29,7 +29,7 @@ todoItems = TodoItem list
 <main> {
   content: [
     <form> {
-      submit: event -> {
+      submit: (event) -> {
         event:preventDefault
         todoItems:push TodoItem {
           content: (FormData event.target)(get "content")
