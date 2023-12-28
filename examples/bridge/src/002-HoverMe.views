@@ -6,6 +6,6 @@ hovered = false
   border: "1px solid blue"
   padding: "1rem"
   cursor: "pointer"
-  pointerOver: hovered:set true
-  pointerLeave: hovered:set false
+  pointerOver: hovered.set(true)!
+  pointerLeave: hovered.set(false)!
 }

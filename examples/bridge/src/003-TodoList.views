@@ -12,7 +12,7 @@ TodoItem = view {
         <input> {
           type: "checkbox"
           checked: completed
-          change: completed:toggle
+          change: completed.toggle!
           cursor: "inherit"
         }
         <span> {
@@ -30,11 +30,13 @@ todoItems = TodoItem list
   content: [
     <form> {
       submit: (event) -> {
-        event:preventDefault
-        todoItems:push TodoItem {
-          content: (FormData event.target)(get "content")
-        }
-        event.target:reset
+		    event.preventDefault!
+
+        todoItems.push(TodoItem {
+          content: FormData(event.target).get("content")
+        })!
+
+        event.target.reset!
       }
       display: "flex"
       align-items: "center"
@@ -44,7 +46,6 @@ todoItems = TodoItem list
         <input> {
           type: "text"
           name: "content"
-          required: true
           placeholder: "What do you want to do?"
           padding: "8px"
           width: "200px"
