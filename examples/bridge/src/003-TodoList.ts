@@ -1,8 +1,8 @@
-import { FormData, SubmitEvent, boolean, render, tag, view, when } from "viewscript-bridge";
+import { render, view, boolean, tag, _if, SubmitEvent, FormData } from "viewscript-bridge";
 
 render(() => {
   const TodoItem = view(({ content }) => {
-    const completed = boolean(false);
+    const completed = boolean("completed", false);
 
     return tag("li", {
       content: tag("label", {
@@ -18,7 +18,7 @@ render(() => {
           }),
           tag("span", {
             content,
-            "text-decoration": when(completed).then("line-through").else("none"),
+            "text-decoration": _if(completed).then("line-through").else("none"),
           }),
         ],
       }),
