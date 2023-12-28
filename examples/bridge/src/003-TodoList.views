@@ -30,7 +30,7 @@ todoItems = TodoItem list
   content: [
     <form> {
       submit: (event) -> {
-		    event.preventDefault!
+        event.preventDefault!
 
         todoItems.push(TodoItem {
           content: FormData(event.target).get("content")
