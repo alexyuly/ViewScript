@@ -48,44 +48,46 @@ App(
                         Action(
                           Invocation(
                             Field(
-                              Expression(
-                                null,
-                                "fetch",
-                                Field(
-                                  Expression(
-                                    Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item/")))),
-                                    "plus",
-                                    Field(Reference(null, "id"))
-                                  )
-                                ),
-                                Field(
-                                  ModelInstance(
-                                    Model({
-                                      method: Field(RawValue("PATCH")),
-                                      headers: Field(
-                                        RawValue({
-                                          "Content-Type": "application/json",
-                                        })
-                                      ),
-                                      body: Field(
-                                        Expression(
-                                          Field(
-                                            Expression(
-                                              null,
-                                              "JSON",
-                                              Field(
-                                                ModelInstance(
-                                                  Model({
-                                                    completed: Field(Reference(null, "completed")),
-                                                  })
+                              Expectation(
+                                Expression(
+                                  null,
+                                  "fetch",
+                                  Field(
+                                    Expression(
+                                      Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item/")))),
+                                      "plus",
+                                      Field(Reference(null, "id"))
+                                    )
+                                  ),
+                                  Field(
+                                    ModelInstance(
+                                      Model({
+                                        method: Field(RawValue("PATCH")),
+                                        headers: Field(
+                                          RawValue({
+                                            "Content-Type": "application/json",
+                                          })
+                                        ),
+                                        body: Field(
+                                          Expression(
+                                            Field(
+                                              Expression(
+                                                null,
+                                                "JSON",
+                                                Field(
+                                                  ModelInstance(
+                                                    Model({
+                                                      completed: Field(Reference(null, "completed")),
+                                                    })
+                                                  )
                                                 )
                                               )
-                                            )
-                                          ),
-                                          "stringify"
-                                        )
-                                      ),
-                                    })
+                                            ),
+                                            "stringify"
+                                          )
+                                        ),
+                                      })
+                                    )
                                   )
                                 )
                               ),
@@ -134,8 +136,13 @@ App(
         ),
       })
     ),
-    todoItems: Field(RawValue([])),
+    response: Field(
+      Expectation(Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items")))))),
+      Action(Call(null, "connectionError"))
+    ),
+    todoItems: Field(RawValue([])), // TODO update this line
   },
+  // TODO update this atom:
   Atom("main", {
     content: Field(
       RawValue([
