@@ -1,0 +1,114 @@
+apiHost: string
+
+TodoItem = view {
+  id: string
+  content: string
+
+  completed = false
+  loading = false
+
+  <li> {
+    content: <label> {
+      display: "flex"
+      align-items: "center"
+      cursor: "pointer"
+      content: [
+        <input> {
+          type: "checkbox"
+          cursor: "inherit"
+          checked: completed
+          disabled: loading
+          change: do {
+            completed.toggle!
+            loading.set(true)!
+
+            let response = fetch(apiHost.plus("/todo-item/").plus(id), object {
+              method: "PATCH"
+              headers: object {
+                Content-Type: "application/json"
+              }
+              body: JSON.stringify(object {
+                completed
+              })
+            })? catch connectionError!
+
+            when response.ok.not() then do {
+              responseError(response.text?)!
+              completed.toggle!
+              loading.set(false)!
+            }
+
+            loading.set(false)!
+          }
+        }
+        <span> {
+          content
+          text-decoration: if completed then "line-through" else "none"
+        }
+      ]
+    }
+  }
+}
+
+connectionError = alert("Sorry, we could not connect to the server.")!
+responseError = (message: string) -> alert("Sorry, the server responded with an error: ".plus(message))!
+parseError = alert("Sorry, we could not parse the server's response.")!
+response = fetch(apiHost.plus("/todo-items"))? catch connectionError!
+
+todoItems = if response.ok then (response.json? catch parseError!).map((each) => TodoItem {
+  id: each.id
+  content: each.content
+  completed: each.completed
+}) else responseError(response.text?)!
+
+<main> {
+  content: [
+    <form> {
+      submit: (event) -> {
+        event.preventDefault!
+
+        let response = fetch(apiHost.plus("/todo-item"), object {
+          method: "POST"
+          headers: object {
+            Content-Type: "application/json"
+          }
+          body: JSON.stringify(object {
+            content: FormData(event.target).get("content")
+          })
+        })? catch connectionError!
+
+        when response.ok.not() then responseError(response.text?)!
+        let post = response.json? catch parseError!
+
+        todoItems.push(TodoItem {
+          id: post.id
+          content: post.content
+        })!
+      }
+      display: "flex"
+      align-items: "center"
+      gap: "1rem"
+      margin: "1rem"
+      content: [
+        <input> {
+          type: "text"
+          name: "content"
+          placeholder: "What do you want to do?"
+          padding: "8px"
+          width: "200px"
+        }
+        <button> {
+          type: "submit"
+          content: "Add todo"
+          cursor: "pointer"
+          font-weight: "bold"
+          padding: "8px"
+        }
+      ]
+    }
+    <ul> {
+      margin: "1rem"
+      content: todoItems
+    }
+  ]
+}

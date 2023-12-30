@@ -11,9 +11,9 @@ TodoItem = view {
       content: [
         <input> {
           type: "checkbox"
+          cursor: "inherit"
           checked: completed
           change: completed.toggle!
-          cursor: "inherit"
         }
         <span> {
           content
