@@ -9,8 +9,8 @@ import {
   Expression,
   Implication,
   Action,
-  Call,
   Procedure,
+  Call,
 } from "viewscript-bridge";
 
 App(
@@ -30,9 +30,9 @@ App(
                 Field(
                   Atom("input", {
                     type: Field(RawValue("checkbox")),
+                    cursor: Field(RawValue("inherit")),
                     checked: Field(Reference(null, "completed")),
                     change: Action(Call(Field(Reference(null, "completed")), "toggle")),
-                    cursor: Field(RawValue("inherit")),
                   })
                 ),
                 Field(

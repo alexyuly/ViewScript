@@ -1,5 +1,9 @@
 apiHost: string
 
+connectionError = alert("Sorry, we could not connect to the server.")!
+responseError = (message: string) -> alert("Sorry, the server responded with an error: ".plus(message))!
+parseError = alert("Sorry, we could not parse the server's response.")!
+
 TodoItem = view {
   id: string
   content: string
@@ -22,12 +26,12 @@ TodoItem = view {
             completed.toggle!
             loading.set(true)!
 
-            let response = fetch(apiHost.plus("/todo-item/").plus(id), object {
-              method: "PATCH"
-              headers: object {
+            let response = fetch(apiHost.plus("/todo-item/").plus(id), model {
+              method = "PATCH"
+              headers = object {
                 Content-Type: "application/json"
               }
-              body: JSON.stringify(object {
+              body = JSON.stringify(model {
                 completed
               })
             })? catch connectionError!
@@ -50,9 +54,6 @@ TodoItem = view {
   }
 }
 
-connectionError = alert("Sorry, we could not connect to the server.")!
-responseError = (message: string) -> alert("Sorry, the server responded with an error: ".plus(message))!
-parseError = alert("Sorry, we could not parse the server's response.")!
 response = fetch(apiHost.plus("/todo-items"))? catch connectionError!
 
 todoItems = if response.ok then (response.json? catch parseError!).map((each) => TodoItem {
@@ -67,13 +68,13 @@ todoItems = if response.ok then (response.json? catch parseError!).map((each) =>
       submit: (event) -> {
         event.preventDefault!
 
-        let response = fetch(apiHost.plus("/todo-item"), object {
-          method: "POST"
-          headers: object {
+        let response = fetch(apiHost.plus("/todo-item"), model {
+          method = "POST"
+          headers = object {
             Content-Type: "application/json"
           }
-          body: JSON.stringify(object {
-            content: FormData(event.target).get("content")
+          body = JSON.stringify(model {
+            content = FormData(event.target).get("content")
           })
         })? catch connectionError!
 
