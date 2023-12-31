@@ -19,9 +19,11 @@ import {
   Gate,
 } from "viewscript-bridge";
 
+const API_HOST = "https://p485xnhgpd.execute-api.us-west-2.amazonaws.com";
+
 App(
   {
-    apiHost: Field(RawValue(process.env.API_HOST)),
+    apiHost: Field(RawValue(API_HOST)),
     connectionError: Action(Call(null, "alert", Field(RawValue("Sorry, we could not connect to the server.")))),
     responseError: Action(
       Procedure(
@@ -208,7 +210,7 @@ App(
                           Field(
                             ModelInstance(
                               Model({
-                                method: Field(RawValue("PATCH")),
+                                method: Field(RawValue("POST")),
                                 headers: Field(
                                   RawValue({
                                     "Content-Type": "application/json",
