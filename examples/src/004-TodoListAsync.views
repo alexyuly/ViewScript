@@ -94,6 +94,7 @@ todoItems = if response.ok then (response.json? catch parseError!).map((each) =>
         <input> {
           type: "text"
           name: "content"
+          required: true
           placeholder: "What do you want to do?"
           padding: "8px"
           width: "200px"

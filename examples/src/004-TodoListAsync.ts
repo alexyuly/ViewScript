@@ -168,12 +168,12 @@ App(
       )
     ),
   },
-  // TODO update this atom:
   Atom("main", {
     content: Field(
       RawValue([
         Field(
           Atom("form", {
+            // TODO Update the submit action:
             submit: Action(
               Procedure(
                 "event",
