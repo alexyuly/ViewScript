@@ -2,6 +2,7 @@ import {
   App,
   View,
   Model,
+  Method,
   Field,
   Atom,
   ViewInstance,
@@ -140,7 +141,32 @@ App(
       Expectation(Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items")))))),
       Action(Call(null, "connectionError"))
     ),
-    todoItems: Field(RawValue([])), // TODO update this line
+    todoItems: Field(
+      Implication(
+        Field(Reference(Field(Reference(null, "response")), "ok")),
+        Field(
+          Expression(
+            Field(Expectation(Expression(Field(Reference(null, "response")), "json"))),
+            "map",
+            Field(
+              RawValue(
+                Method(
+                  "each",
+                  Field(
+                    ViewInstance("TodoItem", {
+                      id: Field(Reference(Field(Reference(null, "each")), "id")),
+                      content: Field(Reference(Field(Reference(null, "each")), "content")),
+                      completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                    })
+                  )
+                )
+              )
+            )
+          )
+        ),
+        Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
+      )
+    ),
   },
   // TODO update this atom:
   Atom("main", {
