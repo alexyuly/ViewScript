@@ -23,8 +23,19 @@ App(
   {
     apiHost: Field(RawValue(process.env.API_HOST)),
     connectionError: Action(Call(null, "alert", Field(RawValue("Sorry, we could not connect to the server.")))),
-    // TODO responseError
-    // TODO parseError
+    responseError: Action(
+      Procedure(
+        "message",
+        Action(
+          Call(
+            null,
+            "alert",
+            Field(Expression(Field(RawValue("Sorry, the server responded with an error: ")), "plus", Field(Reference(null, "message"))))
+          )
+        )
+      )
+    ),
+    parseError: Action(Call(null, "alert", Field(RawValue("Sorry, we could not parse the server's response.")))),
     TodoItem: View(
       {
         completed: Field(RawValue(false)),
