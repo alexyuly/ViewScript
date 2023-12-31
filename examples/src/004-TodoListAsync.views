@@ -85,6 +85,8 @@ todoItems = if response.ok then (response.json? catch parseError!).map((each) =>
           id: post.id
           content: post.content
         })!
+
+        event.target.reset!
       }
       display: "flex"
       align-items: "center"
