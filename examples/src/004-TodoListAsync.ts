@@ -122,7 +122,7 @@ App(
                                         Call(
                                           null,
                                           "responseError",
-                                          Field(Expectation(Expression(Field(Reference(null, "response")), "text")))
+                                          Field(Expectation(Expression(Field(Reference(null, "response")), "text"))) // TODO Wrap this and other expectations used in actions in invocations
                                         )
                                       ),
                                       Action(Call(Field(Reference(null, "completed")), "toggle")),
