@@ -122,7 +122,7 @@ App(
                                         Call(
                                           null,
                                           "responseError",
-                                          Field(Expectation(Expression(Field(Reference(null, "response")), "text"))) // TODO Wrap this and other expectations used in actions in invocations
+                                          Field(Expectation(Expression(Field(Reference(null, "response")), "text")))
                                         )
                                       ),
                                       Action(Call(Field(Reference(null, "completed")), "toggle")),
@@ -200,13 +200,7 @@ App(
                         Expression(
                           null,
                           "fetch",
-                          Field(
-                            Expression(
-                              Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item/")))),
-                              "plus",
-                              Field(Reference(null, "id"))
-                            )
-                          ),
+                          Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item")))),
                           Field(
                             ModelInstance(
                               Model({
@@ -225,7 +219,19 @@ App(
                                         Field(
                                           ModelInstance(
                                             Model({
-                                              completed: Field(Reference(null, "completed")),
+                                              content: Field(
+                                                Expression(
+                                                  Field(
+                                                    Expression(
+                                                      null,
+                                                      "FormData",
+                                                      Field(Reference(Field(Reference(null, "event")), "target"))
+                                                    )
+                                                  ),
+                                                  "get",
+                                                  Field(RawValue("content"))
+                                                )
+                                              ),
                                             })
                                           )
                                         )
