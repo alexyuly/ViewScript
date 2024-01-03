@@ -6,8 +6,8 @@ import {
   ViewInstance,
   RawValue,
   Reference,
+  Implication,
   Expression,
-  ConditionalField,
   Action,
   Procedure,
   Call,
@@ -39,7 +39,7 @@ App(
                   Atom("span", {
                     content: Field(Reference(null, "content")),
                     "text-decoration": Field(
-                      ConditionalField(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
+                      Implication(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
                     ),
                   })
                 ),

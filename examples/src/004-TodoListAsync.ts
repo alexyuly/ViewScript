@@ -9,14 +9,14 @@ import {
   ModelInstance,
   RawValue,
   Reference,
+  Implication,
   Expression,
   Expectation,
-  ConditionalField,
   Action,
   Procedure,
   Call,
+  Fork,
   Invocation,
-  ConditionalAction,
 } from "viewscript-bridge";
 
 const API_HOST = "https://p485xnhgpd.execute-api.us-west-2.amazonaws.com";
@@ -101,14 +101,14 @@ App(
                                       })
                                     )
                                   )
-                                )
-                              ),
-                              Action(Call(null, "connectionError"))
+                                ),
+                                Action(Call(null, "connectionError"))
+                              )
                             ),
                             Procedure(
                               [],
                               Action(
-                                ConditionalAction(
+                                Fork(
                                   Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
                                   Action(
                                     Procedure(
@@ -138,7 +138,7 @@ App(
                   Atom("span", {
                     content: Field(Reference(null, "content")),
                     "text-decoration": Field(
-                      ConditionalField(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
+                      Implication(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
                     ),
                   })
                 ),
@@ -149,15 +149,17 @@ App(
       })
     ),
     response: Field(
-      Expectation(Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items")))))),
-      Action(Call(null, "connectionError"))
+      Expectation(
+        Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items"))))),
+        Action(Call(null, "connectionError"))
+      )
     ),
     todoItems: Field(
-      ConditionalField(
+      Implication(
         Field(Reference(Field(Reference(null, "response")), "ok")),
         Field(
           Expression(
-            Field(Expectation(Expression(Field(Reference(null, "response")), "json")), Action(Call(null, "parseError"))),
+            Field(Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))),
             "map",
             Field(
               RawValue(
@@ -229,21 +231,21 @@ App(
                               })
                             )
                           )
-                        )
-                      ),
-                      Action(Call(null, "connectionError"))
+                        ),
+                        Action(Call(null, "connectionError"))
+                      )
                     ),
                     Procedure(
                       ["response"],
                       Action(
-                        ConditionalAction(
+                        Fork(
                           Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
                           Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
                         )
                       ),
                       Action(
                         Invocation(
-                          Field(Expectation(Expression(Field(Reference(null, "response")), "json")), Action(Call(null, "parseError"))),
+                          Field(Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))),
                           Procedure(
                             ["post"],
                             Action(
