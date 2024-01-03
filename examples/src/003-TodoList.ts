@@ -7,7 +7,7 @@ import {
   RawValue,
   Reference,
   Expression,
-  Implication,
+  ConditionalField,
   Action,
   Procedure,
   Call,
@@ -39,7 +39,7 @@ App(
                   Atom("span", {
                     content: Field(Reference(null, "content")),
                     "text-decoration": Field(
-                      Implication(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
+                      ConditionalField(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
                     ),
                   })
                 ),
@@ -58,7 +58,7 @@ App(
           Atom("form", {
             submit: Action(
               Procedure(
-                "event",
+                ["event"],
                 Action(Call(Field(Reference(null, "event")), "preventDefault")),
                 Action(
                   Call(

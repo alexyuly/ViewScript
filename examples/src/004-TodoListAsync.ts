@@ -11,12 +11,12 @@ import {
   Reference,
   Expression,
   Expectation,
-  Implication,
+  ConditionalField,
   Action,
   Procedure,
   Call,
   Invocation,
-  Gate,
+  ConditionalAction,
 } from "viewscript-bridge";
 
 const API_HOST = "https://p485xnhgpd.execute-api.us-west-2.amazonaws.com";
@@ -27,7 +27,7 @@ App(
     connectionError: Action(Call(null, "alert", Field(RawValue("Sorry, we could not connect to the server.")))),
     responseError: Action(
       Procedure(
-        "message",
+        ["message"],
         Action(
           Call(
             null,
@@ -59,7 +59,7 @@ App(
                     disabled: Field(Reference(null, "loading")),
                     change: Action(
                       Procedure(
-                        null,
+                        [],
                         Action(Call(Field(Reference(null, "completed")), "toggle")),
                         Action(Call(Field(Reference(null, "loading")), "set", Field(RawValue(true)))),
                         Action(
@@ -111,13 +111,13 @@ App(
                               Action(Call(null, "connectionError"))
                             ),
                             Procedure(
-                              "response",
+                              [],
                               Action(
-                                Gate(
+                                ConditionalAction(
                                   Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
                                   Action(
                                     Procedure(
-                                      null,
+                                      [],
                                       Action(
                                         Call(
                                           null,
@@ -143,7 +143,7 @@ App(
                   Atom("span", {
                     content: Field(Reference(null, "content")),
                     "text-decoration": Field(
-                      Implication(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
+                      ConditionalField(Field(Reference(null, "completed")), Field(RawValue("line-through")), Field(RawValue("none")))
                     ),
                   })
                 ),
@@ -158,7 +158,7 @@ App(
       Action(Call(null, "connectionError"))
     ),
     todoItems: Field(
-      Implication(
+      ConditionalField(
         Field(Reference(Field(Reference(null, "response")), "ok")),
         Field(
           Expression(
@@ -167,7 +167,7 @@ App(
             Field(
               RawValue(
                 Method(
-                  "each",
+                  ["each"],
                   Field(
                     ViewInstance("TodoItem", {
                       id: Field(Reference(Field(Reference(null, "each")), "id")),
@@ -191,7 +191,7 @@ App(
           Atom("form", {
             submit: Action(
               Procedure(
-                "event",
+                ["event"],
                 Action(Call(Field(Reference(null, "event")), "preventDefault")),
                 Action(
                   Invocation(
@@ -248,9 +248,9 @@ App(
                       Action(Call(null, "connectionError"))
                     ),
                     Procedure(
-                      "response",
+                      ["response"],
                       Action(
-                        Gate(
+                        ConditionalAction(
                           Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
                           Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
                         )
@@ -259,7 +259,7 @@ App(
                         Invocation(
                           Field(Expectation(Expression(Field(Reference(null, "response")), "json")), Action(Call(null, "parseError"))),
                           Procedure(
-                            "post",
+                            ["post"],
                             Action(
                               Call(
                                 Field(Reference(null, "todoItems")),
