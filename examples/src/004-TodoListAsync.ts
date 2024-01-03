@@ -154,6 +154,7 @@ App(
         Action(Call(null, "connectionError"))
       )
     ),
+    loading: Field(Expression(Field(Reference(null, "response")), "isVoid")),
     todoItems: Field(
       Implication(
         Field(Reference(Field(Reference(null, "response")), "ok")),
@@ -182,129 +183,148 @@ App(
     ),
   },
   Atom("main", {
+    position: Field(RawValue("fixed")),
+    top: Field(RawValue(0)),
+    left: Field(RawValue(0)),
+    right: Field(RawValue(0)),
+    bottom: Field(RawValue(0)),
+    padding: Field(RawValue("1rem")),
+    background: Field(Implication(Field(Reference(null, "loading")), Field(RawValue("lightgray")))),
     content: Field(
-      RawValue([
+      Implication(
+        Field(Reference(null, "loading")),
+        Field(Atom("p", { "text-align": Field(RawValue("center")), content: Field(RawValue("Loading...")) })),
         Field(
-          Atom("form", {
-            submit: Action(
-              Procedure(
-                ["event"],
-                Action(Call(Field(Reference(null, "event")), "preventDefault")),
-                Action(
-                  Invocation(
-                    Field(
-                      Expectation(
-                        Expression(
-                          null,
-                          "fetch",
-                          Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item")))),
-                          Field(
-                            ModelInstance(
-                              Model({
-                                method: Field(RawValue("POST")),
-                                headers: Field(
-                                  RawValue({
-                                    "Content-Type": "application/json",
-                                  })
-                                ),
-                                body: Field(
-                                  Expression(
-                                    Field(Reference(null, "JSON")),
-                                    "stringify",
-                                    Field(
-                                      ModelInstance(
-                                        Model({
-                                          content: Field(
-                                            Expression(
-                                              Field(
-                                                Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))
+          RawValue([
+            Field(
+              Atom("form", {
+                submit: Action(
+                  Procedure(
+                    ["event"],
+                    Action(Call(Field(Reference(null, "event")), "preventDefault")),
+                    Action(
+                      Invocation(
+                        Field(
+                          Expectation(
+                            Expression(
+                              null,
+                              "fetch",
+                              Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item")))),
+                              Field(
+                                ModelInstance(
+                                  Model({
+                                    method: Field(RawValue("POST")),
+                                    headers: Field(
+                                      RawValue({
+                                        "Content-Type": "application/json",
+                                      })
+                                    ),
+                                    body: Field(
+                                      Expression(
+                                        Field(Reference(null, "JSON")),
+                                        "stringify",
+                                        Field(
+                                          ModelInstance(
+                                            Model({
+                                              content: Field(
+                                                Expression(
+                                                  Field(
+                                                    Expression(
+                                                      null,
+                                                      "FormData",
+                                                      Field(Reference(Field(Reference(null, "event")), "target"))
+                                                    )
+                                                  ),
+                                                  "get",
+                                                  Field(RawValue("content"))
+                                                )
                                               ),
-                                              "get",
-                                              Field(RawValue("content"))
-                                            )
-                                          ),
-                                        })
+                                            })
+                                          )
+                                        )
                                       )
-                                    )
-                                  )
-                                ),
-                              })
-                            )
-                          )
-                        ),
-                        Action(Call(null, "connectionError"))
-                      )
-                    ),
-                    Procedure(
-                      ["response"],
-                      Action(
-                        Fork(
-                          Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
-                          Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
-                        )
-                      ),
-                      Action(
-                        Invocation(
-                          Field(Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))),
-                          Procedure(
-                            ["post"],
-                            Action(
-                              Call(
-                                Field(Reference(null, "todoItems")),
-                                "push",
-                                Field(
-                                  ViewInstance("TodoItem", {
-                                    id: Field(Reference(Field(Reference(null, "post")), "id")),
-                                    content: Field(Reference(Field(Reference(null, "post")), "content")),
+                                    ),
                                   })
                                 )
                               )
                             ),
-                            Action(Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"))
+                            Action(Call(null, "connectionError"))
+                          )
+                        ),
+                        Procedure(
+                          ["response"],
+                          Action(
+                            Fork(
+                              Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
+                              Action(
+                                Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text"))))
+                              )
+                            )
+                          ),
+                          Action(
+                            Invocation(
+                              Field(Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))),
+                              Procedure(
+                                ["post"],
+                                Action(
+                                  Call(
+                                    Field(Reference(null, "todoItems")),
+                                    "push",
+                                    Field(
+                                      ViewInstance("TodoItem", {
+                                        id: Field(Reference(Field(Reference(null, "post")), "id")),
+                                        content: Field(Reference(Field(Reference(null, "post")), "content")),
+                                      })
+                                    )
+                                  )
+                                ),
+                                Action(Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"))
+                              )
+                            )
                           )
                         )
                       )
                     )
                   )
-                )
-              )
-            ),
-            display: Field(RawValue("flex")),
-            "align-items": Field(RawValue("center")),
-            gap: Field(RawValue("1rem")),
-            margin: Field(RawValue("1rem")),
-            content: Field(
-              RawValue([
-                Field(
-                  Atom("input", {
-                    type: Field(RawValue("text")),
-                    name: Field(RawValue("content")),
-                    required: Field(RawValue(true)),
-                    placeholder: Field(RawValue("What do you want to do?")),
-                    padding: Field(RawValue("8px")),
-                    width: Field(RawValue("200px")),
-                  })
                 ),
-                Field(
-                  Atom("button", {
-                    type: Field(RawValue("submit")),
-                    content: Field(RawValue("Add todo")),
-                    cursor: Field(RawValue("pointer")),
-                    "font-weight": Field(RawValue("bold")),
-                    padding: Field(RawValue("8px")),
-                  })
+                display: Field(RawValue("flex")),
+                "align-items": Field(RawValue("center")),
+                gap: Field(RawValue("1rem")),
+                margin: Field(RawValue("1rem")),
+                content: Field(
+                  RawValue([
+                    Field(
+                      Atom("input", {
+                        type: Field(RawValue("text")),
+                        name: Field(RawValue("content")),
+                        required: Field(RawValue(true)),
+                        placeholder: Field(RawValue("What do you want to do?")),
+                        padding: Field(RawValue("8px")),
+                        width: Field(RawValue("200px")),
+                      })
+                    ),
+                    Field(
+                      Atom("button", {
+                        type: Field(RawValue("submit")),
+                        content: Field(RawValue("Add todo")),
+                        cursor: Field(RawValue("pointer")),
+                        "font-weight": Field(RawValue("bold")),
+                        padding: Field(RawValue("8px")),
+                      })
+                    ),
+                  ])
                 ),
-              ])
+              })
             ),
-          })
-        ),
-        Field(
-          Atom("ul", {
-            margin: Field(RawValue("1rem")),
-            content: Field(Reference(null, "todoItems")),
-          })
-        ),
-      ])
+            Field(
+              Atom("ul", {
+                margin: Field(RawValue("1rem")),
+                content: Field(Reference(null, "todoItems")),
+              })
+            ),
+          ])
+        )
+      )
     ),
   })
 );
