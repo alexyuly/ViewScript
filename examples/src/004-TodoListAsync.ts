@@ -87,20 +87,15 @@ App(
                                         ),
                                         body: Field(
                                           Expression(
+                                            Field(Reference(null, "JSON")),
+                                            "stringify",
                                             Field(
-                                              Expression(
-                                                null,
-                                                "JSON",
-                                                Field(
-                                                  ModelInstance(
-                                                    Model({
-                                                      completed: Field(Reference(null, "completed")),
-                                                    })
-                                                  )
-                                                )
+                                              ModelInstance(
+                                                Model({
+                                                  completed: Field(Reference(null, "completed")),
+                                                })
                                               )
-                                            ),
-                                            "stringify"
+                                            )
                                           )
                                         ),
                                       })
@@ -212,32 +207,23 @@ App(
                                 ),
                                 body: Field(
                                   Expression(
+                                    Field(Reference(null, "JSON")),
+                                    "stringify",
                                     Field(
-                                      Expression(
-                                        null,
-                                        "JSON",
-                                        Field(
-                                          ModelInstance(
-                                            Model({
-                                              content: Field(
-                                                Expression(
-                                                  Field(
-                                                    Expression(
-                                                      null,
-                                                      "FormData",
-                                                      Field(Reference(Field(Reference(null, "event")), "target"))
-                                                    )
-                                                  ),
-                                                  "get",
-                                                  Field(RawValue("content"))
-                                                )
+                                      ModelInstance(
+                                        Model({
+                                          content: Field(
+                                            Expression(
+                                              Field(
+                                                Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))
                                               ),
-                                            })
-                                          )
-                                        )
+                                              "get",
+                                              Field(RawValue("content"))
+                                            )
+                                          ),
+                                        })
                                       )
-                                    ),
-                                    "stringify"
+                                    )
                                   )
                                 ),
                               })
