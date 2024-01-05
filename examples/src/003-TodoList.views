@@ -1,4 +1,4 @@
-TodoItem = view {
+TodoItem = abstract view {
   content: string
 
   completed = false
@@ -29,12 +29,14 @@ todoItems = TodoItem list
 <main> {
   content: [
     <form> {
-      submit: (event) -> {
+      submit: given event do {
         event.preventDefault!
 
-        todoItems.push(TodoItem {
-          content: FormData(event.target).get("content")
-        })!
+        todoItems.push(
+          TodoItem {
+            content: FormData(event.target).get("content")
+          }
+        )!
 
         event.target.reset!
       }

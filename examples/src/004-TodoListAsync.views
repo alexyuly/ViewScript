@@ -1,14 +1,19 @@
 apiHost: string
 
 connectionError = alert("Sorry, we could not connect to the server.")!
-responseError = (message: string) -> alert("Sorry, the server responded with an error: ".plus(message))!
 parseError = alert("Sorry, we could not parse the server's response.")!
 
-TodoItem = view {
+responseError = given (message: string) do {
+  alert(
+    "Sorry, the server responded with an error: ".plus(message)
+  )!
+}
+
+TodoItem = abstract view {
   id: string
   content: string
+  completed: boolean
 
-  completed = false
   loading = false
 
   <li> {
@@ -23,23 +28,30 @@ TodoItem = view {
           checked: completed
           disabled: loading
           change: do {
-            completed.toggle!
             loading.set(true)!
 
-            let response = fetch(apiHost.plus("/todo-item/").plus(id), model {
-              method = "PATCH"
-              headers = object {
-                Content-Type: "application/json"
-              }
-              body = JSON.stringify(model {
-                completed
-              })
-            })? catch connectionError!
-
-            when response.ok.not() then do {
-              responseError(response.text?)!
+            do {
               completed.toggle!
-              loading.set(false)!
+
+              let response = maybe fetch(
+                apiHost.plus("/todo-item/").plus(id)
+                model {
+                  method = "PATCH"
+                  headers = raw {
+                    Content-Type: "application/json"
+                  }
+                  body = JSON.stringify(
+                    model {
+                      completed
+                    }
+                  )
+                }
+              )? or connectionError!
+
+              when response.ok.not() {
+                responseError(response.text?)!
+                completed.toggle!
+              }
             }
 
             loading.set(false)!
@@ -54,39 +66,58 @@ TodoItem = view {
   }
 }
 
-response = fetch(apiHost.plus("/todo-items"))? catch connectionError!
+makeTodoItem = given json make TodoItem {
+  id: maybe json.id or parseError!
+  content: maybe json.content or parseError!
+  completed: maybe json.completed or false
+}
 
-todoItems = if response.ok then (response.json? catch parseError!).map((each) => TodoItem {
-  id: each.id
-  content: each.content
-  completed: each.completed
-}) else responseError(response.text?)!
+todoItems = produce {
+  let response = maybe fetch(
+    apiHost.plus("/todo-items")
+  )? or connectionError!
+
+  let json = maybe response.json? or parseError!
+
+  when response.ok {
+    yield maybe json.map(makeTodoItem) or parseError!
+  } otherwise {
+    responseError(response.text?)!
+  }
+}
 
 <main> {
   content: [
     <form> {
-      submit: (event) -> {
+      submit: given event do {
         event.preventDefault!
 
-        let response = fetch(apiHost.plus("/todo-item"), model {
-          method = "POST"
-          headers = object {
-            Content-Type: "application/json"
+        let response = maybe fetch(
+          apiHost.plus("/todo-item")
+          model {
+            method = "POST"
+            headers = raw {
+              Content-Type: "application/json"
+            }
+            body = JSON.stringify(
+              model {
+                content = FormData(event.target).get("content")
+              }
+            )
           }
-          body = JSON.stringify(model {
-            content = FormData(event.target).get("content")
-          })
-        })? catch connectionError!
+        )? or connectionError!
 
-        when response.ok.not() then responseError(response.text?)!
-        let post = response.json? catch parseError!
+        when response.ok {
+          let json = maybe response.json? or parseError!
 
-        todoItems.push(TodoItem {
-          id: post.id
-          content: post.content
-        })!
+          todoItems.push(
+            makeTodoItem(json)
+          )!
 
-        event.target.reset!
+          event.target.reset!
+        } otherwise {
+          responseError(response.text?)!
+        }
       }
       display: "flex"
       align-items: "center"
