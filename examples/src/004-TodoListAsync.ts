@@ -40,7 +40,6 @@ App(
     parseError: Action(Call(null, "alert", Field(RawValue("Sorry, we could not parse the server's response.")))),
     TodoItem: View(
       {
-        completed: Field(RawValue(false)),
         loading: Field(RawValue(false)),
       },
       Atom("li", {
@@ -170,7 +169,7 @@ App(
                     ViewInstance("TodoItem", {
                       id: Field(Reference(Field(Reference(null, "each")), "id")),
                       content: Field(Reference(Field(Reference(null, "each")), "content")),
-                      completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                      completed: Field(Reference(Field(Reference(null, "each")), "completed")), // TODO Allow the value of `completed` to be undefined and not crash ("optional fields" -- using try FIELD)
                     })
                   )
                 )
@@ -274,6 +273,7 @@ App(
                                       ViewInstance("TodoItem", {
                                         id: Field(Reference(Field(Reference(null, "post")), "id")),
                                         content: Field(Reference(Field(Reference(null, "post")), "content")),
+                                        completed: Field(RawValue(false)),
                                       })
                                     )
                                   )
