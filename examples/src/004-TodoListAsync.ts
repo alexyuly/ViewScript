@@ -108,7 +108,7 @@ App(
                                   )
                                 ),
                                 Procedure(
-                                  [],
+                                  ["response"],
                                   Action(
                                     Fork(
                                       Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
@@ -265,15 +265,15 @@ App(
                                     Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))
                                   ),
                                   Procedure(
-                                    ["post"],
+                                    ["json"],
                                     Action(
                                       Call(
                                         Field(Reference(null, "todoItems")),
                                         "push",
                                         Field(
                                           ViewInstance("TodoItem", {
-                                            id: Field(Reference(Field(Reference(null, "post")), "id")),
-                                            content: Field(Reference(Field(Reference(null, "post")), "content")),
+                                            id: Field(Reference(Field(Reference(null, "json")), "id")),
+                                            content: Field(Reference(Field(Reference(null, "json")), "content")),
                                             completed: Field(RawValue(false)),
                                           })
                                         )
