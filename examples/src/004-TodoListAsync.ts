@@ -103,9 +103,9 @@ App(
                                           })
                                         )
                                       )
-                                    ),
-                                    Action(Call(null, "connectionError"))
-                                  )
+                                    )
+                                  ),
+                                  Action(Call(null, "connectionError"))
                                 ),
                                 Procedure(
                                   ["response"],
@@ -152,10 +152,8 @@ App(
       })
     ),
     response: Field(
-      Expectation(
-        Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items"))))),
-        Action(Call(null, "connectionError"))
-      )
+      Expectation(Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items")))))),
+      Action(Call(null, "connectionError"))
     ),
     loading: Field(Expression(Field(Reference(null, "response")), "isVoid")),
     todoItems: Field(
@@ -163,7 +161,7 @@ App(
         Field(Reference(Field(Reference(null, "response")), "ok")),
         Field(
           Expression(
-            Field(Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))),
+            Field(Expectation(Expression(Field(Reference(null, "response")), "json")), Action(Call(null, "parseError"))),
             "map",
             Field(
               RawValue(
@@ -180,8 +178,9 @@ App(
               )
             )
           )
-        ),
-        Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
+        )
+        // TODO Move into a Production block, once implemented:
+        // Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
       )
     ),
   },
@@ -250,9 +249,9 @@ App(
                                   })
                                 )
                               )
-                            ),
-                            Action(Call(null, "connectionError"))
-                          )
+                            )
+                          ),
+                          Action(Call(null, "connectionError"))
                         ),
                         Procedure(
                           ["response"],
@@ -262,7 +261,8 @@ App(
                               Action(
                                 Invocation(
                                   Field(
-                                    Expectation(Expression(Field(Reference(null, "response")), "json"), Action(Call(null, "parseError")))
+                                    Expectation(Expression(Field(Reference(null, "response")), "json")),
+                                    Action(Call(null, "parseError"))
                                   ),
                                   Procedure(
                                     ["json"],
