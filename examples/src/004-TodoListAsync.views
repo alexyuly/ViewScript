@@ -1,0 +1,149 @@
+apiHost: string
+
+connectionError = alert("Sorry, we could not connect to the server.")!
+parseError = alert("Sorry, we could not parse the server's response.")!
+
+responseError = given (message: string) do {
+  alert(
+    "Sorry, the server responded with an error: ".plus(message)
+  )!
+}
+
+TodoItem = abstract view {
+  id: string
+  content: string
+  completed: boolean
+
+  loading = false
+
+  <li> {
+    content: <label> {
+      display: "flex"
+      align-items: "center"
+      cursor: "pointer"
+      content: [
+        <input> {
+          type: "checkbox"
+          cursor: "inherit"
+          checked: completed
+          disabled: loading
+          change: do {
+            loading.set(true)!
+
+            do {
+              completed.toggle!
+
+              let response = maybe fetch(
+                apiHost.plus("/todo-item/").plus(id)
+                model {
+                  method = "PATCH"
+                  headers = raw {
+                    Content-Type: "application/json"
+                  }
+                  body = JSON.stringify(
+                    model {
+                      completed
+                    }
+                  )
+                }
+              )? or connectionError!
+
+              when response.ok.not() {
+                responseError(response.text?)!
+                completed.toggle!
+              }
+            }
+
+            loading.set(false)!
+          }
+        }
+        <span> {
+          content
+          text-decoration: if completed then "line-through" else "none"
+        }
+      ]
+    }
+  }
+}
+
+makeTodoItem = given json make TodoItem {
+  id: maybe json.id or parseError!
+  content: maybe json.content or parseError!
+  completed: maybe json.completed or false
+}
+
+todoItems = produce {
+  let response = maybe fetch(
+    apiHost.plus("/todo-items")
+  )? or connectionError!
+
+  let json = maybe response.json? or parseError!
+
+  when response.ok {
+    yield maybe json.map(makeTodoItem) or parseError!
+  } otherwise {
+    responseError(response.text?)!
+  }
+}
+
+<main> {
+  content: [
+    <form> {
+      submit: given event do {
+        event.preventDefault!
+
+        let response = maybe fetch(
+          apiHost.plus("/todo-item")
+          model {
+            method = "POST"
+            headers = raw {
+              Content-Type: "application/json"
+            }
+            body = JSON.stringify(
+              model {
+                content = FormData(event.target).get("content")
+              }
+            )
+          }
+        )? or connectionError!
+
+        when response.ok {
+          let json = maybe response.json? or parseError!
+
+          todoItems.push(
+            makeTodoItem(json)
+          )!
+
+          event.target.reset!
+        } otherwise {
+          responseError(response.text?)!
+        }
+      }
+      display: "flex"
+      align-items: "center"
+      gap: "1rem"
+      margin: "1rem"
+      content: [
+        <input> {
+          type: "text"
+          name: "content"
+          required: true
+          placeholder: "What do you want to do?"
+          padding: "8px"
+          width: "200px"
+        }
+        <button> {
+          type: "submit"
+          content: "Add todo"
+          cursor: "pointer"
+          font-weight: "bold"
+          padding: "8px"
+        }
+      ]
+    }
+    <ul> {
+      margin: "1rem"
+      content: todoItems
+    }
+  ]
+}
