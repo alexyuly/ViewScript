@@ -1,4 +1,4 @@
-import { App, Field, Atom, RawValue, Reference, Implication, Action, Call } from "viewscript-bridge";
+import { App, Field, Atom, RawValue, Reference, Implication, Action, Procedure, Call } from "viewscript-bridge";
 
 App(
   {
@@ -10,7 +10,7 @@ App(
     border: Field(RawValue("1px solid blue")),
     padding: Field(RawValue("1rem")),
     cursor: Field(RawValue("pointer")),
-    pointerOver: Action(Call(Field(Reference(null, "hovered")), "set", Field(RawValue(true)))),
-    pointerLeave: Action(Call(Field(Reference(null, "hovered")), "set", Field(RawValue(false)))),
+    pointerOver: Action([], Procedure([Call(Field(Reference(null, "hovered")), "set", Field(RawValue(true)))])),
+    pointerLeave: Action([], Procedure([Call(Field(Reference(null, "hovered")), "set", Field(RawValue(false)))])),
   })
 );

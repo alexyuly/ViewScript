@@ -32,7 +32,7 @@ App(
                     type: Field(RawValue("checkbox")),
                     cursor: Field(RawValue("inherit")),
                     checked: Field(Reference(null, "completed")),
-                    change: Action(Call(Field(Reference(null, "completed")), "toggle")),
+                    change: Action([], Procedure([Call(Field(Reference(null, "completed")), "toggle")])),
                   })
                 ),
                 Field(
@@ -57,28 +57,26 @@ App(
         Field(
           Atom("form", {
             submit: Action(
-              Procedure(
-                ["event"],
-                Action(Call(Field(Reference(null, "event")), "preventDefault")),
-                Action(
-                  Call(
-                    Field(Reference(null, "todoItems")),
-                    "push",
-                    Field(
-                      ViewInstance("TodoItem", {
-                        content: Field(
-                          Expression(
-                            Field(Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))),
-                            "get",
-                            Field(RawValue("content"))
-                          )
-                        ),
-                      })
-                    )
+              ["event"],
+              Procedure([
+                Call(Field(Reference(null, "event")), "preventDefault"),
+                Call(
+                  Field(Reference(null, "todoItems")),
+                  "push",
+                  Field(
+                    ViewInstance("TodoItem", {
+                      content: Field(
+                        Expression(
+                          Field(Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))),
+                          "get",
+                          Field(RawValue("content"))
+                        )
+                      ),
+                    })
                   )
                 ),
-                Action(Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"))
-              )
+                Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"),
+              ])
             ),
             display: Field(RawValue("flex")),
             "align-items": Field(RawValue("center")),
