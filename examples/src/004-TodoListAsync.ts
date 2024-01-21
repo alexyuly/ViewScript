@@ -1,12 +1,12 @@
 import {
   App,
-  View,
-  Model,
+  ViewTemplate,
+  ModelTemplate,
   Method,
   Field,
   Atom,
-  ViewInstance,
-  ModelInstance,
+  View,
+  Model,
   RawValue,
   Reference,
   Implication,
@@ -36,7 +36,7 @@ App(
       ])
     ),
     parseError: Action([], Procedure([Call(null, "alert", Field(RawValue("Sorry, we could not parse the server's response.")))])),
-    TodoItem: View(
+    TodoItem: ViewTemplate(
       {
         loading: Field(RawValue(false)),
       },
@@ -75,8 +75,8 @@ App(
                                       )
                                     ),
                                     Field(
-                                      ModelInstance(
-                                        Model({
+                                      Model(
+                                        ModelTemplate({
                                           method: Field(RawValue("PATCH")),
                                           headers: Field(
                                             RawValue({
@@ -88,8 +88,8 @@ App(
                                               Field(Reference(null, "JSON")),
                                               "stringify",
                                               Field(
-                                                ModelInstance(
-                                                  Model({
+                                                Model(
+                                                  ModelTemplate({
                                                     completed: Field(Reference(null, "completed")),
                                                   })
                                                 )
@@ -156,7 +156,7 @@ App(
                 Method(
                   ["each"],
                   Field(
-                    ViewInstance("TodoItem", {
+                    View("TodoItem", {
                       id: Field(Reference(Field(Reference(null, "each")), "id")),
                       content: Field(Reference(Field(Reference(null, "each")), "content")),
                       completed: Field(Reference(Field(Reference(null, "each")), "completed")), // TODO Allow the value of `completed` to be undefined and not crash ("optional fields" -- using try FIELD)
@@ -202,8 +202,8 @@ App(
                               "fetch",
                               Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item")))),
                               Field(
-                                ModelInstance(
-                                  Model({
+                                Model(
+                                  ModelTemplate({
                                     method: Field(RawValue("POST")),
                                     headers: Field(
                                       RawValue({
@@ -215,8 +215,8 @@ App(
                                         Field(Reference(null, "JSON")),
                                         "stringify",
                                         Field(
-                                          ModelInstance(
-                                            Model({
+                                          Model(
+                                            ModelTemplate({
                                               content: Field(
                                                 Expression(
                                                   Field(
@@ -263,7 +263,7 @@ App(
                                       Field(Reference(null, "todoItems")),
                                       "push",
                                       Field(
-                                        ViewInstance("TodoItem", {
+                                        View("TodoItem", {
                                           id: Field(Reference(Field(Reference(null, "json")), "id")),
                                           content: Field(Reference(Field(Reference(null, "json")), "content")),
                                           completed: Field(RawValue(false)),

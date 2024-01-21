@@ -1,9 +1,9 @@
 import {
   App,
-  View,
+  ViewTemplate,
   Field,
   Atom,
-  ViewInstance,
+  View,
   RawValue,
   Reference,
   Implication,
@@ -15,7 +15,7 @@ import {
 
 App(
   {
-    TodoItem: View(
+    TodoItem: ViewTemplate(
       {
         completed: Field(RawValue(false)),
       },
@@ -64,7 +64,7 @@ App(
                   Field(Reference(null, "todoItems")),
                   "push",
                   Field(
-                    ViewInstance("TodoItem", {
+                    View("TodoItem", {
                       content: Field(
                         Expression(
                           Field(Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))),
