@@ -31,7 +31,7 @@ App(
         Call(
           null,
           "alert",
-          Field(Expression(Field(RawValue("Sorry, the server responded with an error: ")), "plus", Field(Reference(null, "message"))))
+          Field(Expression(Field(RawValue("Sorry, the server responded with an error: ")), "concat", Field(Reference(null, "message"))))
         ),
       ])
     ),
@@ -69,8 +69,8 @@ App(
                                     "fetch",
                                     Field(
                                       Expression(
-                                        Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item/")))),
-                                        "plus",
+                                        Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item/")))),
+                                        "concat",
                                         Field(Reference(null, "id"))
                                       )
                                     ),
@@ -138,7 +138,9 @@ App(
       })
     ),
     response: Field(
-      Expectation(Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-items")))))),
+      Expectation(
+        Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-items")))))
+      ),
       Action([], Procedure([Call(null, "connectionError")]))
     ),
     loading: Field(Expression(Field(Reference(null, "response")), "isVoid")),
@@ -177,6 +179,7 @@ App(
     right: Field(RawValue(0)),
     bottom: Field(RawValue(0)),
     padding: Field(RawValue("1rem")),
+    overflow: Field(RawValue("auto")),
     background: Field(Implication(Field(Reference(null, "loading")), Field(RawValue("lightgray")))),
     content: Field(
       Implication(
@@ -197,7 +200,7 @@ App(
                             Expression(
                               null,
                               "fetch",
-                              Field(Expression(Field(Reference(null, "apiHost")), "plus", Field(RawValue("/todo-item")))),
+                              Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item")))),
                               Field(
                                 ModelInstance(
                                   Model({
