@@ -1,9 +1,12 @@
 import {
   App,
+  ModelTemplate,
   ViewTemplate,
+  Method,
   Field,
   Atom,
   View,
+  Model,
   RawValue,
   Reference,
   Implication,
@@ -15,10 +18,10 @@ import {
 
 App(
   {
-    TodoItem: ViewTemplate(
-      {
-        completed: Field(RawValue(false)),
-      },
+    TodoItem: ModelTemplate({}),
+    todoItems: Field(RawValue([])),
+    TodoItemView: ViewTemplate(
+      {},
       Atom("li", {
         content: Field(
           Atom("label", {
@@ -49,7 +52,6 @@ App(
         ),
       })
     ),
-    todoItems: Field(RawValue([])),
   },
   Atom("main", {
     content: Field(
@@ -64,7 +66,7 @@ App(
                   Field(Reference(null, "todoItems")),
                   "push",
                   Field(
-                    View("TodoItem", {
+                    Model("TodoItem", {
                       content: Field(
                         Expression(
                           Field(Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))),
@@ -72,6 +74,7 @@ App(
                           Field(RawValue("content"))
                         )
                       ),
+                      completed: Field(RawValue(false)),
                     })
                   )
                 ),
@@ -110,7 +113,25 @@ App(
         Field(
           Atom("ul", {
             margin: Field(RawValue("1rem")),
-            content: Field(Reference(null, "todoItems")),
+            content: Field(
+              Expression(
+                Field(Reference(null, "todoItems")),
+                "map",
+                Field(
+                  RawValue(
+                    Method(
+                      ["each"],
+                      Field(
+                        View("TodoItemView", {
+                          content: Field(Reference(Field(Reference(null, "each")), "content")),
+                          completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                        })
+                      )
+                    )
+                  )
+                )
+              )
+            ),
           })
         ),
       ])
