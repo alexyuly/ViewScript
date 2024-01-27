@@ -1,7 +1,7 @@
 import {
   App,
-  ModelTemplate,
   ViewTemplate,
+  ModelTemplate,
   Method,
   Field,
   Atom,
@@ -19,7 +19,6 @@ import {
 App(
   {
     TodoItem: ModelTemplate({}),
-    todoItems: Field(RawValue([])),
     TodoItemView: ViewTemplate(
       {},
       Atom("li", {
@@ -52,6 +51,7 @@ App(
         ),
       })
     ),
+    todoItems: Field(RawValue([])),
   },
   Atom("main", {
     content: Field(

@@ -16,16 +16,18 @@ import {
   Procedure,
   Call,
   Decision,
-  Invocation,
+  Declaration,
 } from "viewscript-bridge";
 
+// TODO Read this value from an environment variable:
 const API_HOST = "https://p485xnhgpd.execute-api.us-west-2.amazonaws.com";
 
 App(
   {
     apiHost: Field(RawValue(API_HOST)),
-    connectionError: Action([], Procedure([Call(null, "alert", Field(RawValue("Sorry, we could not connect to the server.")))])),
-    responseError: Action(
+    showConnectionError: Action([], Procedure([Call(null, "alert", Field(RawValue("Sorry, we could not connect to the server.")))])),
+    showParseError: Action([], Procedure([Call(null, "alert", Field(RawValue("Sorry, we could not parse the server's response.")))])),
+    showResponseError: Action(
       ["message"],
       Procedure([
         Call(
@@ -35,8 +37,8 @@ App(
         ),
       ])
     ),
-    parseError: Action([], Procedure([Call(null, "alert", Field(RawValue("Sorry, we could not parse the server's response.")))])),
-    TodoItem: ViewTemplate(
+    TodoItem: ModelTemplate({}),
+    TodoItemView: ViewTemplate(
       {
         loading: Field(RawValue(false)),
       },
@@ -60,62 +62,56 @@ App(
                         Call(Field(Reference(null, "loading")), "set", Field(RawValue(true))),
                         Procedure([
                           Call(Field(Reference(null, "completed")), "toggle"),
-                          Invocation(
-                            [
-                              Field(
-                                Expectation(
-                                  Expression(
-                                    null,
-                                    "fetch",
-                                    Field(
-                                      Expression(
-                                        Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item/")))),
-                                        "concat",
-                                        Field(Reference(null, "id"))
-                                      )
-                                    ),
-                                    Field(
-                                      Model(
-                                        ModelTemplate({
-                                          method: Field(RawValue("PATCH")),
-                                          headers: Field(
-                                            RawValue({
-                                              "Content-Type": "application/json",
-                                            })
-                                          ),
-                                          body: Field(
-                                            Expression(
-                                              Field(Reference(null, "JSON")),
-                                              "stringify",
-                                              Field(
-                                                Model(
-                                                  ModelTemplate({
-                                                    completed: Field(Reference(null, "completed")),
-                                                  })
-                                                )
+                          Declaration(
+                            "response",
+                            Field(
+                              Expectation(
+                                Expression(
+                                  null,
+                                  "fetch",
+                                  Field(
+                                    Expression(
+                                      Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item/")))),
+                                      "concat",
+                                      Field(Reference(null, "id"))
+                                    )
+                                  ),
+                                  Field(
+                                    Model(
+                                      ModelTemplate({
+                                        method: Field(RawValue("PATCH")),
+                                        headers: Field(
+                                          RawValue({
+                                            "Content-Type": "application/json",
+                                          })
+                                        ),
+                                        body: Field(
+                                          Expression(
+                                            Field(Reference(null, "JSON")),
+                                            "stringify",
+                                            Field(
+                                              Model(
+                                                ModelTemplate({
+                                                  completed: Field(Reference(null, "completed")),
+                                                })
                                               )
                                             )
-                                          ),
-                                        })
-                                      )
+                                          )
+                                        ),
+                                      })
                                     )
                                   )
-                                ),
-                                Action([], Procedure([Call(null, "connectionError")]))
+                                )
                               ),
-                            ],
-                            Action(
-                              ["response"],
-                              Procedure([
-                                Decision(
-                                  Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
-                                  Procedure([
-                                    Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))),
-                                    Call(Field(Reference(null, "completed")), "toggle"),
-                                  ])
-                                ),
-                              ])
+                              Action([], Procedure([Call(null, "showConnectionError")]))
                             )
+                          ),
+                          Decision(
+                            Field(Expression(Field(Reference(Field(Reference(null, "response")), "ok")), "not")),
+                            Procedure([
+                              Call(null, "showResponseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))),
+                              Call(Field(Reference(null, "completed")), "toggle"),
+                            ])
                           ),
                         ]),
                         Call(Field(Reference(null, "loading")), "set", Field(RawValue(false))),
@@ -137,53 +133,52 @@ App(
         ),
       })
     ),
-    response: Field(
-      Expectation(
-        Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-items")))))
-      ),
-      Action([], Procedure([Call(null, "connectionError")]))
-    ),
-    loading: Field(Expression(Field(Reference(null, "response")), "isVoid")),
     todoItems: Field(
-      Implication(
-        Field(Reference(Field(Reference(null, "response")), "ok")),
-        Field(
-          Expression(
-            Field(Expectation(Expression(Field(Reference(null, "response")), "json")), Action([], Procedure([Call(null, "parseError")]))),
-            "map",
-            Field(
-              RawValue(
-                Method(
-                  ["each"],
-                  Field(
-                    View("TodoItem", {
-                      id: Field(Reference(Field(Reference(null, "each")), "id")),
-                      content: Field(Reference(Field(Reference(null, "each")), "content")),
-                      completed: Field(Reference(Field(Reference(null, "each")), "completed")), // TODO Allow the value of `completed` to be undefined and not crash ("optional fields" -- using try FIELD)
-                    })
-                  )
-                )
-              )
+      Procedure([
+        Declaration(
+          "response",
+          Field(
+            Expectation(
+              Expression(null, "fetch", Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-items")))))
             )
           )
-        )
-        // TODO Move into a Producer block, once implemented:
-        // Action(Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))))
-      )
+        ),
+        Decision(
+          Field(Reference(Field(Reference(null, "response")), "ok")),
+          Procedure([
+            Field(
+              Expression(
+                Field(Expectation(Expression(Field(Reference(null, "response")), "json"))),
+                "map",
+                Field(
+                  RawValue(
+                    Method(
+                      ["each"],
+                      Field(
+                        Model("TodoItem", {
+                          id: Field(Reference(Field(Reference(null, "each")), "id")),
+                          content: Field(Reference(Field(Reference(null, "each")), "content")),
+                          completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                        })
+                      )
+                    )
+                  )
+                )
+              ),
+              Action([], Procedure([Call(null, "showParseError")]))
+            ),
+          ]),
+          Procedure([Call(null, "showResponseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text"))))])
+        ),
+      ])
     ),
   },
   Atom("main", {
-    position: Field(RawValue("fixed")),
-    top: Field(RawValue(0)),
-    left: Field(RawValue(0)),
-    right: Field(RawValue(0)),
-    bottom: Field(RawValue(0)),
     padding: Field(RawValue("1rem")),
-    overflow: Field(RawValue("auto")),
-    background: Field(Implication(Field(Reference(null, "loading")), Field(RawValue("lightgray")))),
+    background: Field(Implication(Field(Expression(Field(Reference(null, "todoItems")), "isVoid")), Field(RawValue("lightgray")))),
     content: Field(
       Implication(
-        Field(Reference(null, "loading")),
+        Field(Expression(Field(Reference(null, "todoItems")), "isVoid")),
         Field(Atom("p", { "text-align": Field(RawValue("center")), content: Field(RawValue("Loading...")) })),
         Field(
           RawValue([
@@ -193,94 +188,84 @@ App(
                   ["event"],
                   Procedure([
                     Call(Field(Reference(null, "event")), "preventDefault"),
-                    Invocation(
-                      [
-                        Field(
-                          Expectation(
-                            Expression(
-                              null,
-                              "fetch",
-                              Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item")))),
-                              Field(
-                                Model(
-                                  ModelTemplate({
-                                    method: Field(RawValue("POST")),
-                                    headers: Field(
-                                      RawValue({
-                                        "Content-Type": "application/json",
-                                      })
-                                    ),
-                                    body: Field(
-                                      Expression(
-                                        Field(Reference(null, "JSON")),
-                                        "stringify",
-                                        Field(
-                                          Model(
-                                            ModelTemplate({
-                                              content: Field(
-                                                Expression(
-                                                  Field(
-                                                    Expression(
-                                                      null,
-                                                      "FormData",
-                                                      Field(Reference(Field(Reference(null, "event")), "target"))
-                                                    )
-                                                  ),
-                                                  "get",
-                                                  Field(RawValue("content"))
-                                                )
-                                              ),
-                                            })
-                                          )
+                    Declaration(
+                      "response",
+                      Field(
+                        Expectation(
+                          Expression(
+                            null,
+                            "fetch",
+                            Field(Expression(Field(Reference(null, "apiHost")), "concat", Field(RawValue("/todo-item")))),
+                            Field(
+                              Model(
+                                ModelTemplate({
+                                  method: Field(RawValue("POST")),
+                                  headers: Field(
+                                    RawValue({
+                                      "Content-Type": "application/json",
+                                    })
+                                  ),
+                                  body: Field(
+                                    Expression(
+                                      Field(Reference(null, "JSON")),
+                                      "stringify",
+                                      Field(
+                                        Model(
+                                          ModelTemplate({
+                                            content: Field(
+                                              Expression(
+                                                Field(
+                                                  Expression(null, "FormData", Field(Reference(Field(Reference(null, "event")), "target")))
+                                                ),
+                                                "get",
+                                                Field(RawValue("content"))
+                                              )
+                                            ),
+                                          })
                                         )
                                       )
-                                    ),
-                                  })
+                                    )
+                                  ),
+                                })
+                              )
+                            )
+                          )
+                        ),
+                        Action([], Procedure([Call(null, "showConnectionError")]))
+                      )
+                    ),
+                    Decision(
+                      Field(Reference(Field(Reference(null, "response")), "ok")),
+                      Procedure([
+                        Call(
+                          Field(Reference(null, "todoItems")),
+                          "push",
+                          Field(
+                            Expression(
+                              Field(Expectation(Expression(Field(Reference(null, "response")), "json"))),
+                              "map",
+                              Field(
+                                RawValue(
+                                  Method(
+                                    ["each"],
+                                    Field(
+                                      Model("TodoItem", {
+                                        id: Field(Reference(Field(Reference(null, "each")), "id")),
+                                        content: Field(Reference(Field(Reference(null, "each")), "content")),
+                                        completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                                      })
+                                    )
+                                  )
                                 )
                               )
                             )
-                          ),
-                          Action([], Procedure([Call(null, "connectionError")]))
+                          )
                         ),
-                      ],
-                      Action(
-                        ["response"],
-                        Procedure([
-                          Decision(
-                            Field(Reference(Field(Reference(null, "response")), "ok")),
-                            Procedure([
-                              Invocation(
-                                [
-                                  Field(
-                                    Expectation(Expression(Field(Reference(null, "response")), "json")),
-                                    Action([], Procedure([Call(null, "parseError")]))
-                                  ),
-                                ],
-                                Action(
-                                  ["json"],
-                                  Procedure([
-                                    Call(
-                                      Field(Reference(null, "todoItems")),
-                                      "push",
-                                      Field(
-                                        View("TodoItem", {
-                                          id: Field(Reference(Field(Reference(null, "json")), "id")),
-                                          content: Field(Reference(Field(Reference(null, "json")), "content")),
-                                          completed: Field(RawValue(false)),
-                                        })
-                                      )
-                                    ),
-                                    Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"),
-                                  ])
-                                )
-                              ),
-                            ]),
-                            Procedure([
-                              Call(null, "responseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))),
-                            ])
-                          ),
-                        ])
-                      )
+                        Call(Field(Reference(Field(Reference(null, "event")), "target")), "reset"),
+                      ]),
+                      Procedure([
+                        Call(null, "showResponseError", Field(Expectation(Expression(Field(Reference(null, "response")), "text")))),
+                      ])
                     ),
                   ])
                 ),
