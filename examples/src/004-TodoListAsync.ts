@@ -153,12 +153,12 @@ App(
                 Field(
                   RawValue(
                     Method(
-                      ["each"],
+                      ["it"],
                       Field(
                         Model("TodoItem", {
-                          id: Field(Reference(Field(Reference(null, "each")), "id")),
-                          content: Field(Reference(Field(Reference(null, "each")), "content")),
-                          completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                          id: Field(Reference(Field(Reference(null, "it")), "id")),
+                          content: Field(Reference(Field(Reference(null, "it")), "content")),
+                          completed: Field(Reference(Field(Reference(null, "it")), "completed")),
                         })
                       )
                     )
@@ -243,16 +243,16 @@ App(
                           Field(
                             Expression(
                               Field(Expectation(Expression(Field(Reference(null, "response")), "json"))),
-                              "map",
+                              "into",
                               Field(
                                 RawValue(
                                   Method(
-                                    ["each"],
+                                    ["it"],
                                     Field(
                                       Model("TodoItem", {
-                                        id: Field(Reference(Field(Reference(null, "each")), "id")),
-                                        content: Field(Reference(Field(Reference(null, "each")), "content")),
-                                        completed: Field(Reference(Field(Reference(null, "each")), "completed")),
+                                        id: Field(Reference(Field(Reference(null, "it")), "id")),
+                                        content: Field(Reference(Field(Reference(null, "it")), "content")),
+                                        completed: Field(Reference(Field(Reference(null, "it")), "completed")),
                                       })
                                     )
                                   )
